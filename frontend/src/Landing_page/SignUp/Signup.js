@@ -1,35 +1,45 @@
 import React, { useState, useContext } from "react";
 import axios from "axios";
-import { useNavigate, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { AuthContext } from "./AuthContext";
 
 function Signup() {
   const [form, setForm] = useState({ username: "", email: "", password: "" });
-  const navigate = useNavigate();
   const { login } = useContext(AuthContext);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     try {
       const res = await axios.post(
         `${process.env.REACT_APP_API_URL}/api/auth/signup`,
         form,
-        { headers: { "Content-Type": "application/json" } }
+        {
+          withCredentials: true, // ✅ cookie auth
+          headers: { "Content-Type": "application/json" },
+        }
       );
 
-      if (res.data && res.data.token) {
-        login(res.data.user, res.data.token);
-        setTimeout(() => window.location.href = `http://localhost:3001/?token=${res.data.token}`
+      // ✅ Cookie-based auth: cookie is set by backend.
+      // We only store user in UI state.
+      if (res.data && res.data.user) {
+        const userData = {
+          id: res.data.user.id,
+          username: res.data.user.username,
+          email: res.data.user.email,
+        };
 
-, 500);
+        login(userData);
+
+        // ✅ redirect to dashboard directly (no token in url)
+        setTimeout(() => {
+          window.location.href = "http://localhost:3001";
+        }, 300);
       } else {
-        alert("Signup failed: No token received");
+        alert("Signup failed!");
       }
     } catch (err) {
-      console.error(
-        "Signup error:",
-        err.response ? err.response.data : err.message
-      );
+      console.error("Signup error:", err.response ? err.response.data : err.message);
       alert("Signup failed!");
     }
   };
@@ -38,6 +48,7 @@ function Signup() {
     <div className="auth-wrapper">
       <div className="auth-card">
         <h2>Create your Zerodha Clone account</h2>
+
         <form onSubmit={handleSubmit}>
           <input
             type="text"
@@ -59,6 +70,7 @@ function Signup() {
           />
           <button type="submit">Sign Up</button>
         </form>
+
         <p>
           Already have an account?{" "}
           <Link to="/login" style={{ textDecoration: "none", color: "#387ed1" }}>

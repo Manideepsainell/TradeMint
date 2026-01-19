@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { API_URL } from "../config";
+
 const Orders = () => {
   const [orders, setOrders] = useState([]);
   const [expandedId, setExpandedId] = useState(null);
@@ -9,9 +10,8 @@ const Orders = () => {
   useEffect(() => {
     const fetchOrders = async () => {
       try {
-        const token = localStorage.getItem("token"); // 🔑 grab JWT
-        const res = await axios.get(`${API_URL}/api/allOrders`, {
-          headers: { Authorization: `Bearer ${token}` },
+        const res = await axios.get(`${API_URL}/allOrders`, {
+          withCredentials: true, // ✅ cookie auth
         });
         setOrders(res.data);
       } catch (err) {
@@ -43,25 +43,23 @@ const Orders = () => {
   return (
     <div className="orders-container">
       <h2 className="orders-title">Your Orders</h2>
+
       <div className="orders-list">
         {orders.map((order) => (
           <div
-            className={`order-card ${
-              expandedId === order._id ? "expanded" : ""
-            }`}
+            className={`order-card ${expandedId === order._id ? "expanded" : ""}`}
             key={order._id}
             onClick={() => toggleExpand(order._id)}
           >
             <div className="order-header">
               <h3 className="order-name">{order.name}</h3>
               <span
-                className={`order-mode ${
-                  order.mode === "BUY" ? "buy" : "sell"
-                }`}
+                className={`order-mode ${order.mode === "BUY" ? "buy" : "sell"}`}
               >
                 {order.mode}
               </span>
             </div>
+
             <div className="order-details">
               <p>
                 <strong>Quantity:</strong> {order.qty}
@@ -80,14 +78,12 @@ const Orders = () => {
                   <strong>Order ID:</strong> {order._id}
                 </p>
                 <p>
-                  <strong>Created:</strong>{" "}
-                  {new Date(order.createdAt).toString()}
+                  <strong>Created:</strong> {new Date(order.createdAt).toString()}
                 </p>
                 <p>
                   <strong>Last Updated:</strong>{" "}
                   {new Date(order.updatedAt).toString()}
                 </p>
-                {/* Future details: status, fees, etc. */}
               </div>
             )}
           </div>

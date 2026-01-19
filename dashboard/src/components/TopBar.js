@@ -1,10 +1,21 @@
 import React from "react";
+import axios from "axios";
 import Menu from "./Menu";
+import { API_URL } from "../config";
 
 const TopBar = () => {
-  const handleLogout = () => {
-    localStorage.removeItem("token");
-    window.location.href = "http://localhost:3000/login";
+  const handleLogout = async () => {
+    try {
+      await axios.post(
+        `${API_URL}/api/auth/logout`,
+        {},
+        { withCredentials: true } // ✅ cookie auth
+      );
+    } catch (err) {
+      console.error("Logout error:", err);
+    } finally {
+      window.location.href = "http://localhost:3000/login";
+    }
   };
 
   return (
@@ -23,7 +34,6 @@ const TopBar = () => {
         </div>
       </div>
 
-      {/* RIGHT SIDE */}
       <div className="topbar-right">
         <Menu />
         <button className="logout-btn" onClick={handleLogout}>

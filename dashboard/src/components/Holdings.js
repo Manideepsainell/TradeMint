@@ -10,9 +10,7 @@ const Holdings = () => {
     const fetchHoldings = async () => {
       try {
         const res = await axios.get(`${API_URL}/allHoldings`, {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`, // make sure token is sent
-          },
+          withCredentials: true, // ✅ cookie auth
         });
         setAllHoldings(res.data);
       } catch (err) {
@@ -21,7 +19,9 @@ const Holdings = () => {
     };
 
     fetchHoldings();
-    const interval = setInterval(fetchHoldings, 5000); // refresh every 5 seconds
+
+    // ✅ reduce frequency (Yahoo calls are heavy)
+    const interval = setInterval(fetchHoldings, 30000); // refresh every 30 seconds
     return () => clearInterval(interval);
   }, []);
 
@@ -51,7 +51,7 @@ const Holdings = () => {
               <th>Avg. cost</th>
               <th>LTP</th>
               <th>Cur. val</th>
-              <th>P&L</th>
+              <th>P&amp;L</th>
               <th>Net chg.</th>
               <th>Day chg.</th>
             </tr>
@@ -70,7 +70,9 @@ const Holdings = () => {
                   <td>{stock.avg.toFixed(2)}</td>
                   <td>{stock.price.toFixed(2)}</td>
                   <td>{curValue.toFixed(2)}</td>
-                  <td className={profClass}>{(curValue - stock.avg * stock.qty).toFixed(2)}</td>
+                  <td className={profClass}>
+                    {(curValue - stock.avg * stock.qty).toFixed(2)}
+                  </td>
                   <td className={profClass}>{stock.net}</td>
                   <td className={dayClass}>{stock.day}</td>
                 </tr>
@@ -83,16 +85,22 @@ const Holdings = () => {
       <div className="row">
         <div className="col">
           <h5>
-            {allHoldings.reduce((acc, stock) => acc + stock.avg * stock.qty, 0).toFixed(2)}
+            {allHoldings
+              .reduce((acc, stock) => acc + stock.avg * stock.qty, 0)
+              .toFixed(2)}
           </h5>
           <p>Total investment</p>
         </div>
+
         <div className="col">
           <h5>
-            {allHoldings.reduce((acc, stock) => acc + stock.price * stock.qty, 0).toFixed(2)}
+            {allHoldings
+              .reduce((acc, stock) => acc + stock.price * stock.qty, 0)
+              .toFixed(2)}
           </h5>
           <p>Current value</p>
         </div>
+
         <div className="col">
           <h5>
             {(
@@ -100,7 +108,7 @@ const Holdings = () => {
               allHoldings.reduce((acc, stock) => acc + stock.avg * stock.qty, 0)
             ).toFixed(2)}
           </h5>
-          <p>P&L</p>
+          <p>P&amp;L</p>
         </div>
       </div>
 

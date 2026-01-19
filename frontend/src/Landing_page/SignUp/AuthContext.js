@@ -8,31 +8,23 @@ export const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     const savedUser = localStorage.getItem("user");
-    const token = localStorage.getItem("token");
-
-    if (savedUser && token) {
-      setUser(JSON.parse(savedUser));
-    }
+    if (savedUser) setUser(JSON.parse(savedUser));
   }, []);
 
-  // ✅ reusable flash setter
   const showFlash = (message) => {
     setFlash(message);
     setTimeout(() => setFlash(""), 3000);
   };
 
-  // ✅ accepts user + token separately
-  const login = (userData, token) => {
+  const login = (userData) => {
     setUser(userData);
     localStorage.setItem("user", JSON.stringify(userData));
-    localStorage.setItem("token", token);
     showFlash(`Welcome ${userData.username || userData.name}!`);
   };
 
   const handleLogout = () => {
     setUser(null);
     localStorage.removeItem("user");
-    localStorage.removeItem("token");
   };
 
   const logout = () => {
@@ -41,15 +33,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider
-      value={{
-        user,
-        login,
-        logout,
-        flash,
-        showFlash, // ✅ expose for Navbar use
-      }}
-    >
+    <AuthContext.Provider value={{ user, login, logout, flash, showFlash }}>
       {children}
     </AuthContext.Provider>
   );

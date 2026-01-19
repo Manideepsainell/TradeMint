@@ -13,19 +13,25 @@ const BuyActionWindow = ({ uid }) => {
   const { closeBuyWindow } = useContext(GeneralContext);
 
   const handleBuyClick = async () => {
-    try {
-      await axios.post(`${API_URL}/newOrder`, {
+  try {
+    await axios.post(
+      `${API_URL}/newOrder`,
+      {
         name: uid,
         qty: stockQuantity,
         price: stockPrice,
         mode: "BUY",
-      });
+      },
+      {
+        withCredentials: true, // ✅ cookie auth
+      }
+    );
 
-      closeBuyWindow();  // ✅ works now
-    } catch (err) {
-      console.error("Error placing order:", err);
-    }
-  };
+    closeBuyWindow();
+  } catch (err) {
+    console.error("Error placing order:", err);
+  }
+};
 
   const handleCancelClick = () => {
     closeBuyWindow();   // ✅ works now

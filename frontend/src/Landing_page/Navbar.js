@@ -1,56 +1,76 @@
-import React, { useContext } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import React, { useContext } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
 
-import { AuthContext } from './SignUp/AuthContext';
+import { AuthContext } from "./SignUp/AuthContext";
 
 function Navbar() {
   const { user, logout, flash, showFlash } = useContext(AuthContext);
   const navigate = useNavigate();
 
-const handleDashboardClick = () => {
-  const token = localStorage.getItem("token");
+  const handleDashboardClick = () => {
+    if (user) {
+      // ✅ cookie auth: no token passing needed
+      window.location.href = "http://localhost:3001";
+    } else {
+      showFlash("Please login to go to dashboard");
+      navigate("/login");
+    }
+  };
 
-  if (token) {
-    // ✅ Pass token in URL so dashboard can store it in its localStorage (port 3001)
-    window.location.href = `http://localhost:3001/?token=${token}`;
-  } else {
-    showFlash("Please login to go to dashboard");
-    navigate("/login");
-  }
-};
+  const handleLogout = async () => {
+    try {
+      await axios.post(
+        `${process.env.REACT_APP_API_URL}/api/auth/logout`,
+        {},
+        { withCredentials: true }
+      );
+    } catch (err) {
+      console.error("Logout error:", err);
+    } finally {
+      logout(); // clears frontend UI state + flash
+      navigate("/login");
+    }
+  };
 
   return (
     <>
       {/* Flash Message */}
       {flash && (
-        <div style={{
-          position: "fixed",
-          top: "15px",
-          left: "20px",
-          background: "rgba(33, 150, 243, 0.35)",
-          color: "#ffffff",
-          padding: "16px 36px",
-          borderRadius: "8px",
-          boxShadow: "0 4px 12px rgba(0,0,0,0.08)",
-          fontSize: "15px",
-          fontWeight: "500",
-          zIndex: 1050,
-          minWidth: "480px",
-          textAlign: "left",
-          letterSpacing: "0.2px",
-          backdropFilter: "blur(6px)",
-          border: "1px solid rgba(255,255,255,0.15)",
-          transition: "opacity 0.5s ease-in-out"
-        }}>
+        <div
+          style={{
+            position: "fixed",
+            top: "15px",
+            left: "20px",
+            background: "rgba(33, 150, 243, 0.35)",
+            color: "#ffffff",
+            padding: "16px 36px",
+            borderRadius: "8px",
+            boxShadow: "0 4px 12px rgba(0,0,0,0.08)",
+            fontSize: "15px",
+            fontWeight: "500",
+            zIndex: 1050,
+            minWidth: "480px",
+            textAlign: "left",
+            letterSpacing: "0.2px",
+            backdropFilter: "blur(6px)",
+            border: "1px solid rgba(255,255,255,0.15)",
+            transition: "opacity 0.5s ease-in-out",
+          }}
+        >
           {flash}
         </div>
       )}
 
       <nav className="navbar navbar-expand-lg hero-section">
-        <div className='container p-2 d-flex align-items-center justify-content-between'>
+        <div className="container p-2 d-flex align-items-center justify-content-between">
           {/* Logo */}
           <Link className="navbar-brand" to="/">
-            <img src="media/images/logo.svg" alt="img" style={{ width: "24%" }} />
+            <img
+              src="media/images/logo.svg"
+              alt="img"
+              style={{ width: "24%" }}
+            />
           </Link>
 
           {/* Navbar Links */}
@@ -61,28 +81,52 @@ const handleDashboardClick = () => {
                   <button
                     className="btn btn-link nav-link"
                     style={{ cursor: "pointer" }}
-                    onClick={() => {
-  logout();
-}} >
+                    onClick={handleLogout} // ✅ correct
+                  >
                     Logout
                   </button>
                 </li>
               ) : (
                 <>
-                  <li className="nav-item"><Link className="nav-link" to="/signup">SignUp</Link></li>
-                  <li className="nav-item"><Link className="nav-link" to="/login">Login</Link></li>
+                  <li className="nav-item">
+                    <Link className="nav-link" to="/signup">
+                      SignUp
+                    </Link>
+                  </li>
+                  <li className="nav-item">
+                    <Link className="nav-link" to="/login">
+                      Login
+                    </Link>
+                  </li>
                 </>
               )}
-              <li className="nav-item"><Link className="nav-link" to="/about">About</Link></li>
-              <li className="nav-item"><Link className="nav-link" to="/product">Products</Link></li>
-              <li className="nav-item"><Link className="nav-link" to="/pricing">Pricing</Link></li>
-              <li className="nav-item"><Link className="nav-link" to="/support">Support</Link></li>
+
+              <li className="nav-item">
+                <Link className="nav-link" to="/about">
+                  About
+                </Link>
+              </li>
+              <li className="nav-item">
+                <Link className="nav-link" to="/product">
+                  Products
+                </Link>
+              </li>
+              <li className="nav-item">
+                <Link className="nav-link" to="/pricing">
+                  Pricing
+                </Link>
+              </li>
+              <li className="nav-item">
+                <Link className="nav-link" to="/support">
+                  Support
+                </Link>
+              </li>
             </ul>
           </div>
 
           {/* Hamburger Menu (Dashboard) */}
           <div
-            onClick={handleDashboardClick}
+            onClick={handleDashboardClick} // ✅ correct
             style={{ cursor: "pointer", fontSize: "24px" }}
             title="Go to Dashboard"
           >

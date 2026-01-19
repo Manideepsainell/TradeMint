@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { API_URL } from "../config";
+
 const Positions = () => {
   const [positions, setPositions] = useState([]);
 
   useEffect(() => {
     const fetchPositions = async () => {
       try {
-        const token = localStorage.getItem("token"); // 🔑 get JWT
-        const res = await axios.get(`${API_URL}/api/allPositions`, {
-          headers: { Authorization: `Bearer ${token}` },
+        const res = await axios.get(`${API_URL}/allPositions`, {
+          withCredentials: true, // ✅ cookie auth
         });
         setPositions(res.data);
       } catch (err) {
@@ -33,10 +33,11 @@ const Positions = () => {
               <th>Qty.</th>
               <th>Avg.</th>
               <th>LTP</th>
-              <th>P&L</th>
+              <th>P&amp;L</th>
               <th>Chg.</th>
             </tr>
           </thead>
+
           <tbody>
             {positions.map((stock, index) => {
               const curValue = stock.price * stock.qty;

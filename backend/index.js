@@ -19,38 +19,34 @@ const uri = process.env.MONGO_URL;
 
 const app = express();
 
-// ===== Middleware =====
-// Universal CORS for simplicity
 const allowedOrigins = [
-  "http://localhost:3000",   // ✅ ADD THIS
+  "http://localhost:3000",
   "http://localhost:3001",
   "https://main.dni04gzwer7ho.amplifyapp.com",
   "https://main.dnhat8qvs6b5l.amplifyapp.com",
 ];
 
-// General middleware
-app.use((req, res, next) => {
-  if (req.path.startsWith("/api/stocks")) {
-    // Public endpoints → allow all origins
-    res.header("Access-Control-Allow-Origin", "*");
-  } else {
-    // Authenticated endpoints → allow only your frontends
-    const origin = req.headers.origin;
-    if (allowedOrigins.includes(origin)) {
-      res.header("Access-Control-Allow-Origin", origin);
-      res.header("Access-Control-Allow-Credentials", "true");
-    }
-  }
+app.use(
+  cors({
+    origin: function (origin, callback) {
+      // allow requests with no origin (like Postman)
+      if (!origin) return callback(null, true);
 
-  // Common headers
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
-  res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+      if (allowedOrigins.includes(origin)) {
+        return callback(null, true);
+      } else {
+        return callback(new Error("Not allowed by CORS"));
+      }
+    },
+    credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+    exposedHeaders: ["set-cookie"],
+  })
+);
 
-  // Handle preflight
-  if (req.method === "OPTIONS") return res.sendStatus(200);
+app.options(/.*/, cors());
 
-  next();
-});
 
 app.use(cookieParser());
 app.use(express.json());
