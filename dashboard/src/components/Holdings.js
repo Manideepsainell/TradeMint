@@ -9,9 +9,10 @@ const Holdings = () => {
   useEffect(() => {
     const fetchHoldings = async () => {
       try {
-        const res = await axios.get(`${API_URL}/allHoldings`, {
-          withCredentials: true, // ✅ cookie auth
-        });
+        const res = await axios.get(`${API_URL}/api/user/holdings`, {
+        withCredentials: true,
+          });
+
         setAllHoldings(res.data);
       } catch (err) {
         console.error("Error fetching holdings:", err);

@@ -14,18 +14,17 @@ const BuyActionWindow = ({ uid }) => {
 
   const handleBuyClick = async () => {
   try {
-    await axios.post(
-      `${API_URL}/newOrder`,
-      {
-        name: uid,
-        qty: stockQuantity,
-        price: stockPrice,
-        mode: "BUY",
-      },
-      {
-        withCredentials: true, // ✅ cookie auth
-      }
-    );
+   await axios.post(
+  `${API_URL}/api/user/orders`,
+  {
+    name: uid,
+    qty: stockQuantity,
+    price: stockPrice,
+    mode: "BUY",
+  },
+  { withCredentials: true }
+);
+
 
     closeBuyWindow();
   } catch (err) {

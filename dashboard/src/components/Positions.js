@@ -8,9 +8,10 @@ const Positions = () => {
   useEffect(() => {
     const fetchPositions = async () => {
       try {
-        const res = await axios.get(`${API_URL}/allPositions`, {
-          withCredentials: true, // ✅ cookie auth
+        const res = await axios.get(`${API_URL}/api/user/positions`, {
+        withCredentials: true,
         });
+
         setPositions(res.data);
       } catch (err) {
         console.error("Error fetching positions:", err);

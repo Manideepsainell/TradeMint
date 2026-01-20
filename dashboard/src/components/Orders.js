@@ -10,9 +10,10 @@ const Orders = () => {
   useEffect(() => {
     const fetchOrders = async () => {
       try {
-        const res = await axios.get(`${API_URL}/allOrders`, {
-          withCredentials: true, // ✅ cookie auth
-        });
+       const res = await axios.get(`${API_URL}/api/user/orders`, {
+        withCredentials: true,
+          });
+
         setOrders(res.data);
       } catch (err) {
         console.error("Error fetching orders:", err);
