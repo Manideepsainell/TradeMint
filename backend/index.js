@@ -5,11 +5,8 @@ import mongoose from 'mongoose';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
 import yahooFinance from 'yahoo-finance2';
-
-import { HoldingsModel } from './model/HoldingsModel.js';
-import { PositionsModel } from './model/PositionsModel.js';
-import { OrdersModel } from './model/OrdersModel.js';
-
+import indicesRoutes from "./routes/indices.js";
+import userRoutes from "./routes/user.js";
 import authRoutes from './routes/auth.js';
 import stockRoutes from './routes/stocks.js';
 import protect from './middleware/authmiddleware.js';
@@ -55,6 +52,9 @@ app.use(express.json());
 app.use("/api/auth", authRoutes);
 app.use("/api/stocks", stockRoutes);
 app.use("/api/summary", (await import('./routes/summary.js')).default); // lazy import if summary exports default
+app.use("/api/indices", indicesRoutes);
+app.use("/api/user", userRoutes);
+
 
 // ===== Database Connect =====
 mongoose.connect(uri)
@@ -78,76 +78,3 @@ const SYMBOL_MAP = {
   SBIN: "SBIN.NS",
 };
 
-// Holdings
-app.get("/allHoldings", protect, async (req, res) => {
-  try {
-    const allHoldings = await HoldingsModel.find({ userId: req.user.id });
-    if (!allHoldings || allHoldings.length === 0) return res.json([]); // empty for new users
-
-    const updatedHoldings = await Promise.all(allHoldings.map(async (holding) => {
-      const symbol = SYMBOL_MAP[holding.name] || `${holding.name}.NS`;
-      const quote = await yahooFinance.quote(symbol);
-      const curValue = quote.regularMarketPrice * holding.qty;
-      const net = curValue - holding.avg * holding.qty;
-      return { ...holding._doc, price: quote.regularMarketPrice, day: quote.regularMarketChange.toFixed(2), net: net.toFixed(2), isLoss: net < 0 };
-    }));
-
-    res.json(updatedHoldings);
-  } catch (err) {
-    console.error("Error fetching holdings:", err.message);
-    res.status(500).json({ error: "Failed to fetch holdings" });
-  }
-});
-
-// Positions
-app.get("/allPositions", protect, async (req, res) => {
-  try {
-    const allPositions = await PositionsModel.find({ userId: req.user.id });
-    if (!allPositions || allPositions.length === 0) return res.json([]);
-
-    const updatedPositions = await Promise.all(allPositions.map(async (position) => {
-      const symbol = SYMBOL_MAP[position.name] || `${position.name}.NS`;
-      const quote = await yahooFinance.quote(symbol);
-      const curValue = quote.regularMarketPrice * position.qty;
-      const net = curValue - position.avg * position.qty;
-      return { ...position._doc, price: quote.regularMarketPrice, day: quote.regularMarketChange.toFixed(2), net: net.toFixed(2), isLoss: net < 0 };
-    }));
-
-    res.json(updatedPositions);
-  } catch (err) {
-    console.error(err);
-    res.status(500).json([]);
-  }
-});
-
-// Orders
-app.get("/allOrders", protect, async (req, res) => {
-  try {
-    const allOrders = await OrdersModel.find({ userId: req.user.id }).sort({ createdAt: -1 });
-    if (!allOrders || allOrders.length === 0) return res.json([]);
-
-    const updatedOrders = await Promise.all(allOrders.map(async (order) => {
-      const symbol = SYMBOL_MAP[order.name] || `${order.name}.NS`;
-      const quote = await yahooFinance.quote(symbol);
-      return { ...order._doc, price: quote.regularMarketPrice };
-    }));
-
-    res.json(updatedOrders);
-  } catch (err) {
-    console.error("Error fetching orders:", err.message);
-    res.status(500).json({ error: "Failed to fetch orders" });
-  }
-});
-
-// New Order
-app.post("/newOrder", protect, async (req, res) => {
-  try {
-    const { name, qty, price, mode } = req.body;
-    const newOrder = new OrdersModel({ name, qty: Number(qty), price: Number(price), mode, userId: req.user.id });
-    await newOrder.save();
-    res.status(201).json({ message: "Order placed", order: newOrder });
-  } catch (err) {
-    console.error("Error creating order:", err.message);
-    res.status(500).json({ error: "Failed to create order" });
-  }
-});

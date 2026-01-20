@@ -90,7 +90,7 @@ router.get("/me", async (req, res) => {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
     const user = await User.findById(decoded.id).select("username email");
-    if (!user) return res.status(404).json({ message: "User not found" });
+    if (!user) return res.status(401).json({ message: "User not found" });
 
     return res.json({
       user: {
@@ -103,6 +103,7 @@ router.get("/me", async (req, res) => {
     return res.status(401).json({ message: "Invalid token" });
   }
 });
+
 
 
 // ===== Logout =====
