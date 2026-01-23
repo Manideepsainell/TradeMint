@@ -1,44 +1,44 @@
-// routes/stocks.js
-// routes/stocks.js
 import express from "express";
 import YahooFinance from "yahoo-finance2";
 
 const yahooFinance = new YahooFinance();
-
 const router = express.Router();
-
-
 
 const watchlistSymbols = ["RELIANCE.NS", "TCS.NS", "INFY.NS"];
 
-// Arrays of NSE symbols (partial — extend as needed)
+// Sensex (sample)
 const sensexNseSymbols = [
   "RELIANCE.NS", "TCS.NS", "HDFCBANK.NS", "INFY.NS", "ICICIBANK.NS",
   "ITC.NS", "KOTAKBANK.NS", "SBIN.NS", "BHARTIARTL.NS", "LT.NS"
 ];
 
+// Nifty (sample)
 const niftyNseSymbols = [
   "RELIANCE.NS", "TCS.NS", "INFY.NS", "HDFCBANK.NS", "ICICIBANK.NS",
   "ITC.NS", "KOTAKBANK.NS", "SBIN.NS", "LT.NS", "HCLTECH.NS"
 ];
 
 async function fetchStocks(symbols) {
-  return Promise.all(
+  const results = await Promise.all(
     symbols.map(async (symbol) => {
       try {
-          const quote = await yahooFinance.quote(symbol);
+        const quote = await yahooFinance.quote(symbol);
 
+        // ✅ sometimes Yahoo returns undefined/null
+        if (!quote) {
+          return { symbol, error: "No quote data returned" };
+        }
 
         return {
-          symbol: quote.symbol,
-          price: quote.regularMarketPrice,
-          change: quote.regularMarketChange,
-          changePercent: quote.regularMarketChangePercent,
-          open: quote.regularMarketOpen,
-          high: quote.regularMarketDayHigh,
-          low: quote.regularMarketDayLow,
-          previousClose: quote.regularMarketPreviousClose,
-          marketTime: quote.regularMarketTime
+          symbol: quote.symbol || symbol,
+          price: quote.regularMarketPrice ?? 0,
+          change: quote.regularMarketChange ?? 0,
+          changePercent: quote.regularMarketChangePercent ?? 0,
+          open: quote.regularMarketOpen ?? 0,
+          high: quote.regularMarketDayHigh ?? 0,
+          low: quote.regularMarketDayLow ?? 0,
+          previousClose: quote.regularMarketPreviousClose ?? 0,
+          marketTime: quote.regularMarketTime ?? null,
         };
       } catch (error) {
         console.error(`Error fetching ${symbol}:`, error.message);
@@ -46,21 +46,23 @@ async function fetchStocks(symbols) {
       }
     })
   );
+
+  return results;
 }
 
-// Route for Sensex
-router.get("/sensex/all", async (req, res) => {
+// ✅ Route for Sensex (frontend expects /api/stocks/sensex)
+router.get("/sensex", async (req, res) => {
   const data = await fetchStocks(sensexNseSymbols);
   res.json(data);
 });
 
-// Route for Nifty 50
-router.get("/nifty/all", async (req, res) => {
+// ✅ Route for Nifty (frontend expects /api/stocks/nifty)
+router.get("/nifty", async (req, res) => {
   const data = await fetchStocks(niftyNseSymbols);
   res.json(data);
 });
 
-// Watchlist route
+// ✅ Watchlist
 router.get("/watchlist", async (req, res) => {
   try {
     const data = await fetchStocks(watchlistSymbols);
@@ -71,7 +73,7 @@ router.get("/watchlist", async (req, res) => {
   }
 });
 
-// Single stock route (make sure to place this AFTER other static routes)
+// ✅ Single stock route (keep last!)
 router.get("/:symbol", async (req, res) => {
   try {
     const input = req.params.symbol.toUpperCase();
@@ -84,25 +86,27 @@ router.get("/:symbol", async (req, res) => {
       ICICIBANK: "ICICIBANK.NS",
       ITC: "ITC.NS",
       KOTAKBANK: "KOTAKBANK.NS",
-      SBIN: "SBIN.NS"
+      SBIN: "SBIN.NS",
     };
 
     const symbol = nseMap[input] || `${input}.NS`;
-        const quote = await yahooFinance.quote(symbol);
 
+    const quote = await yahooFinance.quote(symbol);
 
-
+    if (!quote) {
+      return res.status(404).json({ error: "No quote returned", symbol });
+    }
 
     res.json({
-      symbol: quote.symbol,
-      price: quote.regularMarketPrice,
-      change: quote.regularMarketChange,
-      changePercent: quote.regularMarketChangePercent,
-      open: quote.regularMarketOpen,
-      high: quote.regularMarketDayHigh,
-      low: quote.regularMarketDayLow,
-      previousClose: quote.regularMarketPreviousClose,
-      marketTime: quote.regularMarketTime
+      symbol: quote.symbol || symbol,
+      price: quote.regularMarketPrice ?? 0,
+      change: quote.regularMarketChange ?? 0,
+      changePercent: quote.regularMarketChangePercent ?? 0,
+      open: quote.regularMarketOpen ?? 0,
+      high: quote.regularMarketDayHigh ?? 0,
+      low: quote.regularMarketDayLow ?? 0,
+      previousClose: quote.regularMarketPreviousClose ?? 0,
+      marketTime: quote.regularMarketTime ?? null,
     });
   } catch (error) {
     console.error("Error fetching Yahoo Finance stock:", error.message);

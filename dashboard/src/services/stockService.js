@@ -1,20 +1,19 @@
-// Local development
-const BASE_URL = "https://stock-trading-platform-en0s.onrender.com";
+import api from "../api/axios";
 
-// Fetch all Sensex stocks
+// ✅ cookie auth automatically handled by api instance
 export const fetchSensex = async () => {
-  const res = await fetch(`${BASE_URL}/api/stocks/sensex/all`);
-  return await res.json();
+  const res = await api.get("/api/stocks/sensex");
+  return res.data;
 };
 
-// Fetch all Nifty 50 stocks
+// ✅ Fetch all Nifty 50 stocks
 export const fetchNifty = async () => {
-  const res = await fetch(`${BASE_URL}/api/stocks/nifty/all`);
-  return await res.json();
+  const res = await api.get("/api/stocks/nifty");
+  return res.data;
 };
 
-// Fetch single stock by symbol
+// ✅ Fetch single stock by symbol
 export const fetchStock = async (symbol) => {
-  const res = await fetch(`${BASE_URL}/api/stocks/${symbol}`);
-  return await res.json();
+  const res = await api.get(`/api/stocks/${symbol}`);
+  return res.data;
 };
