@@ -1,5 +1,5 @@
 /* =======================
-   GLOBAL RESET + TYPOGRAPHY
+   GLOBAL RESET (SAFE)
 ======================= */
 :root {
   --text: #1f2937;
@@ -13,8 +13,19 @@
   --down: #dc2626;
 }
 
+html,
+body,
+#root {
+  height: 100%;
+}
+
+* {
+  box-sizing: border-box;
+}
+
 body {
   margin: 0;
+  padding: 0;
   font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -23,445 +34,189 @@ body {
 }
 
 code {
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
-    "Courier New", monospace;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+    "Liberation Mono", "Courier New", monospace;
 }
 
-/* =======================
-   DASHBOARD LAYOUT
-======================= */
-.dashboard-container {
+/* ✅ IMPORTANT:
+   Never override Bootstrap globally.
+   All dashboard styling must be scoped under .dashboard-app ONLY.
+*/
+
+/* ============================================================
+   DASHBOARD WRAPPER
+============================================================ */
+.dashboard-app {
   width: 100%;
-  height: 90vh;
-  display: flex;
-  align-items: stretch;
-  box-sizing: border-box;
-}
-
-.content {
-  flex-basis: 68%;
-  height: 100%;
-  box-sizing: border-box;
-  overflow-y: auto;
-  padding: 24px 22px;
-}
-
-/* =======================
-   BUTTONS
-======================= */
-.btn {
-  text-decoration: none;
-  padding: 10px 16px;
-  border-radius: 8px;
-  color: #fff;
-  margin-right: 6px;
-  margin-left: 6px;
-  font-weight: 600;
-  font-size: 14px;
-}
-
-.btn-green {
-  background: #22c55e;
-}
-
-.btn-blue {
-  background: #4184f3;
-}
-
-.btn-blue:hover {
-  filter: brightness(1.04);
-}
-
-.btn-green:hover {
-  filter: brightness(1.04);
-}
-
-/* =======================
-   FUNDS PAGE
-======================= */
-.funds {
-  width: 100%;
-  text-align: right;
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  gap: 10px;
-}
-
-.funds p {
-  font-size: 13px;
-  color: var(--muted);
-  margin: 0;
-}
-
-/* =======================
-   ROW + COL
-======================= */
-.row {
-  width: 100%;
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  margin-top: 30px;
-  gap: 24px;
-}
-
-.col {
-  flex-basis: 33%;
-  text-align: left;
-}
-
-.col span {
-  display: flex;
-  align-items: center;
-  margin-bottom: 10px;
-}
-
-.col span p {
-  display: inline-block;
-  font-size: 16px;
-  font-weight: 600;
-  margin: 0;
-}
-
-/* =======================
-   TABLE BLOCK (FUNDS)
-======================= */
-.table {
-  border: 1px solid var(--border);
-  padding: 18px 18px;
-  border-radius: 12px;
+  min-height: 100vh;
   background: #fff;
 }
 
-.table .data {
+/* ============================================================
+   DASHBOARD TOPBAR (Scoped)
+============================================================ */
+.dashboard-app .topbar-container {
+  width: 100%;
+  height: 64px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 12px;
-}
-
-.table .data > * {
-  margin-bottom: 12px;
-}
-
-.table .data p:first-child {
-  font-size: 13px;
-  color: var(--muted);
-  margin: 0;
-}
-
-.imp {
-  font-size: 18px;
-  color: var(--text);
-  font-weight: 600;
-  margin: 0;
-}
-
-.colored {
-  color: var(--brand);
-}
-
-.table hr {
-  border: none;
-  background: var(--border);
-  height: 1px;
-  margin: 14px 0;
-}
-
-.commodity {
-  padding: 24px 8%;
-  text-align: center;
-}
-
-.commodity p {
-  margin-bottom: 18px;
-  color: var(--muted);
-}
-
-/* =======================
-   HOLDINGS + POSITIONS TABLE
-======================= */
-.title {
-  font-size: 18px;
-  font-weight: 600;
-  color: var(--text);
-  margin-bottom: 14px;
-}
-
-.order-table table {
-  width: 100%;
-  border-collapse: collapse;
   background: white;
-}
-
-.order-table tr {
-  border-top: 1px solid var(--border);
   border-bottom: 1px solid var(--border);
+  padding: 0 16px;
 }
 
-.order-table th {
-  text-align: right;
-  padding: 14px 10px;
-  color: var(--muted);
-  font-weight: 600;
-  font-size: 12px;
-  text-transform: uppercase;
-  letter-spacing: 0.3px;
-}
-
-.order-table td {
-  padding: 12px 10px;
-  text-align: right;
-  font-weight: 500;
-  font-size: 13px;
-  color: var(--text);
-}
-
-.order-table tr th:first-child,
-.order-table tr td:first-child {
-  text-align: left;
-}
-
-.order-table tr th:nth-child(1),
-.order-table tr th:nth-child(4),
-.order-table tr td:nth-child(1),
-.order-table tr td:nth-child(4) {
-  border-right: 1px solid #f3f4f6;
-}
-
-.order-table tr td:last-child {
-  font-size: 12px;
-}
-
-.order-table td.profit {
-  color: var(--up);
-  font-weight: 600;
-}
-
-.order-table td.loss {
-  color: var(--down);
-  font-weight: 600;
-}
-
-/* =======================
-   MENU (TOP RIGHT)
-======================= */
-.menu-container {
-  height: 100%;
-  padding: 10px 18px;
-  box-sizing: border-box;
+.dashboard-app .indices-container {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 16px;
+  gap: 28px;
+  min-width: 280px;
+  flex-wrap: nowrap;
 }
 
-.menus {
-  display: flex;
-  align-items: center;
-  justify-content: space-evenly;
-}
-
-.menus ul {
-  list-style-type: none;
-  padding: 0;
-  margin: 0;
-}
-
-.menus li {
-  display: inline-block;
-  margin-right: 24px;
-  text-decoration: none;
-}
-
-.menu {
-  font-size: 13px;
-  font-weight: 500;
-  color: #374151;
-}
-
-.menu.selected {
-  color: var(--brand);
-  font-weight: 600;
-}
-
-.menu:hover {
-  color: var(--brand);
-}
-
-hr {
-  border-left: 1px solid #f1f5f9;
-  height: 30px;
-}
-
-/* Profile */
-.profile {
-  display: flex;
-  align-items: center;
-  justify-content: space-evenly;
-  margin-left: 12px;
-}
-
-.profile .avatar {
-  width: 34px;
-  height: 34px;
-  text-align: center;
-  font-size: 12px;
-  font-weight: 700;
-  color: #7c3aed;
-  border-radius: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: #f3e8ff;
-  margin-right: 10px;
-}
-
-.profile .username {
-  font-size: 13px;
-  font-weight: 600;
-  color: #111827;
-}
-
-.profile:hover {
-  cursor: pointer;
-}
-
-/* =======================
-   TOPBAR
-======================= */
-.topbar-container {
-  width: 100%;
-  height: 10vh;
-  min-height: 64px;
-  display: flex;
-  align-items: center;
-  box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.04);
-  box-sizing: border-box;
-  border-bottom: 1px solid var(--border);
-  background: #fff;
-  z-index: 9;
-}
-
-.indices-container {
-  flex-basis: 32%;
-  height: 100%;
-  padding: 8px 18px;
-  border-right: 1px solid var(--border);
-  box-sizing: border-box;
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-  gap: 22px;
-}
-
-.nifty,
-.sensex {
-  flex: 1;
+.dashboard-app .index-box {
   display: flex;
   align-items: baseline;
-  justify-content: flex-start;
   gap: 10px;
 }
 
-.index {
+
+.dashboard-app .index {
   font-size: 11px;
-  font-weight: 700;
-  text-transform: uppercase;
+  font-weight: 800;
   color: #111827;
-  white-space: nowrap;
-  letter-spacing: 0.3px;
+  margin: 0;
 }
 
-.index-points {
+.dashboard-app .index-points {
   font-size: 13px;
-  font-weight: 600;
-  color: #111827;
+  font-weight: 800;
+  margin: 0;
 }
 
-.percent {
+.dashboard-app .percent {
   font-size: 12px;
-  font-weight: 600;
-  color: var(--muted);
+  font-weight: 700;
+  margin: 0;
 }
 
-/* RIGHT SIDE */
-.topbar-right {
+.dashboard-app .percent.up {
+  color: var(--up);
+}
+.dashboard-app .percent.down {
+  color: var(--down);
+}
+
+/* greeting center */
+.dashboard-app .topbar-greeting {
   flex: 1;
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  padding-right: 16px;
-}
-
-/* Greeting */
-.topbar-greeting {
-  margin-left: auto;
-  margin-right: 10px;
+  padding: 0 22px;
   display: flex;
   flex-direction: column;
-  gap: 3px;
-  white-space: nowrap;
+  justify-content: center;
+  min-width: 360px;
 }
 
-.greet-line {
-  font-weight: 700;
+.dashboard-app .greet-line {
+  font-weight: 800;
   font-size: 13px;
   color: #111827;
 }
 
-.greet-name {
+.dashboard-app .greet-name {
   color: var(--brand);
 }
 
-.greet-subline {
+.dashboard-app .greet-subline {
   font-size: 12px;
   color: var(--muted);
   display: flex;
   gap: 6px;
   align-items: center;
+  flex-wrap: wrap;
 }
 
-.greet-sep {
-  opacity: 0.7;
+.dashboard-app .topbar-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
 }
 
-.greet-countdown {
-  font-weight: 600;
-  color: #111827;
-}
-
-/* Logout */
-.logout-btn {
-  padding: 8px 14px;
+.dashboard-app .logout-btn {
   border: 1px solid var(--border);
+  padding: 8px 12px;
   border-radius: 10px;
+  background: #fff;
+  font-weight: 800;
+  font-size: 12px;
+  cursor: pointer;
+}
+.dashboard-app .logout-btn:hover {
+  background: var(--soft);
+}
+
+/* ============================================================
+   DASHBOARD MENU BAR (Scoped)
+============================================================ */
+.dashboard-app .dashboard-menu {
+  width: 100%;
+  height: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 26px;
+  padding: 0 20px;
+  border-bottom: 1px solid var(--border);
+  background: white;
+}
+
+.dashboard-app .dashboard-menu-link {
   font-size: 13px;
   font-weight: 700;
-  cursor: pointer;
-  background: white;
-  color: #111827;
+  text-decoration: none;
+  color: #374151;
 }
 
-.logout-btn:hover {
-  background: #f9fafb;
+.dashboard-app .dashboard-menu-link:hover {
+  color: var(--brand);
 }
 
-/* =======================
-   WATCHLIST (PROFESSIONAL)
-======================= */
-.watchlist-container {
+.dashboard-app .dashboard-menu-link.active {
+  color: var(--brand);
+}
+
+/* ============================================================
+   DASHBOARD MAIN LAYOUT (Scoped)
+   Menu + Watchlist + Outlet content
+============================================================ */
+.dashboard-app .dashboard-container {
+  width: 100%;
+  height: calc(100vh - 64px - 52px); /* ✅ topbar + menu */
+  display: flex;
+  align-items: stretch;
+  border-top: 1px solid var(--border);
+}
+
+/* Right-side outlet content */
+.dashboard-app .content {
+  flex: 1;
+  height: 100%;
+  overflow-y: auto;
+  padding: 24px 22px;
+}
+
+/* ============================================================
+   WATCHLIST (Scoped)
+============================================================ */
+.dashboard-app .watchlist-container {
   flex-basis: 32%;
   height: 100%;
-  box-sizing: border-box;
   border-right: 1px solid var(--border);
   overflow-y: auto;
-  position: relative;
-  background: white;
+  background: #fff;
 }
 
-.search-container {
+.dashboard-app .search-container {
   display: flex;
   align-items: center;
   position: sticky;
@@ -471,18 +226,16 @@ hr {
   border-bottom: 1px solid var(--border);
 }
 
-.search {
+.dashboard-app .search {
   width: 100%;
   border: none;
   padding: 14px 16px;
   font-size: 13px;
   font-weight: 500;
-  color: #111827;
   outline: none;
-  background: white;
 }
 
-.counts {
+.dashboard-app .counts {
   position: absolute;
   right: 14px;
   font-size: 12px;
@@ -490,90 +243,69 @@ hr {
   color: var(--muted);
 }
 
-/* List */
-.list {
+/* Bullet removal */
+.dashboard-app .list {
   list-style: none;
   padding: 0;
   margin: 0;
 }
-
-.list li {
+.dashboard-app .list li {
+  list-style: none;
   border-bottom: 1px solid #f1f5f9;
   padding: 12px 14px;
   position: relative;
-  transition: background 0.15s ease;
 }
 
-.list li:hover {
-  background: #fafafa;
-  cursor: pointer;
-}
-
-/* Row item */
-.item {
+/* Watchlist item row */
+.dashboard-app .item {
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
 
-.item p {
+.dashboard-app .item p {
   margin: 0;
   font-size: 13px;
-  font-weight: 600;            /* ✅ not bulky */
-  letter-spacing: 0.2px;
-  color: #111827;
+  font-weight: 700;
 }
 
-/* Right side group */
-.item-info {
+.dashboard-app .item-info {
   display: flex;
   align-items: center;
   gap: 10px;
 }
 
-.item-info .percent {
+.dashboard-app .item-info .percent {
   font-size: 12px;
   font-weight: 600;
-  min-width: 56px;
-  text-align: right;
-  color: var(--muted);
-}
-
-.item-info .price {
-  font-size: 12px;
-  font-weight: 600;
-  color: #111827;
-  min-width: 74px;
+  min-width: 60px;
   text-align: right;
 }
 
-.up {
-  color: var(--up);
-  font-weight: 700;
+.dashboard-app .item-info .price {
+  font-size: 12px;
+  font-weight: 600;
+  min-width: 80px;
+  text-align: right;
 }
 
-.down {
-  color: var(--down);
-  font-weight: 700;
-}
-
-.item-info svg {
-  font-size: 18px;
-}
-
-/* Hover actions */
-.actions {
+/* Hover action overlay */
+.dashboard-app .actions {
   position: absolute;
   inset: 0;
   display: none;
   justify-content: flex-end;
   align-items: center;
   padding-right: 12px;
-  background: rgba(255, 255, 255, 0.92);
+  background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(6px);
 }
 
-.actions span button {
+.dashboard-app .list li:hover > .actions {
+  display: flex;
+}
+
+.dashboard-app .actions span button {
   width: 46px;
   height: 30px;
   border-radius: 8px;
@@ -581,130 +313,207 @@ hr {
   margin-right: 8px;
   cursor: pointer;
   font-size: 12px;
-  font-weight: 700;
+  font-weight: 800;
+  border: none;
 }
 
-.buy {
+/* Buy/sell buttons */
+.dashboard-app .buy {
   background-color: #2563eb;
   color: white;
-  border: none;
 }
-
-.sell {
+.dashboard-app .sell {
   background-color: #f97316;
   color: white;
-  border: none;
 }
 
-.action {
+.dashboard-app .action {
+  background: white;
+  border: 1px solid var(--border) !important;
+}
+
+/* ============================================================
+   DASHBOARD TABLES (Holdings/Orders/Positions)
+============================================================ */
+.dashboard-app .title {
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--text);
+  margin-bottom: 14px;
+}
+
+.dashboard-app .order-table table {
+  width: 100%;
+  border-collapse: collapse;
   background: white;
   border: 1px solid var(--border);
-}
-
-.list li:hover > .actions {
-  display: flex;
-}
-
-/* =======================
-   ORDERS DESIGN (CARD)
-======================= */
-.orders-container {
-  max-width: 900px;
-  margin: 40px auto;
-  padding: 20px;
-}
-
-.orders-title {
-  font-size: 22px;
-  font-weight: 700;
-  margin-bottom: 24px;
-  text-align: center;
-  color: #111827;
-}
-
-.orders-list {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 18px;
-}
-
-.order-card {
-  background: #fff;
   border-radius: 14px;
-  padding: 16px;
-  border: 1px solid var(--border);
-  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.05);
-  transition: transform 0.15s ease, box-shadow 0.15s ease;
-  cursor: pointer;
   overflow: hidden;
 }
 
-.order-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.08);
+.dashboard-app .order-table tr {
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
 }
 
-.order-card.expanded {
-  border: 2px solid #2563eb;
-}
-
-.order-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.order-name {
-  font-size: 16px;
-  font-weight: 700;
-  color: #111827;
-}
-
-.order-mode {
-  padding: 4px 10px;
-  border-radius: 999px;
-  font-size: 11px;
+.dashboard-app .order-table th {
+  text-align: right;
+  padding: 14px 10px;
+  color: var(--muted);
   font-weight: 800;
+  font-size: 12px;
   text-transform: uppercase;
+  letter-spacing: 0.3px;
+  background: #fafafa;
 }
 
-.order-mode.buy {
-  background: #dcfce7;
-  color: #166534;
+.dashboard-app .order-table td {
+  padding: 12px 10px;
+  text-align: right;
+  font-weight: 600;
+  font-size: 13px;
+  color: var(--text);
 }
 
-.order-mode.sell {
-  background: #fee2e2;
-  color: #991b1b;
+.dashboard-app .order-table tr th:first-child,
+.dashboard-app .order-table tr td:first-child {
+  text-align: left;
 }
 
-.order-details {
-  margin-top: 12px;
+.dashboard-app .order-table td.profit {
+  color: var(--up);
+  font-weight: 800;
+}
+
+.dashboard-app .order-table td.loss {
+  color: var(--down);
+  font-weight: 800;
+}
+
+/* ============================================================
+   FUNDS (Scoped)
+============================================================ */
+.dashboard-app .funds {
+  width: 100%;
+  text-align: right;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.dashboard-app .funds p {
   font-size: 13px;
   color: var(--muted);
+  margin: 0;
 }
 
-.order-details p {
-  margin: 4px 0;
+/* ============================================================
+   DASHBOARD BUTTONS (Scoped)
+   ✅ Note: don't override bootstrap .btn globally
+============================================================ */
+.dashboard-app .dash-btn {
+  text-decoration: none;
+  padding: 10px 16px;
+  border-radius: 10px;
+  color: #fff;
+  margin-right: 6px;
+  margin-left: 6px;
+  font-weight: 700;
+  font-size: 14px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border: none;
 }
 
-.order-date {
-  font-size: 12px;
-  color: #9ca3af;
+.dashboard-app .dash-btn-green {
+  background: #22c55e;
 }
 
-.order-extra {
-  margin-top: 12px;
-  padding-top: 10px;
-  border-top: 1px solid var(--border);
-  font-size: 12px;
-  color: #4b5563;
+.dashboard-app .dash-btn-blue {
+  background: #4184f3;
 }
 
-.orders-empty,
-.orders-loading {
-  text-align: center;
-  margin-top: 80px;
-  font-size: 15px;
+.dashboard-app .dash-btn-blue:hover,
+.dashboard-app .dash-btn-green:hover {
+  filter: brightness(1.04);
+}
+
+/* ============================================================
+   DASHBOARD GRID (Scoped)
+   ✅ renamed row/col to avoid bootstrap conflicts
+============================================================ */
+.dashboard-app .dash-row {
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-top: 30px;
+  gap: 24px;
+}
+
+.dashboard-app .dash-col {
+  flex: 1;
+  text-align: left;
+}
+
+.dashboard-app .dash-col span {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.dashboard-app .dash-col span p {
+  display: inline-block;
+  font-size: 16px;
+  font-weight: 700;
+  margin: 0;
+}
+
+/* ============================================================
+   DASHBOARD INFO CARD (Scoped)
+============================================================ */
+.dashboard-app .table {
+  border: 1px solid var(--border);
+  padding: 18px;
+  border-radius: 14px;
+  background: #fff;
+}
+
+.dashboard-app .table .data {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.dashboard-app .table .data > * {
+  margin-bottom: 12px;
+}
+
+.dashboard-app .table .data p:first-child {
+  font-size: 13px;
   color: var(--muted);
+  margin: 0;
+}
+
+.dashboard-app .imp {
+  font-size: 20px;
+  color: var(--text);
+  font-weight: 800;
+  margin: 0;
+}
+
+.dashboard-app .colored {
+  color: var(--brand);
+}
+
+.dashboard-app .table hr {
+  border: none;
+  background: var(--border);
+  height: 1px;
+  margin: 14px 0;
 }
