@@ -1,10 +1,11 @@
 import React from "react";
 
 const Summary = () => {
-  // Default values for a new user
+  // Default values for new user
   const marginAvailable = 0;
   const marginsUsed = 0;
   const openingBalance = 0;
+
   const holdingsCount = 0;
   const pnl = 0;
   const pnlPercentage = 0;
@@ -12,62 +13,67 @@ const Summary = () => {
   const investment = 0;
 
   return (
-    <>
-      <div className="username">
-        <h6>Hi, User!</h6>
-        <hr className="divider" />
+    <div className="dashboard-app">
+      {/* Greeting */}
+      <div style={{ marginBottom: "18px" }}>
+        <h2 style={{ margin: 0, fontSize: "18px", fontWeight: 800 }}>
+          Hi, User!
+        </h2>
+        <p style={{ marginTop: "6px", color: "#6b7280", fontSize: "13px" }}>
+          Here’s your account summary.
+        </p>
       </div>
 
-      <div className="section">
-        <span>
-          <p>Equity</p>
-        </span>
+      {/* ✅ EQUITY CARD */}
+      <div className="dashboard-app table" style={{ marginBottom: "22px" }}>
+        <div className="title">Equity</div>
 
         <div className="data">
-          <div className="first">
-            <h3>{marginAvailable}</h3>
+          <div>
             <p>Margin available</p>
+            <p className="imp colored">₹{marginAvailable}</p>
           </div>
-          <hr />
 
-          <div className="second">
-            <p>
-              Margins used <span>{marginsUsed}</span>
-            </p>
-            <p>
-              Opening balance <span>{openingBalance}</span>
-            </p>
+          <div>
+            <p>Margins used</p>
+            <p className="imp">₹{marginsUsed}</p>
+          </div>
+
+          <div>
+            <p>Opening balance</p>
+            <p className="imp">₹{openingBalance}</p>
           </div>
         </div>
-        <hr className="divider" />
       </div>
 
-      <div className="section">
-        <span>
-          <p>Holdings ({holdingsCount})</p>
-        </span>
+      {/* ✅ HOLDINGS CARD */}
+      <div className="dashboard-app table">
+        <div className="title">Holdings ({holdingsCount})</div>
 
         <div className="data">
-          <div className="first">
-            <h3 className={pnl >= 0 ? "profit" : "loss"}>
-              {pnl} <small>{pnlPercentage >= 0 ? `+${pnlPercentage}%` : `${pnlPercentage}%`}</small>
-            </h3>
+          <div>
             <p>P&L</p>
+            <p className={`imp ${pnl >= 0 ? "up" : "down"}`}>
+              ₹{pnl}{" "}
+              <span style={{ fontSize: "12px", fontWeight: 800 }}>
+                ({pnlPercentage >= 0 ? "+" : ""}
+                {pnlPercentage}%)
+              </span>
+            </p>
           </div>
-          <hr />
 
-          <div className="second">
-            <p>
-              Current Value <span>{currentValue}</span>
-            </p>
-            <p>
-              Investment <span>{investment}</span>
-            </p>
+          <div>
+            <p>Current value</p>
+            <p className="imp">₹{currentValue}</p>
+          </div>
+
+          <div>
+            <p>Investment</p>
+            <p className="imp">₹{investment}</p>
           </div>
         </div>
-        <hr className="divider" />
       </div>
-    </>
+    </div>
   );
 };
 

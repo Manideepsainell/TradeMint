@@ -1,22 +1,27 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
-import { API_URL } from "../config";
+import api from "../api/axios";
 
 const Orders = () => {
   const [orders, setOrders] = useState([]);
   const [expandedId, setExpandedId] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [errorMsg, setErrorMsg] = useState("");
 
   useEffect(() => {
     const fetchOrders = async () => {
-      try {
-       const res = await axios.get(`${API_URL}/api/user/orders`, {
-        withCredentials: true,
-          });
+      setLoading(true);
+      setErrorMsg("");
 
-        setOrders(res.data);
+      try {
+        const res = await api.get("/api/user/orders");
+
+        // ✅ support both: res.data = []  OR  res.data.orders = []
+        const data = Array.isArray(res.data) ? res.data : res.data?.orders || [];
+
+        setOrders(data);
       } catch (err) {
         console.error("Error fetching orders:", err);
+        setErrorMsg("Failed to load orders. Please try again.");
       } finally {
         setLoading(false);
       }
@@ -33,7 +38,15 @@ const Orders = () => {
     return <div className="orders-loading">Loading your orders...</div>;
   }
 
-  if (orders.length === 0) {
+  if (errorMsg) {
+    return (
+      <div className="orders-empty">
+        <p>{errorMsg}</p>
+      </div>
+    );
+  }
+
+  if (!orders.length) {
     return (
       <div className="orders-empty">
         <p>You haven't placed any orders today</p>
@@ -46,49 +59,63 @@ const Orders = () => {
       <h2 className="orders-title">Your Orders</h2>
 
       <div className="orders-list">
-        {orders.map((order) => (
-          <div
-            className={`order-card ${expandedId === order._id ? "expanded" : ""}`}
-            key={order._id}
-            onClick={() => toggleExpand(order._id)}
-          >
-            <div className="order-header">
-              <h3 className="order-name">{order.name}</h3>
-              <span
-                className={`order-mode ${order.mode === "BUY" ? "buy" : "sell"}`}
-              >
-                {order.mode}
-              </span>
-            </div>
+        {orders.map((order) => {
+          const created = order?.createdAt
+            ? new Date(order.createdAt).toLocaleString("en-IN", {
+                day: "2-digit",
+                month: "short",
+                year: "numeric",
+                hour: "2-digit",
+                minute: "2-digit",
+              })
+            : "--";
 
-            <div className="order-details">
-              <p>
-                <strong>Quantity:</strong> {order.qty}
-              </p>
-              <p>
-                <strong>Price:</strong> ₹{order.price}
-              </p>
-              <p className="order-date">
-                {new Date(order.createdAt).toLocaleString()}
-              </p>
-            </div>
+          return (
+            <div
+              className={`order-card ${expandedId === order._id ? "expanded" : ""}`}
+              key={order._id}
+              onClick={() => toggleExpand(order._id)}
+            >
+              <div className="order-header">
+                <div>
+                  <div className="order-name">{order.name}</div>
+                  <div className="order-date">{created}</div>
+                </div>
 
-            {expandedId === order._id && (
-              <div className="order-extra">
+                <span className={`order-mode ${order.mode === "BUY" ? "buy" : "sell"}`}>
+                  {order.mode}
+                </span>
+              </div>
+
+              <div className="order-details">
                 <p>
-                  <strong>Order ID:</strong> {order._id}
+                  <strong>Quantity:</strong> {order.qty}
                 </p>
                 <p>
-                  <strong>Created:</strong> {new Date(order.createdAt).toString()}
-                </p>
-                <p>
-                  <strong>Last Updated:</strong>{" "}
-                  {new Date(order.updatedAt).toString()}
+                  <strong>Price:</strong> ₹{order.price}
                 </p>
               </div>
-            )}
-          </div>
-        ))}
+
+              {expandedId === order._id && (
+                <div className="order-extra">
+                  <p>
+                    <strong>Order ID:</strong> {order._id}
+                  </p>
+
+                  <p>
+                    <strong>Created:</strong>{" "}
+                    {order.createdAt ? new Date(order.createdAt).toString() : "--"}
+                  </p>
+
+                  <p>
+                    <strong>Last Updated:</strong>{" "}
+                    {order.updatedAt ? new Date(order.updatedAt).toString() : "--"}
+                  </p>
+                </div>
+              )}
+            </div>
+          );
+        })}
       </div>
     </div>
   );
