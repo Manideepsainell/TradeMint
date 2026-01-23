@@ -1,4 +1,4 @@
-****# TradeMint 🚀  
+# TradeMint 🚀  
 A Zerodha-inspired full stack stock trading dashboard built with the MERN stack.
 
 TradeMint allows users to securely sign up/login, manage holdings & positions, place orders, and track portfolio value using live market prices.
