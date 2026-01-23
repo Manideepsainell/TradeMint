@@ -1,0 +1,11 @@
+.about-team-text {
+  font-size: 1.05rem;
+  line-height: 1.8;
+}
+
+.team-avatar {
+  width: 220px;
+  max-width: 70%;
+  border-radius: 50%;
+  object-fit: cover;
+}

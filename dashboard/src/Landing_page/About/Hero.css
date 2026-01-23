@@ -1,0 +1,20 @@
+/* 🔥 IMPORTANT: scoped only to ABOUT page */
+.about-hero-section p {
+  font-size: 1rem;
+  line-height: 1.8;
+  margin: 0 0 15px 0;
+}
+
+.about-hero-text {
+  font-size: 1.05rem;
+}
+
+/* links */
+.about-link {
+  text-decoration: none;
+  color: #387ed1;
+  font-weight: 600;
+}
+.about-link:hover {
+  text-decoration: underline;
+}

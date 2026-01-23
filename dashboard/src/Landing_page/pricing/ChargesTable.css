@@ -1,0 +1,128 @@
+.charges-container {
+  max-width: 980px;
+  margin: 0 auto;
+  font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+}
+
+/* tabs */
+.tabs {
+  display: flex;
+  gap: 28px;
+  border-bottom: 1px solid #e5e7eb;
+  padding-bottom: 8px;
+  flex-wrap: wrap;
+}
+
+.tab-btn {
+  background: none;
+  border: none;
+  font-size: 16px;
+  padding: 14px 0;
+  cursor: pointer;
+  color: #6b7280;
+  font-weight: 700;
+  border-bottom: 2px solid transparent;
+  transition: all 0.2s ease;
+}
+
+.tab-btn:hover {
+  color: #387ed1;
+}
+
+.tab-btn.active {
+  color: #387ed1;
+  border-bottom: 2px solid #387ed1;
+}
+
+/* ✅ table wrap */
+.table-wrap {
+  width: 100%;
+  overflow-x: auto;
+  border-radius: 12px;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* ✅ make scrollbar look clean */
+.table-wrap::-webkit-scrollbar {
+  height: 8px;
+}
+.table-wrap::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 999px;
+}
+.table-wrap::-webkit-scrollbar-track {
+  background: #f8fafc;
+}
+
+/* table */
+.charges-table {
+  width: 100%;
+  min-width: 900px;
+  border-collapse: collapse;
+  background: #fff;
+  font-size: 14px;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+.charges-table th,
+.charges-table td {
+  padding: 16px 18px;
+  text-align: left;
+  color: #111827;
+  vertical-align: top;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.charges-table th {
+  background: #fafafa;
+  font-weight: 800;
+  font-size: 13px;
+  white-space: nowrap;
+}
+
+.charges-table tr:nth-child(even) {
+  background: #fafafa;
+}
+
+/* list inside table */
+.table-list {
+  padding-left: 18px;
+  margin: 0;
+}
+.table-list li {
+  margin-bottom: 6px;
+}
+
+/* badges */
+.badge-pill {
+  display: inline-block;
+  padding: 5px 12px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 0.3px;
+}
+
+.badge-success {
+  background: #16a34a;
+  color: #fff;
+}
+
+/* links + notes */
+.charges-link {
+  color: #387ed1;
+  text-decoration: none;
+  font-weight: 800;
+}
+.charges-link:hover {
+  text-decoration: underline;
+}
+
+.charges-note {
+  font-size: 13px;
+  margin-top: 12px;
+  color: #4b5563;
+  line-height: 1.6;
+}
