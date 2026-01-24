@@ -1,5 +1,6 @@
 import express from "express";
 import YahooFinance from "yahoo-finance2";
+import asyncHandler from "../utils/asyncHandler.js";
 
 const yahooFinance = new YahooFinance();
 const router = express.Router();

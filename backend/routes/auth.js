@@ -2,7 +2,9 @@
 import express from "express";
 import jwt from "jsonwebtoken";
 import User from "../model/UserModel.js";
-
+import validateRequest from "../middlewares/validateRequest.js";
+import { loginSchema } from "../validators/authValidator.js";
+import asyncHandler from "../utils/asyncHandler.js";
 const router = express.Router();
 
 const COOKIE_OPTS = {
@@ -53,19 +55,21 @@ router.post("/signup", async (req, res) => {
 });
 
 // ===== Login =====
-router.post("/login", async (req, res) => {
-  try {
+router.post("/login", validateRequest(loginSchema),asyncHandler(async (req, res) => {
     const email = (req.body.email || "").trim().toLowerCase();
     const password = req.body.password;
-
-    if (!email || !password)
-      return res.status(400).json({ message: "Email and password required" });
-
+ 
     const user = await User.findOne({ email }).select("+password");
-    if (!user) return res.status(401).json({ message: "Invalid credentials" });
+      if (!user) {
+      res.status(401);
+      throw new Error("Invalid credentials");
+      }
 
     const isMatch = await user.matchPassword(password);
-    if (!isMatch) return res.status(401).json({ message: "Invalid credentials" });
+    if (!isMatch) {
+      res.status(401);
+      throw new Error("Invalid credentials");
+    }
 
     const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
       expiresIn: "1h",
@@ -75,11 +79,8 @@ router.post("/login", async (req, res) => {
       message: "Login successful",
       user: { id: user._id, username: user.username, email: user.email },
     });
-  } catch (err) {
-    console.error("🔥 Login error:", err);
-    res.status(500).json({ message: "Login failed", error: err.message });
-  }
-});
+  })
+);
 
 // ===== Current user (session check) =====
 router.get("/me", async (req, res) => {

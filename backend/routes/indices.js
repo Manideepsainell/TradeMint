@@ -1,7 +1,8 @@
 import express from "express";
 import YahooFinance from "yahoo-finance2";
-const yahooFinance = new YahooFinance();
+import asyncHandler from "../utils/asyncHandler.js";
 
+const yahooFinance = new YahooFinance();
 const router = express.Router();
 
 // Symbols (Yahoo)
@@ -10,8 +11,9 @@ const SYMBOLS = {
   sensex: "^BSESN",
 };
 
-router.get("/", async (req, res) => {
-  try {
+router.get(
+  "/",
+  asyncHandler(async (req, res) => {
     const [niftyQuote, sensexQuote] = await Promise.all([
       yahooFinance.quote(SYMBOLS.nifty),
       yahooFinance.quote(SYMBOLS.sensex),
@@ -32,10 +34,7 @@ router.get("/", async (req, res) => {
       },
       marketTime: niftyQuote.regularMarketTime,
     });
-  } catch (err) {
-    console.error("Indices fetch error:", err.message);
-    res.status(500).json({ message: "Failed to fetch indices" });
-  }
-});
+  })
+);
 
 export default router;

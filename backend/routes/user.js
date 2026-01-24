@@ -1,7 +1,10 @@
 import express from "express";
 import yahooFinance from "yahoo-finance2";
+import asyncHandler from "../utils/asyncHandler.js";
+import validateRequest from "../middlewares/validateRequest.js";
+import { createOrderSchema } from "../validators/orderValidator.js";
 
-import protect from "../middleware/authmiddleware.js";
+import protect from "../middlewares/authmiddleware.js";
 import { HoldingsModel } from "../model/HoldingsModel.js";
 import { PositionsModel } from "../model/PositionsModel.js";
 import { OrdersModel } from "../model/OrdersModel.js";
@@ -80,14 +83,18 @@ router.get("/positions", protect, async (req, res) => {
   }
 });
 
-// ✅ Orders
-router.get("/orders", protect, async (req, res) => {
-  try {
+
+router.get(
+  "/orders",
+  protect,
+  asyncHandler(async (req, res) => {
     const allOrders = await OrdersModel.find({ userId: req.user.id }).sort({
       createdAt: -1,
     });
 
-    if (!allOrders || allOrders.length === 0) return res.json([]);
+    if (!allOrders || allOrders.length === 0) {
+      return res.json([]);
+    }
 
     const updatedOrders = await Promise.all(
       allOrders.map(async (order) => {
@@ -99,21 +106,22 @@ router.get("/orders", protect, async (req, res) => {
     );
 
     res.json(updatedOrders);
-  } catch (err) {
-    console.error("Error fetching orders:", err.message);
-    res.status(500).json({ error: "Failed to fetch orders" });
-  }
-});
+  })
+);
 
-// ✅ Create new order
-router.post("/orders", protect, async (req, res) => {
-  try {
+
+// Create new order
+router.post(
+  "/orders",
+  protect,
+  validateRequest(createOrderSchema),
+  asyncHandler(async (req, res) => {
     const { name, qty, price, mode } = req.body;
 
     const newOrder = new OrdersModel({
       name,
-      qty: Number(qty),
-      price: Number(price),
+      qty,
+      price,
       mode,
       userId: req.user.id,
     });
@@ -121,10 +129,8 @@ router.post("/orders", protect, async (req, res) => {
     await newOrder.save();
 
     res.status(201).json({ message: "Order placed", order: newOrder });
-  } catch (err) {
-    console.error("Error creating order:", err.message);
-    res.status(500).json({ error: "Failed to create order" });
-  }
-});
+  })
+);
+
 
 export default router;

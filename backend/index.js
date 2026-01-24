@@ -9,7 +9,8 @@ import indicesRoutes from "./routes/indices.js";
 import userRoutes from "./routes/user.js";
 import authRoutes from './routes/auth.js';
 import stockRoutes from './routes/stocks.js';
-import protect from './middleware/authmiddleware.js';
+import protect from './middlewares/authmiddleware.js';
+import errorHandler from "./middlewares/errorMiddleware.js";
 
 const PORT = process.env.PORT || 3002;
 const uri = process.env.MONGO_URL;
@@ -78,3 +79,5 @@ const SYMBOL_MAP = {
   SBIN: "SBIN.NS",
 };
 
+// ===== Global Error Handler (MUST be last) =====
+app.use(errorHandler);
