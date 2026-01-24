@@ -17,31 +17,22 @@ const app = express();
 const PORT = process.env.PORT || 3002;
 const MONGO_URL = process.env.MONGO_URL;
 
-// ✅ Allowed Frontend Origins (Local + Amplify)
 const allowedOrigins = [
-  "http://localhost:3000", // local React
-  "https://main.d1d6wntnzbxowc.amplifyapp.com" // Amplify current
+  "http://localhost:3000",
+  "https://main.d1z91v4h87g5dz.amplifyapp.com"
 ];
 
-// ================== MIDDLEWARE ==================
 app.use(
   cors({
-    origin: function (origin, callback) {
-      // ✅ Allow requests like Postman or server-to-server
-      if (!origin) return callback(null, true);
-
-      // ✅ Allow only whitelisted origins
-      if (allowedOrigins.includes(origin)) {
-        return callback(null, true);
-      } else {
-        console.log("❌ Blocked by CORS:", origin);
-        return callback(new Error("Not allowed by CORS"));
-      }
-    },
-
-    credentials: true, // ✅ Allow cookies / sessions
+    origin: allowedOrigins,
+    credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
+
+// ✅ Preflight support
+app.options("*", cors());
 
 app.use(express.json());
 app.use(cookieParser());

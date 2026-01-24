@@ -3,8 +3,11 @@ import { loginService } from "../services/authService.js";
 
 const COOKIE_OPTS = {
   httpOnly: true,
-  secure: process.env.NODE_ENV === "production", 
-  sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+
+  secure: true,          // ✅ Always true for Render + Amplify HTTPS
+
+  sameSite: "None",      // ✅ Required for cross-site cookies
+
   maxAge: 60 * 60 * 1000, // 1 hour
 };
 
