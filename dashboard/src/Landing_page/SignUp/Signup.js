@@ -1,6 +1,7 @@
 import React, { useState, useContext } from "react";
 import { Link } from "react-router-dom";
-import api from "../services/api";   // ✅ use your axios instance
+import api from "../../api/axios";
+   // ✅ use your axios instance
 import { AuthContext } from "../../context/AuthContext";
 
 function Signup() {
