@@ -16,14 +16,30 @@ const app = express();
 
 const PORT = process.env.PORT || 3002;
 const MONGO_URL = process.env.MONGO_URL;
-const CLIENT_URL = process.env.CLIENT_URL || "http://localhost:3000";
 
+// ✅ Allowed Frontend Origins (Local + Amplify)
+const allowedOrigins = [
+  "http://localhost:3000", // local React
+  "https://main.d1z91v4h87g5dz.amplifyapp.com", // Amplify current
+];
 
 // ================== MIDDLEWARE ==================
 app.use(
   cors({
-    origin: process.env.CLIENT_URL,        // ✅ ENV-based frontend URL
-    credentials: true,         // ✅ allow cookies
+    origin: function (origin, callback) {
+      // ✅ Allow requests like Postman or server-to-server
+      if (!origin) return callback(null, true);
+
+      // ✅ Allow only whitelisted origins
+      if (allowedOrigins.includes(origin)) {
+        return callback(null, true);
+      } else {
+        console.log("❌ Blocked by CORS:", origin);
+        return callback(new Error("Not allowed by CORS"));
+      }
+    },
+
+    credentials: true, // ✅ Allow cookies / sessions
   })
 );
 
@@ -42,9 +58,10 @@ mongoose
   .connect(MONGO_URL)
   .then(() => {
     console.log("✅ MongoDB connected");
-    app.listen(PORT, () =>
-      console.log(`🚀 Server running on http://localhost:${PORT}`)
-    );
+
+    app.listen(PORT, () => {
+      console.log(`🚀 Server running on port ${PORT}`);
+    });
   })
   .catch((err) => {
     console.error("❌ MongoDB connection failed:", err.message);
