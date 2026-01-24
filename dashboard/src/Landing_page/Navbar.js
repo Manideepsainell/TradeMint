@@ -7,17 +7,15 @@ function Navbar() {
   const { user, logout, flash, showFlash } = useContext(AuthContext);
   const navigate = useNavigate();
 
-  const handleDashboardClick = async () => {
-    try {
-      await axios.get(`${process.env.REACT_APP_API_URL}/api/auth/me`, {
-        withCredentials: true,
-      });
-      navigate("/dashboard");
-    } catch (err) {
-      showFlash("Please login to go to dashboard");
-      navigate("/login");
-    }
-  };
+  const handleDashboardClick = () => {
+  if (user) {
+    navigate("/dashboard");
+  } else {
+    showFlash("Please login to go to dashboard");
+    navigate("/login");
+  }
+};
+
 
   const handleLogout = async () => {
     try {

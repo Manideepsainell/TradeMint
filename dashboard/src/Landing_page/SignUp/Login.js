@@ -18,12 +18,11 @@ function Login() {
 
       console.log("LOGIN RESPONSE:", res.data);
 
-      if (res.data?.user) {
-        login(res.data.user);
-
-        // ✅ redirect to frontend dashboard
-        navigate("/dashboard");
-      } else {
+      if (res.data?.success) {
+  login(res.data.data);
+  navigate("/dashboard");
+}
+ else {
         alert("Invalid login (no user returned)");
       }
     } catch (err) {

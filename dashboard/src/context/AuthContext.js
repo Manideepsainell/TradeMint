@@ -7,6 +7,9 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
+  // ✅ FLASH STATE
+  const [flash, setFlash] = useState(null);
+
   useEffect(() => {
     const loadUser = async () => {
       try {
@@ -21,12 +24,10 @@ export const AuthProvider = ({ children }) => {
     loadUser();
   }, []);
 
-  // ✅ ADD THIS LOGIN FUNCTION
   const login = (userData) => {
     setUser(userData);
   };
 
-  // ✅ ADD THIS LOGOUT FUNCTION ALSO
   const logout = async () => {
     try {
       await api.post("/api/auth/logout");
@@ -35,8 +36,26 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  // ✅ FLASH FUNCTION
+  const showFlash = (message, timeout = 3000) => {
+    setFlash(message);
+    setTimeout(() => {
+      setFlash(null);
+    }, timeout);
+  };
+
   return (
-    <AuthContext.Provider value={{ user, setUser, loading, login, logout }}>
+    <AuthContext.Provider
+      value={{
+        user,
+        setUser,
+        loading,
+        login,
+        logout,
+        flash,
+        showFlash,
+      }}
+    >
       {children}
     </AuthContext.Provider>
   );
