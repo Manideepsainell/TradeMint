@@ -1,83 +1,55 @@
 // index.js (ESM)
-import 'dotenv/config';
-import express from 'express';
-import mongoose from 'mongoose';
-import cors from 'cors';
-import cookieParser from 'cookie-parser';
-import yahooFinance from 'yahoo-finance2';
-import indicesRoutes from "./routes/indices.js";
-import userRoutes from "./routes/user.js";
-import authRoutes from './routes/auth.js';
-import stockRoutes from './routes/stocks.js';
-import protect from './middlewares/authmiddleware.js';
-import errorHandler from "./middlewares/errorMiddleware.js";
+import "dotenv/config";
+import express from "express";
+import mongoose from "mongoose";
+import cors from "cors";
+import cookieParser from "cookie-parser";
 
-const PORT = process.env.PORT || 3002;
-const uri = process.env.MONGO_URL;
+// Routes
+import authRoutes from "./routes/auth.js";
+import userRoutes from "./routes/user.js";
+import stockRoutes from "./routes/stocks.js";
+import indicesRoutes from "./routes/indices.js";
+import errorHandler from "./middlewares/errorMiddleware.js";
 
 const app = express();
 
-const allowedOrigins = [
-  "http://localhost:3000",
-  "http://localhost:3001",
-  "https://main.dni04gzwer7ho.amplifyapp.com",
-  "https://main.dnhat8qvs6b5l.amplifyapp.com",
-];
+const PORT = process.env.PORT || 3002;
+const MONGO_URL = process.env.MONGO_URL;
+const CLIENT_URL = process.env.CLIENT_URL || "http://localhost:3000";
 
+
+// ================== MIDDLEWARE ==================
 app.use(
   cors({
-    origin: function (origin, callback) {
-      // allow requests with no origin (like Postman)
-      if (!origin) return callback(null, true);
-
-      if (allowedOrigins.includes(origin)) {
-        return callback(null, true);
-      } else {
-        return callback(new Error("Not allowed by CORS"));
-      }
-    },
-    credentials: true,
-    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-    allowedHeaders: ["Content-Type", "Authorization"],
-    exposedHeaders: ["set-cookie"],
+    origin: CLIENT_URL,        // ✅ ENV-based frontend URL
+    credentials: true,         // ✅ allow cookies
   })
 );
 
-app.options(/.*/, cors());
-
-
-app.use(cookieParser());
 app.use(express.json());
+app.use(cookieParser());
 
-// ===== Auth & Stock Routes =====
+// ================== ROUTES ==================
 app.use("/api/auth", authRoutes);
-app.use("/api/stocks", stockRoutes);
-app.use("/api/summary", (await import('./routes/summary.js')).default); // lazy import if summary exports default
-app.use("/api/indices", indicesRoutes);
 app.use("/api/user", userRoutes);
+app.use("/api/stocks", stockRoutes);
+app.use("/api/indices", indicesRoutes);
+app.use("/api/summary", (await import("./routes/summary.js")).default);
 
-
-// ===== Database Connect =====
-mongoose.connect(uri)
+// ================== DB CONNECTION ==================
+mongoose
+  .connect(MONGO_URL)
   .then(() => {
-    console.log("✅ DB connected");
-    app.listen(PORT, () => console.log(`🚀 Server started on http://localhost:${PORT}`));
+    console.log("✅ MongoDB connected");
+    app.listen(PORT, () =>
+      console.log(`🚀 Server running on http://localhost:${PORT}`)
+    );
   })
-  .catch(err => console.error("❌ DB connection failed:", err));
+  .catch((err) => {
+    console.error("❌ MongoDB connection failed:", err.message);
+    process.exit(1);
+  });
 
-// ===== User Data Routes =====
-
-// helper symbolMap (reuse across routes)
-const SYMBOL_MAP = {
-  RELIANCE: "RELIANCE.NS",
-  TCS: "TCS.NS",
-  INFY: "INFY.NS",
-  HDFCBANK: "HDFCBANK.NS",
-  ICICIBANK: "ICICIBANK.NS",
-  ITC: "ITC.NS",
-  KOTAKBANK: "KOTAKBANK.NS",
-  SBIN: "SBIN.NS",
-};
-
-// ===== Global Error Handler (MUST be last) =====
+// ================== ERROR HANDLER (LAST) ==================
 app.use(errorHandler);
