@@ -20,7 +20,7 @@ const MONGO_URL = process.env.MONGO_URL;
 // ✅ Allowed Frontend Origins (Local + Amplify)
 const allowedOrigins = [
   "http://localhost:3000", // local React
-  "https://main.d1z91v4h87g5dz.amplifyapp.com", // Amplify current
+  "https://main.d1d6wntnzbxowc.amplifyapp.com" // Amplify current
 ];
 
 // ================== MIDDLEWARE ==================
