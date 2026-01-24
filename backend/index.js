@@ -31,8 +31,7 @@ app.use(
   })
 );
 
-// ✅ Preflight support
-app.options("/*", cors());
+
 
 app.use(express.json());
 app.use(cookieParser());
