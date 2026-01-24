@@ -4,16 +4,18 @@ import asyncHandler from "../utils/asyncHandler.js";
 import validateRequest from "../middlewares/validateRequest.js";
 import { createOrderSchema } from "../validators/orderValidator.js";
 import { getCachedPrice, setCachedPrice } from "../utils/priceCache.js";
-
+import { createOrder, getOrders } from "../controllers/orderController.js";
 
 import protect from "../middlewares/authmiddleware.js";
-import { HoldingsModel } from "../model/HoldingsModel.js";
-import { PositionsModel } from "../model/PositionsModel.js";
-import { OrdersModel } from "../model/OrdersModel.js";
+
+// ✅ DEFAULT model imports
+import Holdings from "../model/HoldingsModel.js";
+import Positions from "../model/PositionsModel.js";
+import Orders from "../model/OrdersModel.js";
 
 const router = express.Router();
 
-// helper symbolMap (reuse across routes)
+// helper symbol map
 const SYMBOL_MAP = {
   RELIANCE: "RELIANCE.NS",
   TCS: "TCS.NS",
@@ -25,16 +27,19 @@ const SYMBOL_MAP = {
   SBIN: "SBIN.NS",
 };
 
-// ✅ Holdings
+//
+// ✅ HOLDINGS
+//
 router.get("/holdings", protect, async (req, res) => {
   try {
-    const allHoldings = await HoldingsModel.find({ userId: req.user.id });
+    const allHoldings = await Holdings.find({ userId: req.user.id });
     if (!allHoldings || allHoldings.length === 0) return res.json([]);
 
     const updatedHoldings = await Promise.all(
       allHoldings.map(async (holding) => {
         const symbol = SYMBOL_MAP[holding.name] || `${holding.name}.NS`;
         const quote = await yahooFinance.quote(symbol);
+
         const curValue = quote.regularMarketPrice * holding.qty;
         const net = curValue - holding.avg * holding.qty;
 
@@ -55,16 +60,19 @@ router.get("/holdings", protect, async (req, res) => {
   }
 });
 
-// ✅ Positions
+//
+// ✅ POSITIONS
+//
 router.get("/positions", protect, async (req, res) => {
   try {
-    const allPositions = await PositionsModel.find({ userId: req.user.id });
+    const allPositions = await Positions.find({ userId: req.user.id });
     if (!allPositions || allPositions.length === 0) return res.json([]);
 
     const updatedPositions = await Promise.all(
       allPositions.map(async (position) => {
         const symbol = SYMBOL_MAP[position.name] || `${position.name}.NS`;
         const quote = await yahooFinance.quote(symbol);
+
         const curValue = quote.regularMarketPrice * position.qty;
         const net = curValue - position.avg * position.qty;
 
@@ -85,62 +93,20 @@ router.get("/positions", protect, async (req, res) => {
   }
 });
 
+//
+// ORDERS
 
-router.get(
-  "/orders",
-  protect,
-  asyncHandler(async (req, res) => {
-    const allOrders = await OrdersModel.find({ userId: req.user.id }).sort({
-      createdAt: -1,
-    });
-
-    if (!allOrders || allOrders.length === 0) {
-      return res.json([]);
-    }
-
-   let price = getCachedPrice(symbol);
-
-    if (!price) {
-       try {
-        const quote = await yahooFinance.quote(symbol);
-        price = quote.regularMarketPrice;
-
-        setCachedPrice(symbol, price);
-        } catch (err) {
-    // fallback: keep existing order price if cache exists
-    price = order.price;
-        } 
-    }
-
-return { ...order._doc, price };
+  router.get("/orders", protect, getOrders);
 
 
-    res.json(updatedOrders);
-  })
-);
-
-
-// Create new order
+//
+// CREATE ORDER
+//
 router.post(
   "/orders",
   protect,
   validateRequest(createOrderSchema),
-  asyncHandler(async (req, res) => {
-    const { name, qty, price, mode } = req.body;
-
-    const newOrder = new OrdersModel({
-      name,
-      qty,
-      price,
-      mode,
-      userId: req.user.id,
-    });
-
-    await newOrder.save();
-
-    res.status(201).json({ message: "Order placed", order: newOrder });
-  })
+  createOrder
 );
-
 
 export default router;

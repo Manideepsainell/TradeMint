@@ -5,6 +5,8 @@ import User from "../model/UserModel.js";
 import validateRequest from "../middlewares/validateRequest.js";
 import { loginSchema } from "../validators/authValidator.js";
 import asyncHandler from "../utils/asyncHandler.js";
+import { login } from "../controllers/authController.js";
+
 const router = express.Router();
 
 const COOKIE_OPTS = {
@@ -55,31 +57,11 @@ router.post("/signup", async (req, res) => {
 });
 
 // ===== Login =====
-router.post("/login", validateRequest(loginSchema),asyncHandler(async (req, res) => {
-    const email = (req.body.email || "").trim().toLowerCase();
-    const password = req.body.password;
- 
-    const user = await User.findOne({ email }).select("+password");
-      if (!user) {
-      res.status(401);
-      throw new Error("Invalid credentials");
-      }
 
-    const isMatch = await user.matchPassword(password);
-    if (!isMatch) {
-      res.status(401);
-      throw new Error("Invalid credentials");
-    }
-
-    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
-      expiresIn: "1h",
-    });
-
-    res.cookie("token", token, COOKIE_OPTS).json({
-      message: "Login successful",
-      user: { id: user._id, username: user.username, email: user.email },
-    });
-  })
+router.post(
+  "/login",
+  validateRequest(loginSchema),
+  login
 );
 
 // ===== Current user (session check) =====
