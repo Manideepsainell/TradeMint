@@ -22,7 +22,7 @@ const CLIENT_URL = process.env.CLIENT_URL || "http://localhost:3000";
 // ================== MIDDLEWARE ==================
 app.use(
   cors({
-    origin: CLIENT_URL,        // ✅ ENV-based frontend URL
+    origin: process.env.CLIENT_URL,        // ✅ ENV-based frontend URL
     credentials: true,         // ✅ allow cookies
   })
 );

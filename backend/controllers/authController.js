@@ -3,10 +3,11 @@ import { loginService } from "../services/authService.js";
 
 const COOKIE_OPTS = {
   httpOnly: true,
-  secure: process.env.NODE_ENV === "production",
-  sameSite: "strict",
+  secure: process.env.NODE_ENV === "production", 
+  sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
   maxAge: 60 * 60 * 1000, // 1 hour
 };
+
 
 export const login = asyncHandler(async (req, res) => {
   const email = req.body.email?.trim().toLowerCase();
