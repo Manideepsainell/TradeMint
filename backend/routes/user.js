@@ -3,6 +3,8 @@ import yahooFinance from "yahoo-finance2";
 import asyncHandler from "../utils/asyncHandler.js";
 import validateRequest from "../middlewares/validateRequest.js";
 import { createOrderSchema } from "../validators/orderValidator.js";
+import { getCachedPrice, setCachedPrice } from "../utils/priceCache.js";
+
 
 import protect from "../middlewares/authmiddleware.js";
 import { HoldingsModel } from "../model/HoldingsModel.js";
@@ -96,14 +98,22 @@ router.get(
       return res.json([]);
     }
 
-    const updatedOrders = await Promise.all(
-      allOrders.map(async (order) => {
-        const symbol = SYMBOL_MAP[order.name] || `${order.name}.NS`;
-        const quote = await yahooFinance.quote(symbol);
+   let price = getCachedPrice(symbol);
 
-        return { ...order._doc, price: quote.regularMarketPrice };
-      })
-    );
+    if (!price) {
+       try {
+        const quote = await yahooFinance.quote(symbol);
+        price = quote.regularMarketPrice;
+
+        setCachedPrice(symbol, price);
+        } catch (err) {
+    // fallback: keep existing order price if cache exists
+    price = order.price;
+        } 
+    }
+
+return { ...order._doc, price };
+
 
     res.json(updatedOrders);
   })
