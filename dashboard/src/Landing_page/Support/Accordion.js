@@ -3,72 +3,67 @@ import "./Accordion.css";
 
 const items = [
   {
-    title: "Account Opening",
+    title: "Getting Started",
     icon: "media/images/icon_1.png",
     iconSize: 60,
     links: [
-      "Resident individual",
-      "Minor",
-      "Non Resident Indian (NRI)",
-      "Company, Partnership, HUF and LLP",
-      "Glossary",
+      "Login & Session Restore",
+      "Dashboard Overview",
+      "Protected Routes",
+      "Demo Account Setup",
     ],
   },
   {
-    title: "Your Zerodha Account",
+    title: "Trading & Orders",
     icon: "media/images/icon_2.png",
     iconSize: 60,
     links: [
-      "Your Profile",
-      "Account Modification",
-      "Client Master Report (CMR) and DP",
-      "Nomination",
-      "Transfer and conversion of securities",
+      "Placing Buy Orders",
+      "Placing Sell Orders",
+      "Order History",
+      "Execution Engine Workflow",
     ],
   },
   {
-    title: "Kite",
+    title: "Portfolio Analytics",
     icon: "media/images/icon_7.png",
-    iconSize: 45,
+    iconSize: 50,
     links: [
-      "IPO",
-      "Trading FAQs",
-      "Margin Trading Facility (MTF) and Margins",
-      "Charts and orders",
-      "Alerts and Nudges",
-      "General",
+      "Holdings Tracking",
+      "Positions Monitoring",
+      "Real-Time P&L Calculation",
+      "Portfolio Value Summary",
     ],
   },
   {
-    title: "Funds",
+    title: "Brokerage & Charges",
     icon: "media/images/icon_3.png",
     iconSize: 60,
-    links: ["Add money", "Withdraw money", "Add bank accounts", "eMandates"],
-  },
-  {
-    title: "Console",
-    icon: "media/images/icon_4.png",
-    iconSize: 65,
     links: [
-      "Portfolio",
-      "Corporate actions",
-      "Funds statement",
-      "Reports",
-      "Profile",
-      "Segments",
+      "Charges Breakdown",
+      "Gross vs Net Profit",
+      "Trade Cost Transparency Module",
     ],
   },
   {
-    title: "Coin",
-    icon: "media/images/icon_5.png",
-    iconSize: 65,
+    title: "Smart Alerts",
+    icon: "media/images/icon_4.png",
+    iconSize: 60,
     links: [
-      "Mutual funds",
-      "National Pension Scheme (NPS)",
-      "Fixed Deposit (FD)",
-      "Features on Coin",
-      "Payments and Orders",
-      "General",
+      "Exposure Warnings",
+      "Daily Drop Alerts",
+      "Recent Activity Insights",
+    ],
+  },
+  {
+    title: "Backend Architecture",
+    icon: "media/images/icon_5.png",
+    iconSize: 60,
+    links: [
+      "Routes → Controllers → Services",
+      "MongoDB Models & Schemas",
+      "Caching + Market Data Integration",
+      "API Security with Middleware",
     ],
   },
 ];
@@ -79,10 +74,9 @@ function Accordion() {
 
   return (
     <section className="landing-section support-accordion-section py-5">
-      {/* ✅ use BOOTSTRAP container */}
       <div className="container">
         <div className="row g-4">
-          {/* LEFT: ACCORDION */}
+          {/* ✅ LEFT: Accordion */}
           <div className="col-lg-8 col-12">
             <div className="accordion-custom">
               {items.map((item, i) => (
@@ -102,7 +96,9 @@ function Accordion() {
                         />
                       </span>
 
-                      <span className="accordion-title fs-5">{item.title}</span>
+                      <span className="accordion-title fs-5">
+                        {item.title}
+                      </span>
 
                       <span className="accordion-caret">
                         {open === i ? (
@@ -118,7 +114,7 @@ function Accordion() {
                     <ul>
                       {item.links.map((txt) => (
                         <li key={txt}>
-                          <a href="#">{txt}</a>
+                          <span>{txt}</span>
                         </li>
                       ))}
                     </ul>
@@ -128,39 +124,33 @@ function Accordion() {
             </div>
           </div>
 
-          {/* RIGHT: SIDEBAR */}
+          {/* ✅ RIGHT: Sidebar */}
           <div className="col-lg-4 col-12">
             <div className="support-alert">
-              <ul className="support-alert-list">
-                <li>
-                  <a href="#">
-                    Exclusion of F&amp;O contracts on 8 securities from August
-                    29, 2025
-                  </a>
-                </li>
-                <li>
-                  <a href="#">
-                    Revision in expiry day of Index and Stock derivatives
-                    contracts
-                  </a>
-                </li>
-              </ul>
+              <p className="mb-2 fw-bold">Platform Note</p>
+              <p className="text-muted mb-0">
+                TradeMint is a full-stack fintech engineering project built to
+                demonstrate real trading workflows, execution logic, and backend
+                architecture.
+              </p>
             </div>
 
             <div className="support-quicklinks mt-4">
-              <div className="support-quicklinks-head">Quick links</div>
+              <div className="support-quicklinks-head">
+                Quick Links
+              </div>
 
-              <a className="support-quicklink" href="#">
-                1. Track account opening
+              <a className="support-quicklink" href="/login">
+                Launch Dashboard
               </a>
-              <a className="support-quicklink" href="#">
-                2. Track segment activation
+              <a className="support-quicklink" href="/dashboard/orders">
+                View Orders
               </a>
-              <a className="support-quicklink" href="#">
-                3. Intraday margins
+              <a className="support-quicklink" href="/dashboard/holdings">
+                View Holdings
               </a>
-              <a className="support-quicklink" href="#">
-                4. Kite user manual
+              <a className="support-quicklink" href="/charges">
+                Brokerage Module
               </a>
             </div>
           </div>

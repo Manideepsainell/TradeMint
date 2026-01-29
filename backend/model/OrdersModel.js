@@ -1,6 +1,4 @@
-// model/OrdersModel.js
-import { model } from "mongoose";
+import mongoose from "mongoose";
 import OrdersSchema from "../schemas/OrdersSchema.js";
 
-
-export default model("Orders", OrdersSchema);
+export default mongoose.model("Order", OrdersSchema);

@@ -1,66 +1,73 @@
 import React from "react";
-
+import { Link } from "react-router-dom";
+import './Universe.css'
 function Universe() {
   return (
     <section className="landing-section">
       <div className="landing-inner">
+        {/* Header */}
         <div className="text-center">
-          <h2 className="fs-3" style={{ fontWeight: 600 }}>
-            The Zerodha Universe
+          <h2 className="universe-title">
+            The TradeMint Platform Ecosystem
           </h2>
-          <p className="text-muted" style={{ marginTop: "10px" }}>
-            Extend your trading and investment experience even further with our partner platforms
+
+          <p className="universe-subtitle">
+            TradeMint combines execution, analytics, and portfolio intelligence
+            into a single modern trading dashboard.
           </p>
         </div>
 
+        {/* Grid Modules */}
         <div className="universe-grid">
           <div className="universe-card">
-            <img src="/media/images/zerodhaFundhouse.png" alt="Zerodha Fund House" />
+            <h3>📈 Trade Execution</h3>
             <p>
-              Our asset management venture creating simple and transparent index funds.
+              Buy/Sell workflows with holdings updates and realistic trading
+              behavior.
             </p>
           </div>
 
           <div className="universe-card">
-            <img src="/media/images/sensibullLogo.svg" alt="Sensibull" />
+            <h3>💰 Brokerage Engine</h3>
             <p>
-              Options trading platform that lets you create strategies and analyse positions.
+              Net profit calculation after transaction costs — a standout fintech feature.
             </p>
           </div>
 
           <div className="universe-card">
-            <img src="/media/images/tijori.svg" alt="Tijori" />
+            <h3>📊 Portfolio Analytics</h3>
             <p>
-              Investment research platform offering detailed insights on stocks & sectors.
+              Holdings, positions, P&L metrics, and portfolio value summaries in real time.
             </p>
           </div>
 
           <div className="universe-card">
-            <img src="/media/images/streakLogo.png" alt="Streak" />
+            <h3>🔔 Smart Alerts</h3>
             <p>
-              Systematic trading platform that allows you to backtest strategies without coding.
+              Exposure warnings, daily movement insights, and activity-based notifications.
             </p>
           </div>
 
           <div className="universe-card">
-            <img src="/media/images/smallcaseLogo.png" alt="Smallcase" />
+            <h3>⚡ Live Market Data</h3>
             <p>
-              Thematic investing platform to invest in diversified baskets of stocks.
+              Integrated real-time pricing using Yahoo Finance API with caching optimization.
             </p>
           </div>
 
           <div className="universe-card">
-            <img src="/media/images/dittoLogo.png" alt="Ditto" />
+            <h3>🚀 Future Roadmap</h3>
             <p>
-              Personalized advice on life & health insurance. No spam and no mis-selling.
+              Planned features include user-defined alerts, charts, and deeper trade reports.
             </p>
           </div>
         </div>
 
-        <div className="text-center" style={{ marginTop: "50px" }}>
-          <button className="btn btn-primary px-4 py-2 fs-5">
-            Sign Up for free
-          </button>
+        {/* CTA */}
+        <div className="universe-cta">
+          <Link to="/login" className="hero-btn-primary universe-btn">
+            Launch TradeMint Dashboard
+          </Link>
         </div>
       </div>
     </section>

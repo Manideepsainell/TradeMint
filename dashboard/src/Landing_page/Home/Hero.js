@@ -1,27 +1,44 @@
 import React from "react";
 import { Link } from "react-router-dom";
-
+import './Hero.css'
 function Hero() {
   return (
     <section className="landing-section hero-section py-5">
       <div className="container text-center">
+        {/* ✅ Hero Image */}
         <img
           src="/media/images/homeHero.png"
-          alt="Hero"
-          className="img-fluid"
+          alt="TradeMint Platform"
+          className="img-fluid hero-image"
         />
 
-        <h3 className="mt-5 fs-2">Invest in everything</h3>
+        {/* ✅ Main Heading */}
+        <h1 className="mt-5 hero-title">
+          TradeMint — Trading & Portfolio Intelligence
+        </h1>
 
-        <p className="fs-5 mb-4">
-          Online platform to invest in stocks, derivatives, mutual funds, ETFs,
-          bonds, and more.
+        {/* ✅ Subtitle */}
+        <p className="hero-subtitle">
+          A modern full-stack trading platform with live market data, secure
+          execution workflows, brokerage-aware net profit, and smart portfolio
+          insights.
         </p>
 
-        {/* ✅ responsive CTA */}
-        <Link to="/signup" className="btn btn-primary fs-5 px-4 py-2">
-          Sign Up for free
-        </Link>
+        {/* ✅ CTA Buttons */}
+        <div className="hero-cta">
+          <Link to="/login" className="btn hero-btn-primary">
+            Launch Dashboard
+          </Link>
+
+          <a href="#features" className="btn hero-btn-secondary">
+            View Features
+          </a>
+        </div>
+
+        {/* ✅ Small Recruiter Note */}
+        <p className="hero-note">
+          Built as a production-style MERN fintech project.
+        </p>
       </div>
     </section>
   );

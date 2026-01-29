@@ -11,8 +11,6 @@ export const createOrderSchema=z.object({
     price:z
     .number()
     .positive("Price must be greater than zero"),
-    mode:z.enum(["BUY","SELL"],{
-        errorMap:()=>({message:"Mode must be BUY or SELL"}),
+      mode: z.enum(["BUY", "SELL"]),
 
-    }),
 })

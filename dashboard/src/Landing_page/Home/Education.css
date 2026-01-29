@@ -1,0 +1,49 @@
+/* ============================================================
+   EDUCATION / INSIGHTS — TradeMint
+============================================================ */
+
+.education-section {
+  background: var(--card);
+}
+
+/* Image */
+.education-img {
+  max-width: 460px;
+}
+
+/* Heading */
+.education-section h1 {
+  font-weight: 900;
+  color: var(--text);
+}
+
+/* Paragraphs */
+.education-section p {
+  color: var(--muted) !important;
+  font-size: 15px;
+  line-height: 1.7;
+}
+
+/* CTA Links */
+.education-section .landing-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 8px;
+  color: var(--brand);
+  font-weight: 700;
+  text-decoration: none;
+  transition: 0.2s ease;
+}
+
+.education-section .landing-link i {
+  transition: transform 0.2s ease;
+}
+
+.education-section .landing-link:hover {
+  color: var(--brand-dark);
+}
+
+.education-section .landing-link:hover i {
+  transform: translateX(4px);
+}

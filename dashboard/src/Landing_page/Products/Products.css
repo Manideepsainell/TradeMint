@@ -1,0 +1,10 @@
+/* ============================================================
+   PRODUCTS PAGE — Closing Statement
+============================================================ */
+
+.products-closing-text {
+  font-size: 18px;
+  color: var(--muted);
+  margin: 0;
+  line-height: 1.7;
+}

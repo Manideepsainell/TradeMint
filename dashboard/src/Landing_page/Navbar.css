@@ -1,0 +1,124 @@
+/* ============================================================
+   NAVBAR — TradeMint
+============================================================ */
+
+.landing-navbar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background: var(--card);
+  border-bottom: 1px solid var(--border);
+  z-index: 1000;
+}
+
+.landing-navbar-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 14px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Brand */
+.brand-text {
+  font-size: 22px;
+  font-weight: 900;
+  color: var(--text);
+}
+
+.brand-text span {
+  color: var(--brand);
+}
+
+/* Links */
+.landing-links {
+  display: flex;
+  align-items: center;
+  gap: 26px;
+}
+
+.landing-link {
+  text-decoration: none;
+  font-weight: 600;
+  color: var(--muted);
+  transition: 0.2s ease;
+}
+
+.landing-link:hover {
+  color: var(--brand);
+}
+
+/* Login Button (outline style) */
+.landing-login-btn {
+  padding: 8px 16px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  color: var(--text);
+  font-weight: 600;
+  text-decoration: none;
+  background: white;
+  transition: 0.2s ease;
+}
+
+.landing-login-btn:hover {
+  border-color: var(--brand);
+  color: var(--brand);
+}
+
+/* Logout text button */
+.landing-link-btn {
+  background: none;
+  border: none;
+  font-weight: 600;
+  color: var(--muted);
+  cursor: pointer;
+}
+
+.landing-link-btn:hover {
+  color: var(--brand);
+}
+
+/* Dashboard CTA (primary button) */
+.dashboard-btn {
+  padding: 9px 18px;
+  border-radius: 10px;
+  border: none;
+  background: var(--brand);
+  color: white;
+  font-weight: 700;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.dashboard-btn:hover {
+  background: var(--brand-dark);
+  transform: translateY(-1px);
+}
+
+/* Flash Message */
+.landing-flash {
+  position: fixed;
+  top: 85px;
+  left: 20px;
+  background: var(--brand);
+  color: white;
+  padding: 12px 20px;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  z-index: 2000;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+}
+
+/* Mobile */
+@media (max-width: 900px) {
+  .landing-links {
+    gap: 14px;
+    flex-wrap: wrap;
+  }
+
+  .dashboard-btn {
+    padding: 8px 14px;
+  }
+}

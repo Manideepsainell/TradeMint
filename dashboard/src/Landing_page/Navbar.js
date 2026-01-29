@@ -2,20 +2,19 @@ import React, { useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { AuthContext } from "../context/AuthContext";
-
+import './Navbar.css'
 function Navbar() {
   const { user, logout, flash, showFlash } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const handleDashboardClick = () => {
-  if (user) {
-    navigate("/dashboard");
-  } else {
-    showFlash("Please login to go to dashboard");
-    navigate("/login");
-  }
-};
-
+    if (user) {
+      navigate("/dashboard");
+    } else {
+      showFlash("Please login to access the TradeMint Dashboard");
+      navigate("/login");
+    }
+  };
 
   const handleLogout = async () => {
     try {
@@ -34,52 +33,55 @@ function Navbar() {
 
   return (
     <>
-      {/* ✅ Flash message */}
-      {flash && (
-        <div className="landing-flash">
-          {flash}
-        </div>
-      )}
+      {/* ✅ Flash Message */}
+      {flash && <div className="landing-flash">{flash}</div>}
 
-      {/* ✅ Full-width Navbar */}
+      {/* ✅ Navbar */}
       <nav className="landing-navbar">
         <div className="landing-navbar-inner">
-          {/* Logo */}
+          {/* ✅ Brand */}
           <Link className="landing-brand" to="/">
-            <img
-              src="/media/images/logo.svg"
-              alt="Zerodha"
-              className="landing-logo"
-            />
+            <span className="brand-text">
+              Trade<span>Mint</span>
+            </span>
           </Link>
 
-          {/* Links */}
+          {/* ✅ Links */}
           <div className="landing-links">
+            <Link className="landing-link" to="/about">
+              About
+            </Link>
+
+            <Link className="landing-link" to="/products">
+              Platform
+            </Link>
+
+           <Link className="landing-link" to="/pricing">
+  Charges
+</Link>
+
+
+
+            <Link className="landing-link" to="/support">
+              Help
+            </Link>
+
+            {/* ✅ Auth Button */}
             {!user ? (
-              <>
-                <Link className="landing-link" to="/signup">SignUp</Link>
-                <Link className="landing-link" to="/login">Login</Link>
-              </>
+              <Link className="landing-login-btn" to="/login">
+                Login
+              </Link>
             ) : (
               <button className="landing-link-btn" onClick={handleLogout}>
                 Logout
               </button>
             )}
 
-            <Link className="landing-link" to="/about">About</Link>
-            <Link className="landing-link" to="/products">Products</Link>
-            <Link className="landing-link" to="/pricing">Pricing</Link>
-            <Link className="landing-link" to="/support">Support</Link>
+            {/* ✅ Dashboard CTA */}
+            <button className="dashboard-btn" onClick={handleDashboardClick}>
+              Dashboard →
+            </button>
           </div>
-
-          {/* Dashboard icon */}
-          <button
-            className="landing-hamburger"
-            onClick={handleDashboardClick}
-            title="Go to Dashboard"
-          >
-            &#9776;
-          </button>
         </div>
       </nav>
     </>

@@ -1,14 +1,15 @@
 import jwt from "jsonwebtoken";
+import mongoose from "mongoose";
 
 const protect = (req, res, next) => {
   let token;
 
-  // ✅ 1) Check cookie first (cookie auth)
+  // ✅ Cookie auth
   if (req.cookies?.token) {
     token = req.cookies.token;
   }
 
-  // ✅ 2) Fallback to Authorization header (optional)
+  // ✅ Header fallback
   if (!token && req.headers.authorization?.startsWith("Bearer")) {
     token = req.headers.authorization.split(" ")[1];
   }
@@ -19,7 +20,12 @@ const protect = (req, res, next) => {
 
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    req.user = { id: decoded.id };
+
+    // ✅ Convert string → ObjectId
+    req.user = {
+      id: new mongoose.Types.ObjectId(decoded.id),
+    };
+
     next();
   } catch (err) {
     return res.status(401).json({ message: "Invalid token" });

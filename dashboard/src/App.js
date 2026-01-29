@@ -1,10 +1,16 @@
 import React from "react";
+import "./styles/theme.css";
+import "./styles/dashboard.css";
+import "./styles/orders.css";
+import "./styles/watchlist.css";
+import "./styles/Holdings.css"
+
 import { Routes, Route } from "react-router-dom";
 import LandingLayout from "./Landing_page/LandingLayout";
 import ProtectedRoute from "./components/ProtectedRoute";
 import DashboardLayout from "./components/DashboardLayout";
 
-
+import AlertsPage from "./components/AlertsPage";
 // ✅ Public Landing Pages
 import Home from "./Landing_page/Home/Home";
 import About from "./Landing_page/About/About";
@@ -51,6 +57,7 @@ const App = () => {
     <Route path="holdings" element={<Holdings />} />
     <Route path="positions" element={<Positions />} />
     <Route path="funds" element={<Funds />} />
+    <Route path="alerts" element={<AlertsPage />} />
   </Route>
 </Routes>
 

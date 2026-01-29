@@ -5,9 +5,19 @@ import { AuthContext } from "../context/AuthContext";
 const ProtectedRoute = ({ children }) => {
   const { user, loading } = useContext(AuthContext);
 
-  if (loading) return <p style={{ padding: "20px" }}>Loading...</p>;
+  /* ✅ Global loading state */
+  if (loading) {
+    return (
+      <div className="route-loading">
+        Checking authentication...
+      </div>
+    );
+  }
 
-  if (!user) return <Navigate to="/login" replace />;
+  /* ✅ Redirect if not logged in */
+  if (!user) {
+    return <Navigate to="/login" replace />;
+  }
 
   return children;
 };

@@ -1,58 +1,59 @@
 import React from "react";
-
+import './Stats.css'
 function Stats() {
   return (
     <section className="landing-section stats-section py-5">
       <div className="container">
         <div className="row align-items-center g-4">
-          {/* Left */}
+          {/* ✅ Left Content */}
           <div className="col-md-6">
-            <h2 className="fs-2 mb-4">Trust with confidence</h2>
+            <h2 className="fs-2 mb-4 fw-bold">
+              Built with Production-Style Architecture
+            </h2>
 
-            <h3 className="fs-5">Customer-first always</h3>
+            <h3 className="fs-5">Secure authentication</h3>
             <p className="text-muted">
-              That's why 1.6+ crore customers trust Zerodha with ~ ₹6 lakh crores
-              of equity investments, making us India’s largest broker;
-              contributing to 15% of daily retail exchange volumes in India.
+              TradeMint uses cookie-based JWT authentication with protected routes
+              and session restoration, following real-world backend practices.
             </p>
 
-            <h3 className="fs-5 mt-4">No spam or gimmicks</h3>
+            <h3 className="fs-5 mt-4">Execution-level trading workflows</h3>
             <p className="text-muted">
-              No gimmicks, spam, "gamification", or annoying push notifications.
-              High quality apps that you use at your pace, the way you like.
+              Users can place buy/sell orders, track holdings and positions, and
+              view portfolio profit/loss updates dynamically through backend APIs.
             </p>
 
-            <h3 className="fs-5 mt-4">The Zerodha universe</h3>
+            <h3 className="fs-5 mt-4">Brokerage-aware profit calculations</h3>
             <p className="text-muted">
-              Not just an app, but a whole ecosystem. Our investments in 30+
-              fintech startups offer you tailored services specific to your
-              needs.
+              Unlike basic dashboards, TradeMint computes net profit after
+              transaction charges, making portfolio returns more realistic.
             </p>
 
-            <h3 className="fs-5 mt-4">Do better with money</h3>
+            <h3 className="fs-5 mt-4">Smart insights & alerts</h3>
             <p className="text-muted">
-              With initiatives like Nudge and Kill Switch, we don't just
-              facilitate transactions, but actively help you do better with your
-              money.
+              The platform provides portfolio-level insights such as exposure
+              alerts, daily drops, and recent trading activity for better
+              decision-making.
             </p>
           </div>
 
-          {/* Right */}
+          {/* ✅ Right Illustration */}
           <div className="col-md-6 text-center">
             <img
               src="/media/images/ecosystem.png"
-              alt="Ecosystem"
-              className="img-fluid"
+              alt="TradeMint Dashboard Preview"
+              className="img-fluid stats-image"
             />
 
+            {/* ✅ CTA Links */}
             <div className="mt-4 d-flex justify-content-center gap-4 flex-wrap">
-              <a href="#" style={{ textDecoration: "none" }}>
-                Explore our products{" "}
+              <a href="#features" className="landing-link">
+                View Platform Features{" "}
                 <i className="fa fa-long-arrow-right" aria-hidden="true"></i>
               </a>
 
-              <a href="#" style={{ textDecoration: "none" }}>
-                Try Kite demo{" "}
+              <a href="/login" className="landing-link">
+                Launch Dashboard{" "}
                 <i className="fa fa-long-arrow-right" aria-hidden="true"></i>
               </a>
             </div>

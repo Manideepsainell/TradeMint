@@ -1,35 +1,77 @@
 import React, { useState } from "react";
-
-import BuyActionWindow from "./BuyActionWindow";
+import TradeModal from "./TradeModal";
 
 const GeneralContext = React.createContext({
   openBuyWindow: (uid) => {},
-  closeBuyWindow: () => {},
+  openSellWindow: (uid) => {},
+  closeTradeWindow: () => {},
 });
 
-export const GeneralContextProvider = (props) => {
-  const [isBuyWindowOpen, setIsBuyWindowOpen] = useState(false);
-  const [selectedStockUID, setSelectedStockUID] = useState("");
+export const GeneralContextProvider = ({ children }) => {
+  /* ============================================================
+     SINGLE MODAL STATE
+  ============================================================ */
 
-  const handleOpenBuyWindow = (uid) => {
-    setIsBuyWindowOpen(true);
-    setSelectedStockUID(uid);
+  const [tradeModal, setTradeModal] = useState({
+    isOpen: false,
+    uid: null,
+    mode: "BUY", // BUY or SELL
+  });
+
+  /* ============================================================
+     OPEN BUY / SELL
+  ============================================================ */
+
+  const openBuyWindow = (uid) => {
+    setTradeModal({
+      isOpen: true,
+      uid,
+      mode: "BUY",
+    });
   };
 
-  const handleCloseBuyWindow = () => {
-    setIsBuyWindowOpen(false);
-    setSelectedStockUID("");
+  const openSellWindow = (uid) => {
+    setTradeModal({
+      isOpen: true,
+      uid,
+      mode: "SELL",
+    });
   };
+
+  /* ============================================================
+     CLOSE MODAL
+  ============================================================ */
+
+  const closeTradeWindow = () => {
+    setTradeModal({
+      isOpen: false,
+      uid: null,
+      mode: "BUY",
+    });
+  };
+
+  /* ============================================================
+     PROVIDER
+  ============================================================ */
 
   return (
     <GeneralContext.Provider
       value={{
-        openBuyWindow: handleOpenBuyWindow,
-        closeBuyWindow: handleCloseBuyWindow,
+        openBuyWindow,
+        openSellWindow,
+        closeTradeWindow,
       }}
     >
-      {props.children}
-      {isBuyWindowOpen && <BuyActionWindow uid={selectedStockUID} />}
+      {children}
+
+      {/* ✅ Render ONE Unified Modal */}
+      {tradeModal.isOpen && (
+        <TradeModal
+          uid={tradeModal.uid}
+          mode={tradeModal.mode}
+          onClose={closeTradeWindow}
+        />
+      )}
     </GeneralContext.Provider>
   );
 };

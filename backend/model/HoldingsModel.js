@@ -1,6 +1,6 @@
 // model/HoldingsModel.js
-import { model } from "mongoose";
-import HoldingSchema from "../schemas/HoldingSchema.js"; // default export from schema
 
-export default model("Holdings", HoldingSchema);
+import mongoose from "mongoose";
+import HoldingSchema from "../schemas/HoldingSchema.js";
 
+export default mongoose.model("Holding", HoldingSchema);

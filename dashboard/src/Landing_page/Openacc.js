@@ -1,19 +1,22 @@
 import React from "react";
 import { Link } from "react-router-dom";
-
+import './Openacc.js'
 function Openacc() {
   return (
-    <section className="landing-section openacc-section py-5">
-      <div className="container text-center">
-        <h3 className="fs-3 mb-3">Open a Zerodha account</h3>
+    <section className="landing-section openacc-section">
+      <div className="landing-inner openacc-inner">
+        <h3 className="openacc-title">
+          Ready to Explore TradeMint?
+        </h3>
 
-        <p className="text-muted mb-4">
-          Modern platforms and apps, ₹0 investments, and flat ₹20 intraday and
-          F&amp;O trades.
+        <p className="openacc-subtitle">
+          Access the TradeMint trading dashboard to view holdings, place orders,
+          track portfolio performance, and see brokerage-aware net profit — built
+          with a production-style MERN backend.
         </p>
 
-        <Link to="/signup" className="btn btn-primary fs-5 px-4 py-2">
-          Sign up for free
+        <Link to="/login" className="hero-btn-primary openacc-btn">
+          Launch Dashboard →
         </Link>
       </div>
     </section>

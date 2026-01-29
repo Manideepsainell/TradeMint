@@ -1,45 +1,38 @@
 import React, { useState, useContext } from "react";
-import { Link } from "react-router-dom";
-import api from "../../api/axios";
-   // ✅ use your axios instance
+import { Link, useNavigate } from "react-router-dom";
+import api from "../services/api";
 import { AuthContext } from "../../context/AuthContext";
 
 function Signup() {
   const [form, setForm] = useState({ username: "", email: "", password: "" });
   const { login } = useContext(AuthContext);
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
-      const res = await api.post("/api/auth/signup", form, {
-        headers: { "Content-Type": "application/json" },
-      });
+      const res = await api.post("/api/auth/signup", form);
 
-      if (res.data?.user) {
-        const userData = {
-          id: res.data.user.id,
-          username: res.data.user.username,
-          email: res.data.user.email,
-        };
-
-        login(userData);
-
-        // ✅ redirect to dashboard directly
-        window.location.href = "http://localhost:3001";
+      if (res.data?.success) {
+        login(res.data.data);
+        navigate("/dashboard");
       } else {
         alert("Signup failed!");
       }
     } catch (err) {
       console.error("Signup error:", err.response?.data || err.message);
-      alert("Signup failed!");
+      alert("Signup failed. Please try again.");
     }
   };
 
   return (
     <div className="auth-wrapper">
       <div className="auth-card">
-        <h2>Create your Zerodha Clone account</h2>
+        <h2>Create your TradeMint account</h2>
+        <p className="auth-subtitle">
+          Join TradeMint and explore trading workflows with portfolio tracking.
+        </p>
 
         <form onSubmit={handleSubmit}>
           <input
@@ -47,25 +40,33 @@ function Signup() {
             placeholder="Username"
             value={form.username}
             onChange={(e) => setForm({ ...form, username: e.target.value })}
+            required
           />
+
           <input
             type="email"
-            placeholder="Email"
+            placeholder="Email address"
             value={form.email}
             onChange={(e) => setForm({ ...form, email: e.target.value })}
+            required
           />
+
           <input
             type="password"
             placeholder="Password"
             value={form.password}
             onChange={(e) => setForm({ ...form, password: e.target.value })}
+            required
           />
-          <button type="submit">Sign Up</button>
+
+          <button type="submit" className="auth-btn">
+            Sign Up →
+          </button>
         </form>
 
-        <p>
+        <p className="auth-footer">
           Already have an account?{" "}
-          <Link to="/login" style={{ textDecoration: "none", color: "#387ed1" }}>
+          <Link to="/login" className="auth-link">
             Login
           </Link>
         </p>
