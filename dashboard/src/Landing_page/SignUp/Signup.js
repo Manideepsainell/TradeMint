@@ -1,6 +1,7 @@
 import React, { useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import api from "../services/api";
+import api from '../../api/axios';
+
 import { AuthContext } from "../../context/AuthContext";
 
 function Signup() {
