@@ -9,7 +9,9 @@ import {
   getHoldings,
   getPositions,
 } from "../controllers/portfolioController.js";
-
+import { getPortfolioInsights } from "../controllers/insightsController.js";
+import { getChargesReport } from "../controllers/reportController.js";
+import { getFunds } from "../controllers/fundsController.js";
 import protect from "../middlewares/authmiddleware.js";
 
 const router = express.Router();
@@ -39,5 +41,11 @@ router.post(
   validateRequest(createOrderSchema),
   createOrder
 );
+
+router.get("/insights", protect, getPortfolioInsights);
+
+router.get("/report/charges", protect, getChargesReport);
+
+router.get("/funds", protect, getFunds);
 
 export default router;

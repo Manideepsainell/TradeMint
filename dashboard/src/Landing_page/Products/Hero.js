@@ -1,17 +1,26 @@
 import React from "react";
-
+import './Hero.css'
 function Hero() {
   return (
     <section className="landing-section">
       <div className="landing-inner text-center">
-        <h1 style={{ fontSize: "40px", fontWeight: 600 }}>Technology</h1>
-        <p className="text-muted" style={{ fontSize: "18px", marginTop: "14px" }}>
-          Sleek, modern, and intuitive trading platforms
+       <h1 className="tech-hero-title">
+
+          TradeMint Technology
+        </h1>
+
+      <p className="tech-hero-subtitle">
+
+          A production-style MERN trading platform built with scalable backend
+          architecture and real execution workflows.
         </p>
-        <p style={{ marginTop: "10px" }}>
-          Check out our{" "}
-          <a href="#" style={{ textDecoration: "none" }}>
-            investment offerings <i className="fa fa-long-arrow-right" />
+
+     <p className="tech-hero-cta">
+
+          Explore the{" "}
+          <a href="/login" className="landing-link">
+            TradeMint Dashboard{" "}
+            <i className="fa fa-long-arrow-right" aria-hidden="true"></i>
           </a>
         </p>
       </div>

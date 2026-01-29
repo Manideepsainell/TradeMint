@@ -3,56 +3,64 @@ import "./Hero.css";
 
 function Hero() {
   return (
-    <section className="landing-section">
-      <div className="landing-inner">
-        <div style={{ textAlign: "center", paddingBottom: "40px" }}>
-          <h1 style={{ fontSize: "32px", lineHeight: "1.3" }}>
-            We pioneered the discount broking model in India.
-            <br />
-            Now, we are breaking ground with our technology.
+    <section className="about-hero-section">
+      <div className="about-hero-inner">
+        {/* ✅ Heading */}
+        <div className="about-heading">
+          <h1>
+            TradeMint was built to explore how modern trading platforms work —
+            from execution to portfolio intelligence.
           </h1>
+
+          <p className="about-subtitle">
+            A full-stack fintech engineering project inspired by real-world
+            brokerage workflows.
+          </p>
         </div>
 
-        <div style={{ borderTop: "1px solid #eee", paddingTop: "40px" }}>
-          <div className="about-grid">
-            <div>
-              <p>
-                We kick-started operations on the 15th of August, 2010 with the
-                goal of breaking all barriers that traders and investors face.
-              </p>
-              <p>
-                Today, our disruptive pricing models and in-house technology
-                have made us the biggest stock broker in India.
-              </p>
-              <p>
-                Over 1.6+ crore clients place billions of orders every year
-                through our powerful ecosystem.
-              </p>
-            </div>
+        {/* ✅ Content Grid */}
+        <div className="about-grid">
+          {/* Left Column */}
+          <div>
+            <p>
+              TradeMint started as a project to understand how systems like
+              Zerodha handle trading execution, authentication, and portfolio
+              management at scale.
+            </p>
 
-            <div>
-              <p>
-                In addition, we run a number of popular open online educational
-                and community initiatives to empower retail traders.
-              </p>
-              <p>
-                <a href="#" className="text-primary text-decoration-none">
-                  Rainmatter
-                </a>{" "}
-                has invested in several fintech startups.
-              </p>
-              <p>
-                Catch up on the latest updates on our{" "}
-                <a href="#" className="text-primary text-decoration-none">
-                  blog
-                </a>{" "}
-                or read about our{" "}
-                <a href="#" className="text-primary text-decoration-none">
-                  philosophies
-                </a>
-                .
-              </p>
-            </div>
+            <p>
+              The platform includes secure cookie-based JWT login, live market
+              pricing integration, and real-time holdings and positions tracking.
+            </p>
+
+            <p>
+              A key highlight is the trade execution engine that calculates net
+              profit after brokerage and transaction charges — not just price
+              differences.
+            </p>
+          </div>
+
+          {/* Right Column */}
+          <div>
+            <p>
+              TradeMint also introduces smart portfolio insights such as exposure
+              alerts, daily drop signals, and recent order activity — making the
+              dashboard feel like a real fintech product.
+            </p>
+
+            <p>
+              The project is structured with production-style backend
+              architecture (routes, controllers, services, models) and is built
+              to be internship-ready.
+            </p>
+
+            <p>
+              Explore the platform features in the{" "}
+              <a href="/login" className="about-link">
+                TradeMint Dashboard
+              </a>
+              .
+            </p>
           </div>
         </div>
       </div>

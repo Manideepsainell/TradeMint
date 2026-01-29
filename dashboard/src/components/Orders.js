@@ -1,26 +1,28 @@
 import React, { useEffect, useState } from "react";
 import api from "../api/axios";
 
+import "../styles/orders.css";
+
 const Orders = () => {
   const [orders, setOrders] = useState([]);
   const [expandedId, setExpandedId] = useState(null);
+
   const [loading, setLoading] = useState(true);
   const [errorMsg, setErrorMsg] = useState("");
 
+  /* ============================================================
+     FETCH ORDERS
+  ============================================================ */
+
   useEffect(() => {
     const fetchOrders = async () => {
-      setLoading(true);
-      setErrorMsg("");
-
       try {
+        setLoading(true);
+
         const res = await api.get("/api/user/orders");
-
-        // ✅ support both: res.data = []  OR  res.data.orders = []
-        const data = Array.isArray(res.data) ? res.data : res.data?.orders || [];
-
-        setOrders(data);
+        setOrders(res.data?.data || []);
       } catch (err) {
-        console.error("Error fetching orders:", err);
+        console.error("Orders Fetch Error:", err);
         setErrorMsg("Failed to load orders. Please try again.");
       } finally {
         setLoading(false);
@@ -30,29 +32,41 @@ const Orders = () => {
     fetchOrders();
   }, []);
 
+  /* ============================================================
+     HELPERS
+  ============================================================ */
+
   const toggleExpand = (id) => {
     setExpandedId((prev) => (prev === id ? null : id));
   };
 
+  const formatMoney = (value) => {
+    return Number(value || 0).toFixed(2);
+  };
+
+  /* ============================================================
+     UI STATES
+  ============================================================ */
+
   if (loading) {
-    return <div className="orders-loading">Loading your orders...</div>;
+    return <div className="route-loading">Loading your orders...</div>;
   }
 
   if (errorMsg) {
-    return (
-      <div className="orders-empty">
-        <p>{errorMsg}</p>
-      </div>
-    );
+    return <div className="route-loading">{errorMsg}</div>;
   }
 
   if (!orders.length) {
     return (
-      <div className="orders-empty">
-        <p>You haven't placed any orders today</p>
+      <div className="route-loading">
+        No orders placed yet 📭
       </div>
     );
   }
+
+  /* ============================================================
+     MAIN UI
+  ============================================================ */
 
   return (
     <div className="orders-container">
@@ -60,42 +74,49 @@ const Orders = () => {
 
       <div className="orders-list">
         {orders.map((order) => {
-          const created = order?.createdAt
+          const createdAt = order?.createdAt
             ? new Date(order.createdAt).toLocaleString("en-IN", {
                 day: "2-digit",
                 month: "short",
-                year: "numeric",
                 hour: "2-digit",
                 minute: "2-digit",
               })
             : "--";
 
+          const isSell = order.mode === "SELL";
+
           return (
             <div
-              className={`order-card ${expandedId === order._id ? "expanded" : ""}`}
               key={order._id}
+              className="order-card"
               onClick={() => toggleExpand(order._id)}
             >
+              {/* HEADER */}
               <div className="order-header">
                 <div>
-                  <div className="order-name">{order.name}</div>
-                  <div className="order-date">{created}</div>
+                  <p className="order-name">{order.name}</p>
+                  <p className="order-date">{createdAt}</p>
                 </div>
 
-                <span className={`order-mode ${order.mode === "BUY" ? "buy" : "sell"}`}>
+                <span
+                  className={`order-mode ${isSell ? "sell" : "buy"}`}
+                >
                   {order.mode}
                 </span>
               </div>
 
+              {/* QUICK DETAILS */}
               <div className="order-details">
-                <p>
-                  <strong>Quantity:</strong> {order.qty}
-                </p>
-                <p>
-                  <strong>Price:</strong> ₹{order.price}
-                </p>
+                <span>
+                  <strong>Qty:</strong> {order.qty}
+                </span>
+
+                <span>
+                  <strong>Price:</strong> ₹{formatMoney(order.price)}
+                </span>
               </div>
 
+              {/* EXPANDED INFO */}
               {expandedId === order._id && (
                 <div className="order-extra">
                   <p>
@@ -103,14 +124,42 @@ const Orders = () => {
                   </p>
 
                   <p>
-                    <strong>Created:</strong>{" "}
-                    {order.createdAt ? new Date(order.createdAt).toString() : "--"}
+                    <strong>Status:</strong>{" "}
+                    {order.status || "Completed"}
                   </p>
 
-                  <p>
-                    <strong>Last Updated:</strong>{" "}
-                    {order.updatedAt ? new Date(order.updatedAt).toString() : "--"}
-                  </p>
+                  {/* SELL PROFIT BREAKDOWN */}
+                  {isSell && (
+                    <>
+                      <p>
+                        <strong>Gross Profit:</strong>{" "}
+                        ₹{formatMoney(order.grossProfit)}
+                      </p>
+
+                      <p>
+                        <strong>Total Charges:</strong>{" "}
+                        ₹{formatMoney(order?.charges?.totalCharges)}
+                      </p>
+
+                      <p>
+                        <strong>Net Profit:</strong>{" "}
+                        <span
+                          className={
+                            order.netProfit >= 0 ? "profit" : "loss"
+                          }
+                        >
+                          ₹{formatMoney(order.netProfit)}
+                        </span>
+                      </p>
+                    </>
+                  )}
+
+                  {/* BUY INFO */}
+                  {!isSell && (
+                    <p className="muted">
+                      This is a BUY order. Profit will reflect once sold.
+                    </p>
+                  )}
                 </div>
               )}
             </div>

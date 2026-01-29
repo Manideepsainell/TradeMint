@@ -1,0 +1,41 @@
+:root {
+  /* Core */
+  --text: #111827;      /* Deep gray (not black) */
+  --muted: #6B7280;     /* Soft secondary text */
+  --border: #E5E7EB;
+
+  --bg: #F3F4F6;        /* App background */
+  --card: #FFFFFF;      /* Card surfaces */
+  --soft: #F9FAFB;
+
+  /* 🔥 Premium Brand System */
+  --brand: #7C3AED;        /* Electric Indigo */
+  --brand-dark: #6D28D9;   /* Hover */
+  --accent: #1F2937;       /* Deep slate for structure */
+
+  /* Trading Colors */
+  --up: #059669;       /* Emerald profit */
+  --down: #BE123C;     /* Premium red loss */
+}
+.landing-link {
+  color: var(--accent);
+}
+.landing-link:hover {
+  color: var(--brand);
+}
+h1, h2, h3 {
+  color: var(--accent);
+}
+.hero-btn-primary,
+.dashboard-btn {
+  background: var(--brand);
+}
+
+.hero-btn-primary:hover,
+.dashboard-btn:hover {
+  background: var(--brand-dark);
+}
+.landing-flash {
+  background: var(--accent);
+  color: white;
+}

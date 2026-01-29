@@ -1,6 +1,6 @@
 import asyncHandler from "../utils/asyncHandler.js";
 import { loginService } from "../services/authService.js";
-
+import Funds from "../model/FundsModel.js";
 const COOKIE_OPTS = {
   httpOnly: true,
   secure: process.env.NODE_ENV === "production",
@@ -13,6 +13,8 @@ export const login = asyncHandler(async (req, res) => {
   const password = req.body.password;
 
   const { token, user } = await loginService({ email, password });
+  
+
 
   res.cookie("token", token, COOKIE_OPTS).json({
     success: true,

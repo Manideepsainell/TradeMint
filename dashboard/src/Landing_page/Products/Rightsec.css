@@ -1,0 +1,27 @@
+/* ============================================================
+   PRODUCT ROW REVERSE (Right Image Layout)
+============================================================ */
+
+.product-row.reverse {
+  flex-direction: row-reverse;
+}
+
+/* Keep spacing consistent */
+.product-row.reverse .product-info {
+  text-align: left;
+}
+
+/* Mobile stays stacked */
+@media (max-width: 900px) {
+  .product-row.reverse {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .product-row.reverse .product-info {
+    text-align: center;
+  }
+}
+.landing-section:not(:first-child) {
+  border-top: 1px solid var(--border);
+}

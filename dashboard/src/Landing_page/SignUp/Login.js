@@ -12,43 +12,48 @@ function Login() {
     e.preventDefault();
 
     try {
-      const res = await api.post("/api/auth/login", form, {
-        headers: { "Content-Type": "application/json" },
-      });
-
-      console.log("LOGIN RESPONSE:", res.data);
+      const res = await api.post("/api/auth/login", form);
 
       if (res.data?.success) {
-  login(res.data.data);
-  navigate("/dashboard");
-}
- else {
-        alert("Invalid login (no user returned)");
+        login(res.data.data);
+        navigate("/dashboard");
+      } else {
+        alert("Invalid credentials!");
       }
     } catch (err) {
       console.error("Login error:", err.response?.data || err.message);
-      alert("Login failed!");
+      alert("Login failed. Please try again.");
     }
   };
 
   return (
     <div className="auth-wrapper">
       <div className="auth-card">
-        <h2>Login</h2>
+        <h2>Welcome back to TradeMint</h2>
+        <p className="auth-subtitle">
+          Login to access your trading dashboard and portfolio insights.
+        </p>
+
         <form onSubmit={handleSubmit}>
           <input
             type="email"
-            placeholder="Email"
+            placeholder="Email address"
             value={form.email}
             onChange={(e) => setForm({ ...form, email: e.target.value })}
+            required
           />
+
           <input
             type="password"
             placeholder="Password"
             value={form.password}
             onChange={(e) => setForm({ ...form, password: e.target.value })}
+            required
           />
-          <button type="submit">Login</button>
+
+          <button type="submit" className="auth-btn">
+            Login →
+          </button>
         </form>
       </div>
     </div>

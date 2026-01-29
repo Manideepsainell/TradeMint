@@ -1,60 +1,53 @@
 import React from "react";
 import { Link } from "react-router-dom";
-
+import './Pricing.css'
 function Pricing() {
   return (
-    <section className="landing-section pricing-section py-5">
+    <section className="landing-section pricing-section py-5" id="features">
       <div className="container">
         <div className="row align-items-center g-4">
-          {/* Left */}
+          {/* ✅ Left Content */}
           <div className="col-lg-5">
-            <h1 className="fs-3 mb-3">Unbeatable pricing</h1>
+            <h1 className="fs-3 mb-3 fw-bold">
+              Built with Real Trading Logic
+            </h1>
 
-            <p className="mb-3" style={{ maxWidth: "420px" }}>
-              We pioneered the concept of discount broking and price transparency
-              in India. Flat fees and no hidden charges.
+            <p className="mb-3 text-muted" style={{ maxWidth: "420px" }}>
+              TradeMint focuses on execution-level accuracy — including portfolio
+              tracking, brokerage-aware net profit, and production-style backend
+              APIs inspired by real trading platforms.
             </p>
 
-            <Link to="/pricing" style={{ textDecoration: "none" }}>
-              See Pricing{" "}
+            <Link to="/login" className="landing-link">
+              Launch Dashboard{" "}
               <i className="fa fa-long-arrow-right" aria-hidden="true"></i>
             </Link>
           </div>
 
-          {/* Right */}
+          {/* ✅ Right Feature Blocks */}
           <div className="col-lg-6 ms-lg-auto">
             <div className="row text-center g-4">
+              {/* Feature 1 */}
               <div className="col-md-4">
-                <img
-                  src="/media/images/pricing-eq.svg"
-                  alt="Free account opening"
-                  style={{ width: "100px", height: "100px" }}
-                />
-                <p className="mt-3">
-                  Free account <br /> opening
+                <div className="feature-icon">⚡</div>
+                <p className="mt-3 fw-semibold">
+                  Real Buy/Sell <br /> Execution Engine
                 </p>
               </div>
 
+              {/* Feature 2 */}
               <div className="col-md-4">
-                <img
-                  src="/media/images/pricing-eq.svg"
-                  alt="Free equity delivery"
-                  style={{ width: "100px", height: "100px" }}
-                />
-                <p className="mt-3">
-                  Free equity delivery <br />
-                  and direct mutual funds
+                <div className="feature-icon">📊</div>
+                <p className="mt-3 fw-semibold">
+                  Brokerage-Aware <br /> Net Profit
                 </p>
               </div>
 
+              {/* Feature 3 */}
               <div className="col-md-4">
-                <img
-                  src="/media/images/other-trades.svg"
-                  alt="Intraday & F&O"
-                  style={{ width: "100px", height: "100px" }}
-                />
-                <p className="mt-3">
-                  Intraday <br /> &amp; F&amp;O
+                <div className="feature-icon">🔔</div>
+                <p className="mt-3 fw-semibold">
+                  Smart Alerts <br /> & Portfolio Insights
                 </p>
               </div>
             </div>

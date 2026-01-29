@@ -1,186 +1,215 @@
-import React, { useState, useEffect, useContext } from "react";
-import GeneralContext from "./GeneralContext";
+import React, { useContext, useEffect, useState } from "react";
 
+import GeneralContext from "./GeneralContext";
 import { Tooltip, Grow } from "@mui/material";
-import {
-  BarChartOutlined,
-  KeyboardArrowDown,
-  KeyboardArrowUp,
-  MoreHoriz,
-} from "@mui/icons-material";
+import { BarChartOutlined, MoreHoriz } from "@mui/icons-material";
 
 import { DoughnutChart } from "./DoughnutChart";
 import { fetchSensex } from "../services/stockService";
 
-const WatchList = () => {
-  const [sensexData, setSensexData] = useState([]);
-  const [loading, setLoading] = useState(true);
+import "../styles/watchlist.css";
 
-  // ✅ Fetch stock data
+const Watchlist = () => {
+  const [stocks, setStocks] = useState([]);
+  const [loading, setLoading] = useState(true);
+  
+const [animateSnapshot, setAnimateSnapshot] = useState(false);
+
+  /* ============================================================
+     FETCH MARKET WATCHLIST DATA
+  ============================================================ */
+
   useEffect(() => {
-    const fetchData = async () => {
-      setLoading(true);
+    const loadStocks = async () => {
       try {
+        setLoading(true);
         const data = await fetchSensex();
-        setSensexData(data || []);
+        setStocks(data || []);
       } catch (err) {
-        console.error("Error fetching stock data:", err);
-        setSensexData([]);
+        console.error("Watchlist Fetch Error:", err);
+        setStocks([]);
       } finally {
         setLoading(false);
       }
     };
 
-    fetchData();
+    loadStocks();
   }, []);
+useEffect(() => {
+  if (!loading) {
+    setAnimateSnapshot(true);
 
-  const chartData = {
-    labels: sensexData.map((stock) => stock.symbol),
-    datasets: [
-      {
-        label: "Price",
-        data: sensexData.map((stock) => stock.price),
-        backgroundColor: [
-          "rgba(56, 126, 209, 0.35)",
-          "rgba(34, 197, 94, 0.35)",
-          "rgba(249, 115, 22, 0.35)",
-          "rgba(99, 102, 241, 0.35)",
-          "rgba(220, 38, 38, 0.35)",
-          "rgba(148, 163, 184, 0.35)",
-        ],
-        borderWidth: 1,
-      },
-    ],
-  };
+    const timer = setTimeout(() => {
+      setAnimateSnapshot(false);
+    }, 700);
+
+    return () => clearTimeout(timer);
+  }
+}, [loading]);
+
+
+  /* ============================================================
+     CHART DATA (No Hardcoded Colors)
+  ============================================================ */
+const topStocks = stocks.slice(0, 4);
+
+const chartData = {
+  labels: topStocks.map((s) => s.symbol),
+  datasets: [
+    {
+      label: "Market Share",
+      data: topStocks.map((s) => s.price),
+    },
+  ],
+};
+
+
+  /* ============================================================
+     UI
+  ============================================================ */
 
   return (
-    <aside className="watchlist-container">
-      {/* ✅ search */}
-      <div className="search-container">
+    <aside className="watchlist-sidebar">
+      {/* Search */}
+      <div className="watchlist-search-bar">
         <input
+          className="watchlist-search-input"
           type="text"
-          placeholder="Search eg: infy, bse, nifty fut weekly, gold mcx"
-          className="search"
+          placeholder="Search stocks..."
         />
-        <span className="counts">{sensexData.length} / 50</span>
+        <span className="watchlist-count">{stocks.length} / 50</span>
       </div>
 
-      {/* ✅ loading */}
+      {/* Loading */}
       {loading ? (
-        <div style={{ padding: "14px", fontSize: "13px", color: "#6b7280" }}>
-          Loading stock data...
-        </div>
+        <div className="route-loading">Loading market data...</div>
       ) : (
         <>
-          {/* ✅ list */}
-          <ul className="list">
-            {sensexData.map((stock) => (
-              <WatchListItem stock={stock} key={stock.symbol} />
+          {/* Stock List */}
+          <ul className="watchlist-stocks">
+            {stocks.map((stock) => (
+              <WatchlistItem key={stock.symbol} stock={stock} />
             ))}
           </ul>
+            <div className="watchlist-mini-chart">
+  <p className="watchlist-chart-title">Market Overview</p>
 
-          {/* ✅ chart block (very important for layout) */}
-          <div
-            style={{
-              padding: "12px 14px",
-              borderTop: "1px solid #e5e7eb",
-              background: "#fff",
-            }}
-          >
-            <p
-              style={{
-                margin: "4px 0 10px 0",
-                fontSize: "12px",
-                fontWeight: "700",
-                color: "#111827",
-                textTransform: "uppercase",
-                letterSpacing: "0.4px",
-              }}
-            >
-              Market snapshot
-            </p>
-            <DoughnutChart data={chartData} />
-          </div>
+  {/* ✅ Index Summary */}
+  <div className="market-index">
+    <span>NIFTY 50</span>
+    <strong>25,293</strong>
+    <p className="up">+0.32%</p>
+  </div>
+
+  {/* ✅ Movers */}
+  <div className="snapshot-movers">
+    <p className="mini-title">Top Movers</p>
+
+    {topStocks.slice(0, 3).map((s) => (
+      <div key={s.symbol} className="mover-row">
+        <span className="mover-name">{s.symbol}</span>
+
+        <span
+          className={`mover-change ${
+            s.changePercent >= 0 ? "up" : "down"
+          }`}
+        >
+          {s.changePercent >= 0 ? "+" : ""}
+          {Number(s.changePercent).toFixed(2)}%
+        </span>
+      </div>
+    ))}
+  </div>
+</div>
+
+
         </>
       )}
     </aside>
   );
 };
 
-export default WatchList;
 
-/* =================================
-   SINGLE ITEM
-================================= */
-const WatchListItem = ({ stock }) => {
-  const [showActions, setShowActions] = useState(false);
+
+/* ============================================================
+   SINGLE STOCK ITEM
+============================================================ */
+
+const WatchlistItem = ({ stock }) => {
+  const [hover, setHover] = useState(false);
+
+  const changeClass = stock.change < 0 ? "down" : "up";
 
   return (
     <li
-      onMouseEnter={() => setShowActions(true)}
-      onMouseLeave={() => setShowActions(false)}
+      className="watchlist-stock-row"
+      onMouseEnter={() => setHover(true)}
+      onMouseLeave={() => setHover(false)}
     >
-      <div className="item">
-        <p className={stock.change < 0 ? "down" : "up"}>{stock.symbol}</p>
+      {/* Main Row */}
+      <div className="watchlist-stock-main">
+        <p className="watchlist-symbol">{stock.symbol}</p>
 
-        <div className="item-info">
-          <span className="percent">
+        <div className="watchlist-metrics">
+          <span className={`watchlist-change ${changeClass}`}>
             {Number(stock.changePercent || 0).toFixed(2)}%
           </span>
 
-          {stock.change < 0 ? (
-            <KeyboardArrowDown className="down" />
-          ) : (
-            <KeyboardArrowUp className="up" />
-          )}
-
-          <span className="price">{stock.price}</span>
+          <span className="watchlist-price">
+            ₹{Number(stock.price || 0).toFixed(2)}
+          </span>
         </div>
       </div>
 
-      {showActions && <WatchListActions uid={stock.symbol} />}
+      {/* Hover Actions */}
+      {hover && <WatchlistActions uid={stock.symbol} />}
     </li>
   );
 };
 
-/* =================================
-   ACTIONS
-================================= */
-const WatchListActions = ({ uid }) => {
+/* ============================================================
+   ACTION BUTTONS
+============================================================ */
+
+const WatchlistActions = ({ uid }) => {
   const generalContext = useContext(GeneralContext);
 
-  const handleBuyClick = () => generalContext.openBuyWindow(uid);
-
   return (
-    <span className="actions">
-      <span>
-        <Tooltip title="Buy (B)" placement="top" arrow TransitionComponent={Grow}>
-          <button className="buy" onClick={handleBuyClick}>
-            Buy
-          </button>
-        </Tooltip>
-
-        <Tooltip title="Sell (S)" placement="top" arrow TransitionComponent={Grow}>
-          <button className="sell">Sell</button>
-        </Tooltip>
-
-        <Tooltip
-          title="Analytics (A)"
-          placement="top"
-          arrow
-          TransitionComponent={Grow}
+    <div className="watchlist-actions">
+      {/* BUY */}
+      <Tooltip title="Buy" arrow TransitionComponent={Grow}>
+        <button
+          className="watchlist-btn-buy"
+          onClick={() => generalContext.openBuyWindow(uid)}
         >
-          <button className="action">
-            <BarChartOutlined className="icon" />
-          </button>
-        </Tooltip>
+          Buy
+        </button>
+      </Tooltip>
 
-        <Tooltip title="More" placement="top" arrow TransitionComponent={Grow}>
-          <button className="action">
-            <MoreHoriz className="icon" />
-          </button>
-        </Tooltip>
-      </span>
-    </span>
+      {/* SELL */}
+      <Tooltip title="Sell" arrow TransitionComponent={Grow}>
+        <button
+          className="watchlist-btn-sell"
+          onClick={() => generalContext.openSellWindow(uid)}
+        >
+          Sell
+        </button>
+      </Tooltip>
+
+      {/* Analytics */}
+      <Tooltip title="Analytics" arrow TransitionComponent={Grow}>
+        <button className="watchlist-btn-action">
+          <BarChartOutlined fontSize="small" />
+        </button>
+      </Tooltip>
+
+      {/* More */}
+      <Tooltip title="More" arrow TransitionComponent={Grow}>
+        <button className="watchlist-btn-action">
+          <MoreHoriz fontSize="small" />
+        </button>
+      </Tooltip>
+    </div>
   );
 };
+export default Watchlist;

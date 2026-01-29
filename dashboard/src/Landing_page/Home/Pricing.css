@@ -1,0 +1,70 @@
+/* ============================================================
+   PRICING / PLATFORM FEATURES — TradeMint
+============================================================ */
+
+.pricing-section {
+  background: var(--bg);
+}
+
+/* Left Text */
+.pricing-section h1 {
+  font-weight: 900;
+  color: var(--text);
+}
+
+.pricing-section p {
+  color: var(--muted) !important;
+  font-size: 15px;
+  line-height: 1.7;
+}
+
+/* CTA Link */
+.pricing-section .landing-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--brand);
+  font-weight: 700;
+  text-decoration: none;
+  transition: 0.2s ease;
+}
+
+.pricing-section .landing-link i {
+  transition: transform 0.2s ease;
+}
+
+.pricing-section .landing-link:hover {
+  color: var(--brand-dark);
+}
+
+.pricing-section .landing-link:hover i {
+  transform: translateX(4px);
+}
+
+/* Feature Icons */
+.feature-icon {
+  width: 64px;
+  height: 64px;
+  border-radius: 18px;
+  background: var(--soft);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  margin: 0 auto;
+  border: 1px solid var(--border);
+  transition: 0.25s ease;
+}
+
+/* Feature Block Hover */
+.pricing-section .col-md-4:hover .feature-icon {
+  background: var(--brand);
+  color: white;
+  transform: translateY(-4px);
+}
+
+/* Feature Text */
+.pricing-section .fw-semibold {
+  color: var(--text);
+  font-weight: 700 !important;
+}

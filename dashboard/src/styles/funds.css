@@ -1,0 +1,98 @@
+/* ============================================================
+   FUNDS.CSS — FUNDS + MARGIN PAGE
+============================================================ */
+
+.funds-page {
+  max-width: 900px;
+}
+
+/* Banner Card */
+.funds-banner {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 18px 22px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 22px;
+}
+
+.funds-banner p {
+  margin: 0;
+  font-weight: 700;
+  color: var(--text);
+}
+
+/* Buttons */
+.funds-actions {
+  display: flex;
+  gap: 12px;
+}
+
+/* Title */
+.funds-title {
+  font-size: 18px;
+  font-weight: 900;
+  margin-bottom: 14px;
+  color: var(--accent);
+}
+
+/* Funds Table Card */
+.funds-table-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 18px;
+}
+
+/* Row */
+.funds-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 0;
+  font-size: 14px;
+}
+
+.funds-row p {
+  margin: 0;
+  color: var(--muted);
+}
+
+/* Numbers */
+.funds-row .imp {
+  font-weight: 900;
+  color: var(--text);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Divider */
+.funds-table-card hr {
+  border: none;
+  border-top: 1px solid var(--border);
+  margin: 14px 0;
+}
+
+/* Commodity Box */
+.funds-commodity {
+  margin-top: 20px;
+  padding: 18px;
+  border-radius: 16px;
+  border: 1px dashed var(--border);
+  background: var(--soft);
+  text-align: center;
+}
+
+.funds-commodity p {
+  margin-bottom: 12px;
+  color: var(--muted);
+}
+
+/* Responsive */
+@media (max-width: 700px) {
+  .funds-banner {
+    flex-direction: column;
+    gap: 14px;
+    align-items: flex-start;
+  }
+}

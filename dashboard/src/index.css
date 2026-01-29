@@ -1,519 +1,188 @@
-/* =======================
-   GLOBAL RESET (SAFE)
-======================= */
 :root {
-  --text: #1f2937;
-  --muted: #6b7280;
-  --border: #e5e7eb;
-  --bg: #ffffff;
-  --soft: #f9fafb;
-  --brand: #387ed1;
+  /* Backgrounds */
+  --bg: #0b1220;
+  --card: #111827;
+  --soft: #1e293b;
 
+  /* Borders */
+  --border: rgba(148, 163, 184, 0.18);
+
+  /* Text */
+  --text: #f8fafc;
+  --muted: #94a3b8;
+
+  /* Brand Accent (TradeMint) */
+  --accent: #38bdf8;
+  --accent-soft: rgba(56, 189, 248, 0.15);
+
+  /* Status Colors */
+  --up: #22c55e;
+  --down: #ef4444;
+}
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+/* ============================================================
+   THEME SYSTEM (Dark + Light)
+============================================================ */
+
+:root {
+  --transition: 0.25s ease;
+
+  /* Default Theme = DARK */
+  --bg: #0b1220;
+  --card: rgba(255, 255, 255, 0.04);
+  --soft: rgba(255, 255, 255, 0.08);
+
+  --border: rgba(255, 255, 255, 0.12);
+
+  --text: #f8fafc;
+  --muted: #94a3b8;
+
+  --accent: #38bdf8;
+  --accent-soft: rgba(56, 189, 248, 0.15);
+
+  --up: #22c55e;
+  --down: #ef4444;
+}
+
+/* ✅ LIGHT THEME OVERRIDE */
+/* ✅ COOL PREMIUM LIGHT THEME */
+[data-theme="light"] {
+  /* Background */
+  --bg: #f1f5f9; /* soft slate */
+
+  /* Cards (glass white) */
+  --card: rgba(255, 255, 255, 0.75);
+  --soft: rgba(15, 23, 42, 0.03);
+
+  /* Borders */
+  --border: rgba(15, 23, 42, 0.10);
+
+  /* Text */
+  --text: #0f172a;
+  --muted: #475569;
+
+  /* Accent */
+  --accent: #2563eb; /* royal blue */
+  --accent-soft: rgba(37, 99, 235, 0.12);
+
+  /* Status Colors */
   --up: #16a34a;
   --down: #dc2626;
 }
 
-html,
-body,
-#root {
-  height: 100%;
-}
 
-* {
-  box-sizing: border-box;
+/* Smooth Theme Transition */
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: Inter, sans-serif;
+  transition: var(--transition);
 }
 
 body {
-  margin: 0;
-  padding: 0;
-  font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  font-family: "Inter", sans-serif;
   background: var(--bg);
   color: var(--text);
 }
-
-code {
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
-    "Liberation Mono", "Courier New", monospace;
-}
-
-/* ✅ IMPORTANT:
-   Never override Bootstrap globally.
-   All dashboard styling must be scoped under .dashboard-app ONLY.
-*/
-
-/* ============================================================
-   DASHBOARD WRAPPER
-============================================================ */
-.dashboard-app {
-  width: 100%;
-  min-height: 100vh;
-  background: #fff;
-}
-
-/* ============================================================
-   DASHBOARD TOPBAR (Scoped)
-============================================================ */
-.dashboard-app .topbar-container {
-  width: 100%;
-  height: 64px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background: white;
-  border-bottom: 1px solid var(--border);
-  padding: 0 16px;
-}
-
-.dashboard-app .indices-container {
-  display: flex;
-  align-items: center;
-  gap: 28px;
-  min-width: 280px;
-  flex-wrap: nowrap;
-}
-
-.dashboard-app .index-box {
-  display: flex;
-  align-items: baseline;
-  gap: 10px;
-}
-
-
-.dashboard-app .index {
-  font-size: 11px;
-  font-weight: 800;
-  color: #111827;
-  margin: 0;
-}
-
-.dashboard-app .index-points {
-  font-size: 13px;
-  font-weight: 800;
-  margin: 0;
-}
-
-.dashboard-app .percent {
-  font-size: 12px;
-  font-weight: 700;
-  margin: 0;
-}
-
-.dashboard-app .percent.up {
-  color: var(--up);
-}
-.dashboard-app .percent.down {
-  color: var(--down);
-}
-
-/* greeting center */
-.dashboard-app .topbar-greeting {
-  flex: 1;
-  padding: 0 22px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  min-width: 360px;
-}
-
-.dashboard-app .greet-line {
-  font-weight: 800;
-  font-size: 13px;
-  color: #111827;
-}
-
-.dashboard-app .greet-name {
-  color: var(--brand);
-}
-
-.dashboard-app .greet-subline {
-  font-size: 12px;
-  color: var(--muted);
-  display: flex;
-  gap: 6px;
-  align-items: center;
-  flex-wrap: wrap;
-}
-
-.dashboard-app .topbar-right {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-.dashboard-app .logout-btn {
-  border: 1px solid var(--border);
-  padding: 8px 12px;
-  border-radius: 10px;
-  background: #fff;
-  font-weight: 800;
-  font-size: 12px;
-  cursor: pointer;
-}
-.dashboard-app .logout-btn:hover {
-  background: var(--soft);
-}
-
-/* ============================================================
-   DASHBOARD MENU BAR (Scoped)
-============================================================ */
-.dashboard-app .dashboard-menu {
-  width: 100%;
-  height: 52px;
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  gap: 26px;
-  padding: 0 20px;
-  border-bottom: 1px solid var(--border);
-  background: white;
-}
-
-.dashboard-app .dashboard-menu-link {
-  font-size: 13px;
-  font-weight: 700;
+a {
   text-decoration: none;
-  color: #374151;
+  color: inherit;
 }
 
-.dashboard-app .dashboard-menu-link:hover {
-  color: var(--brand);
+button {
+  font-family: inherit;
 }
-
-.dashboard-app .dashboard-menu-link.active {
-  color: var(--brand);
-}
-
-/* ============================================================
-   DASHBOARD MAIN LAYOUT (Scoped)
-   Menu + Watchlist + Outlet content
-============================================================ */
-.dashboard-app .dashboard-container {
-  width: 100%;
-  height: calc(100vh - 64px - 52px); /* ✅ topbar + menu */
-  display: flex;
-  align-items: stretch;
-  border-top: 1px solid var(--border);
-}
-
-/* Right-side outlet content */
-.dashboard-app .content {
-  flex: 1;
-  height: 100%;
-  overflow-y: auto;
-  padding: 24px 22px;
-}
-
-/* ============================================================
-   WATCHLIST (Scoped)
-============================================================ */
-.dashboard-app .watchlist-container {
-  flex-basis: 32%;
-  height: 100%;
-  border-right: 1px solid var(--border);
-  overflow-y: auto;
-  background: #fff;
-}
-
-.dashboard-app .search-container {
-  display: flex;
-  align-items: center;
-  position: sticky;
-  top: 0;
-  background: white;
-  z-index: 10;
-  border-bottom: 1px solid var(--border);
-}
-
-.dashboard-app .search {
-  width: 100%;
-  border: none;
-  padding: 14px 16px;
-  font-size: 13px;
-  font-weight: 500;
-  outline: none;
-}
-
-.dashboard-app .counts {
-  position: absolute;
-  right: 14px;
-  font-size: 12px;
-  font-weight: 600;
-  color: var(--muted);
-}
-
-/* Bullet removal */
-.dashboard-app .list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-.dashboard-app .list li {
-  list-style: none;
-  border-bottom: 1px solid #f1f5f9;
-  padding: 12px 14px;
-  position: relative;
-}
-
-/* Watchlist item row */
-.dashboard-app .item {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.dashboard-app .item p {
-  margin: 0;
-  font-size: 13px;
-  font-weight: 700;
-}
-
-.dashboard-app .item-info {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.dashboard-app .item-info .percent {
-  font-size: 12px;
-  font-weight: 600;
-  min-width: 60px;
-  text-align: right;
-}
-
-.dashboard-app .item-info .price {
-  font-size: 12px;
-  font-weight: 600;
-  min-width: 80px;
-  text-align: right;
-}
-
-/* Hover action overlay */
-.dashboard-app .actions {
-  position: absolute;
-  inset: 0;
-  display: none;
-  justify-content: flex-end;
-  align-items: center;
-  padding-right: 12px;
-  background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(6px);
-}
-
-.dashboard-app .list li:hover > .actions {
-  display: flex;
-}
-
-.dashboard-app .actions span button {
-  width: 46px;
-  height: 30px;
-  border-radius: 8px;
-  text-align: center;
-  margin-right: 8px;
-  cursor: pointer;
-  font-size: 12px;
-  font-weight: 800;
-  border: none;
-}
-
-/* Buy/sell buttons */
-.dashboard-app .buy {
-  background-color: #2563eb;
-  color: white;
-}
-.dashboard-app .sell {
-  background-color: #f97316;
-  color: white;
-}
-
-.dashboard-app .action {
-  background: white;
-  border: 1px solid var(--border) !important;
-}
-
-/* ============================================================
-   DASHBOARD TABLES (Holdings/Orders/Positions)
-============================================================ */
-.dashboard-app .title {
-  font-size: 18px;
-  font-weight: 800;
-  color: var(--text);
-  margin-bottom: 14px;
-}
-
-.dashboard-app .order-table table {
-  width: 100%;
-  border-collapse: collapse;
-  background: white;
-  border: 1px solid var(--border);
-  border-radius: 14px;
-  overflow: hidden;
-}
-
-.dashboard-app .order-table tr {
-  border-top: 1px solid var(--border);
-  border-bottom: 1px solid var(--border);
-}
-
-.dashboard-app .order-table th {
-  text-align: right;
-  padding: 14px 10px;
-  color: var(--muted);
-  font-weight: 800;
-  font-size: 12px;
-  text-transform: uppercase;
-  letter-spacing: 0.3px;
-  background: #fafafa;
-}
-
-.dashboard-app .order-table td {
-  padding: 12px 10px;
-  text-align: right;
-  font-weight: 600;
-  font-size: 13px;
-  color: var(--text);
-}
-
-.dashboard-app .order-table tr th:first-child,
-.dashboard-app .order-table tr td:first-child {
-  text-align: left;
-}
-
-.dashboard-app .order-table td.profit {
-  color: var(--up);
-  font-weight: 800;
-}
-
-.dashboard-app .order-table td.loss {
-  color: var(--down);
-  font-weight: 800;
-}
-
-/* ============================================================
-   FUNDS (Scoped)
-============================================================ */
-.dashboard-app .funds {
-  width: 100%;
-  text-align: right;
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  gap: 10px;
-}
-
-.dashboard-app .funds p {
-  font-size: 13px;
-  color: var(--muted);
-  margin: 0;
-}
-
-/* ============================================================
-   DASHBOARD BUTTONS (Scoped)
-   ✅ Note: don't override bootstrap .btn globally
-============================================================ */
-.dashboard-app .dash-btn {
-  text-decoration: none;
+.btn {
   padding: 10px 16px;
   border-radius: 10px;
-  color: #fff;
-  margin-right: 6px;
-  margin-left: 6px;
   font-weight: 700;
-  font-size: 14px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
   cursor: pointer;
   border: none;
+  transition: 0.2s ease;
 }
 
-.dashboard-app .dash-btn-green {
-  background: #22c55e;
+.btn-primary {
+  background: var(--accent);
+  color: white;
 }
 
-.dashboard-app .dash-btn-blue {
-  background: #4184f3;
+.btn-soft {
+  background: var(--accent-soft);
+  color: var(--accent);
 }
 
-.dashboard-app .dash-btn-blue:hover,
-.dashboard-app .dash-btn-green:hover {
-  filter: brightness(1.04);
+.btn-danger {
+  background: var(--down);
+  color: white;
 }
-
-/* ============================================================
-   DASHBOARD GRID (Scoped)
-   ✅ renamed row/col to avoid bootstrap conflicts
-============================================================ */
-.dashboard-app .dash-row {
-  width: 100%;
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  margin-top: 30px;
-  gap: 24px;
-}
-
-.dashboard-app .dash-col {
-  flex: 1;
-  text-align: left;
-}
-
-.dashboard-app .dash-col span {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin-bottom: 10px;
-}
-
-.dashboard-app .dash-col span p {
-  display: inline-block;
-  font-size: 16px;
-  font-weight: 700;
-  margin: 0;
-}
-
-/* ============================================================
-   DASHBOARD INFO CARD (Scoped)
-============================================================ */
-.dashboard-app .table {
-  border: 1px solid var(--border);
-  padding: 18px;
-  border-radius: 14px;
-  background: #fff;
-}
-
-.dashboard-app .table .data {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-}
-
-.dashboard-app .table .data > * {
-  margin-bottom: 12px;
-}
-
-.dashboard-app .table .data p:first-child {
-  font-size: 13px;
-  color: var(--muted);
-  margin: 0;
-}
-
-.dashboard-app .imp {
+.title {
   font-size: 20px;
+  font-weight: 900;
+  margin-bottom: 18px;
+  color: var(--accent);
+}
+
+.muted {
+  color: var(--muted);
+}
+
+/* ============================================================
+   GLASSMORPHISM BASE
+============================================================ */
+
+:root {
+  --glass-bg: rgba(255, 255, 255, 0.06);
+  --glass-border: rgba(255, 255, 255, 0.12);
+  --glass-shadow: 0 10px 35px rgba(0, 0, 0, 0.25);
+  --blur: blur(14px);
+}
+.glass-card {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: var(--blur);
+  -webkit-backdrop-filter: var(--blur);
+
+  border-radius: 18px;
+  box-shadow: var(--glass-shadow);
+}
+body {
+  background: radial-gradient(
+      circle at top,
+      rgba(56, 189, 248, 0.18),
+      transparent 55%
+    ),
+    radial-gradient(
+      circle at bottom,
+      rgba(34, 197, 94, 0.10),
+      transparent 60%
+    ),
+    #0b1220;
+}
+
+* {
+  transition: background 0.25s ease, color 0.25s ease, border 0.25s ease;
+}
+body {
+  background: var(--bg);
   color: var(--text);
-  font-weight: 800;
-  margin: 0;
+  font-family: Inter, sans-serif;
 }
 
-.dashboard-app .colored {
-  color: var(--brand);
-}
-
-.dashboard-app .table hr {
-  border: none;
-  background: var(--border);
-  height: 1px;
-  margin: 14px 0;
+/* ✅ Light Mode Gradient Glow */
+[data-theme="light"] body {
+  background: radial-gradient(
+      circle at top,
+      rgba(37, 99, 235, 0.12),
+      transparent 55%
+    ),
+    radial-gradient(
+      circle at bottom,
+      rgba(34, 197, 94, 0.10),
+      transparent 60%
+    ),
+    #f1f5f9;
 }

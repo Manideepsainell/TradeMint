@@ -1,0 +1,89 @@
+/* ============================================================
+   SUPPORT HERO — TradeMint Help Center
+============================================================ */
+
+.support-hero {
+  background: var(--soft);
+  padding: 50px 20px 40px;
+  border-bottom: 1px solid var(--border);
+}
+
+.support-hero-inner {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+/* Top row */
+.support-hero-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 14px;
+}
+
+.support-title {
+  font-size: 26px;
+  font-weight: 900;
+  color: var(--text);
+  margin: 0;
+}
+
+/* Dashboard Button */
+.support-ticket-btn {
+  background: var(--brand);
+  color: white;
+  font-weight: 700;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 10px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: 0.2s ease;
+}
+
+.support-ticket-btn:hover {
+  background: var(--brand-dark);
+  transform: translateY(-1px);
+}
+
+/* Search Bar */
+.support-search {
+  display: flex;
+  align-items: center;
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 10px 14px;
+  margin-top: 10px;
+}
+
+.support-search input {
+  border: none;
+  outline: none;
+  width: 100%;
+  font-size: 14px;
+  color: var(--text);
+  margin-left: 10px;
+}
+
+.search-icon {
+  color: var(--muted);
+  font-size: 14px;
+}
+
+/* Note */
+.support-note {
+  margin-top: 14px;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .support-hero-top {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

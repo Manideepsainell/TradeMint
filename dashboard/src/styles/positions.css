@@ -1,0 +1,78 @@
+/* ============================================================
+   POSITIONS.CSS — OPEN POSITIONS TABLE
+============================================================ */
+
+.positions-title {
+  font-size: 20px;
+  font-weight: 900;
+  margin-bottom: 18px;
+  color: var(--accent);
+}
+
+/* Table Card */
+.positions-table-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.04);
+}
+
+/* Table Base */
+.positions-table-card table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.positions-table-card thead {
+  background: var(--soft);
+}
+
+.positions-table-card th {
+  padding: 14px 18px;
+  text-align: left;
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--muted);
+}
+
+/* Table Cells */
+.positions-table-card td {
+  padding: 16px 18px;
+  border-top: 1px solid var(--border);
+  font-size: 14px;
+  color: var(--text);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Hover */
+.positions-table-card tr:hover {
+  background: rgba(148, 163, 184, 0.05);
+}
+
+/* Align numbers */
+.positions-table-card td:nth-child(n + 3) {
+  text-align: right;
+}
+
+/* Profit / Loss */
+.profit {
+  font-weight: 900;
+  color: var(--up);
+}
+
+.loss {
+  font-weight: 900;
+  color: var(--down);
+}
+
+/* Responsive Scroll */
+@media (max-width: 850px) {
+  .positions-table-card {
+    overflow-x: auto;
+  }
+
+  .positions-table-card table {
+    min-width: 700px;
+  }
+}

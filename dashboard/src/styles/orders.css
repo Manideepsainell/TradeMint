@@ -1,0 +1,160 @@
+/* ============================================================
+   ORDERS.CSS — DASHBOARD ORDERS PAGE
+============================================================ */
+
+/* Page Wrapper */
+.orders-container {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+/* Page Title */
+.orders-title {
+  font-size: 20px;
+  font-weight: 900;
+  margin-bottom: 18px;
+  color: var(--accent);
+}
+
+/* ============================================================
+   EMPTY + LOADING STATES
+============================================================ */
+
+.orders-empty,
+.orders-loading {
+  text-align: center;
+  padding: 60px 20px;
+  font-size: 15px;
+  color: var(--muted);
+}
+
+/* ============================================================
+   ORDERS LIST
+============================================================ */
+
+.orders-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+/* ============================================================
+   ORDER CARD
+============================================================ */
+
+.order-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 16px 18px;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.order-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.08);
+}
+
+/* ============================================================
+   ORDER HEADER ROW
+============================================================ */
+
+.order-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Stock Name */
+.order-name {
+  font-size: 16px;
+  font-weight: 800;
+  color: var(--text);
+}
+
+/* Date */
+.order-date {
+  font-size: 12px;
+  margin-top: 2px;
+  color: var(--muted);
+}
+
+/* ============================================================
+   BUY / SELL BADGE
+============================================================ */
+
+.order-mode {
+  padding: 5px 12px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+/* Buy Badge */
+.order-mode.buy {
+  background: rgba(16, 185, 129, 0.12);
+  color: var(--up);
+}
+
+/* Sell Badge */
+.order-mode.sell {
+  background: rgba(220, 38, 38, 0.12);
+  color: var(--down);
+}
+
+/* ============================================================
+   COMPACT INFO ROW
+============================================================ */
+
+.order-details {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+  font-size: 14px;
+  color: var(--muted);
+}
+
+/* Make numbers align better */
+.order-details span {
+  font-variant-numeric: tabular-nums;
+}
+
+/* ============================================================
+   EXPANDED ORDER INFO
+============================================================ */
+
+.order-extra {
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px solid var(--border);
+  font-size: 14px;
+  color: var(--text);
+}
+
+.order-extra p {
+  margin: 6px 0;
+  color: var(--muted);
+}
+
+/* Highlight values inside expanded view */
+.order-extra strong {
+  color: var(--text);
+  font-weight: 800;
+}
+
+/* ============================================================
+   RESPONSIVE FIX
+============================================================ */
+
+@media (max-width: 700px) {
+  .order-details {
+    flex-direction: column;
+    gap: 6px;
+    align-items: flex-start;
+  }
+
+  .order-card {
+    padding: 14px;
+  }
+}

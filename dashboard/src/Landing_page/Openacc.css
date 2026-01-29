@@ -1,0 +1,33 @@
+/* ============================================================
+   OPEN ACCOUNT CTA — TradeMint
+============================================================ */
+
+.openacc-section {
+  background: linear-gradient(to bottom, var(--soft), var(--bg));
+  padding: 80px 20px;
+}
+
+.openacc-inner {
+  text-align: center;
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.openacc-title {
+  font-size: 26px;
+  font-weight: 900;
+  color: var(--text);
+  margin-bottom: 14px;
+}
+
+.openacc-subtitle {
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 1.7;
+  margin-bottom: 26px;
+}
+
+.openacc-btn {
+  padding: 14px 26px;
+  font-size: 16px;
+}

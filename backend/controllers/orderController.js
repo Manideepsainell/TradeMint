@@ -1,28 +1,48 @@
 import asyncHandler from "../utils/asyncHandler.js";
-import { createOrderService } from "../services/orderService.js";
+import Order from "../model/OrdersModel.js";
+import {
+  executeBuyOrder,
+  executeSellOrder,
+} from "../services/tradeService.js";
 
+/* ✅ CREATE ORDER */
 export const createOrder = asyncHandler(async (req, res) => {
+  
   const { name, qty, price, mode } = req.body;
 
-  const order = await createOrderService({
-    name,
-    qty,
-    price,
-    mode,
-    userId: req.user.id,
-  });
+  let order;
+
+  if (mode === "BUY") {
+    order = await executeBuyOrder({
+      userId: req.user.id,
+      name,
+      qty,
+      price,
+    });
+  } else if (mode === "SELL") {
+    order = await executeSellOrder({
+      userId: req.user.id,
+      name,
+      qty,
+      price,
+    });
+  } else {
+    return res.status(400).json({
+      success: false,
+      message: "Invalid mode. Use BUY or SELL",
+    });
+  }
 
   res.status(201).json({
     success: true,
-    message: "Order placed successfully",
+    message: `${mode} order placed successfully`,
     data: order,
   });
 });
 
-import { getOrdersService } from "../services/orderService.js";
-
+/* ✅ GET ORDERS */
 export const getOrders = asyncHandler(async (req, res) => {
-  const orders = await getOrdersService(req.user.id);
+  const orders = await Order.find({ userId: req.user.id }).sort({ createdAt: -1 });
 
   res.json({
     success: true,

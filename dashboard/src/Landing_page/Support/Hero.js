@@ -1,30 +1,32 @@
 import React from "react";
-
+import './Hero.css'
 function Hero() {
   return (
-   <section className="support-hero">
-  <div className="search-portal py-4">
-    <div className="container">
-          {/* top row */}
-          <div className="d-flex justify-content-between align-items-center gap-3 flex-wrap mb-2">
-            <p className="supp mb-0">Support Portal</p>
+    <section className="support-hero">
+      <div className="support-hero-inner">
+        {/* Top Row */}
+        <div className="support-hero-top">
+          <p className="support-title">TradeMint Help Center</p>
 
-            <button className="btn support-ticket-btn">My tickets</button>
-          </div>
-
-          {/* search */}
-          <div className="input-group support-search">
-            <span className="input-group-text bg-white border-0">
-              <i className="fa-solid fa-magnifying-glass text-muted"></i>
-            </span>
-
-            <input
-              type="text"
-              className="form-control border-0 text-muted"
-              placeholder="Eg: How do I open my account, How do I activate F&O..."
-            />
-          </div>
+          <a href="/dashboard" className="support-ticket-btn">
+            Go to Dashboard
+          </a>
         </div>
+
+        {/* Search */}
+        <div className="support-search">
+          <i className="fa-solid fa-magnifying-glass search-icon"></i>
+
+          <input
+            type="text"
+            placeholder="Search: Orders, Holdings, Brokerage Charges, Alerts..."
+          />
+        </div>
+
+        {/* Small Note */}
+        <p className="support-note">
+          Browse platform modules and learn how TradeMint works internally.
+        </p>
       </div>
     </section>
   );

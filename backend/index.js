@@ -4,13 +4,15 @@ import express from "express";
 import mongoose from "mongoose";
 import cors from "cors";
 import cookieParser from "cookie-parser";
-
+import summaryRoutes from "./routes/summary.js";
 // Routes
 import authRoutes from "./routes/auth.js";
 import userRoutes from "./routes/user.js";
 import stockRoutes from "./routes/stocks.js";
 import indicesRoutes from "./routes/indices.js";
 import errorHandler from "./middlewares/errorMiddleware.js";
+import alertRoutes from "./routes/alertRoutes.js";
+
 
 const app = express();
 
@@ -20,12 +22,24 @@ const CLIENT_URL = process.env.CLIENT_URL || "http://localhost:3000";
 
 
 // ================== MIDDLEWARE ==================
+const allowedOrigins = [
+  "http://localhost:3000",
+  "https://main.d1z91v4h87g5dz.amplifyapp.com",
+];
+
 app.use(
   cors({
-    origin: CLIENT_URL,        // ✅ ENV-based frontend URL
-    credentials: true,         // ✅ allow cookies
+    origin: function (origin, callback) {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
+    credentials: true,
   })
 );
+
 
 app.use(express.json());
 app.use(cookieParser());
@@ -35,7 +49,9 @@ app.use("/api/auth", authRoutes);
 app.use("/api/user", userRoutes);
 app.use("/api/stocks", stockRoutes);
 app.use("/api/indices", indicesRoutes);
-app.use("/api/summary", (await import("./routes/summary.js")).default);
+app.use("/api/summary", summaryRoutes);
+app.use("/api/alerts", alertRoutes);
+
 
 // ================== DB CONNECTION ==================
 mongoose

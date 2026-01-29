@@ -8,19 +8,19 @@ import { GeneralContextProvider } from "./GeneralContext";
 const DashboardLayout = () => {
  return (
   <div className="dashboard-app">
-    <TopBar />
-    <Menu />
+  <TopBar />
+  <Menu />
 
+  <GeneralContextProvider>
     <div className="dashboard-container">
-      <GeneralContextProvider>
-        <WatchList />
-      </GeneralContextProvider>
-
+      <WatchList />
       <div className="content">
         <Outlet />
       </div>
     </div>
-  </div>
+  </GeneralContextProvider>
+</div>
+
 );
 
 };

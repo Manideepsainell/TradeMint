@@ -1,25 +1,27 @@
 import React, { useEffect, useMemo, useState } from "react";
 import api from "../api/axios";
+
 import { VerticalGraph } from "./VerticalGraph";
+import "../styles/Holdings.css";
 
 const Holdings = () => {
   const [holdings, setHoldings] = useState([]);
   const [loading, setLoading] = useState(true);
   const [errorMsg, setErrorMsg] = useState("");
 
+  /* ============================================================
+     FETCH HOLDINGS DATA
+  ============================================================ */
+
   useEffect(() => {
     const fetchHoldings = async () => {
-      setLoading(true);
-      setErrorMsg("");
-
       try {
-        const res = await api.get("/api/user/holdings");
+        setLoading(true);
 
-        // ✅ supports both: res.data = []  OR  res.data.holdings = []
-        const data = Array.isArray(res.data) ? res.data : res.data?.holdings || [];
-        setHoldings(data);
+        const res = await api.get("/api/user/holdings");
+        setHoldings(res.data?.data || []);
       } catch (err) {
-        console.error("Error fetching holdings:", err);
+        console.error("Holdings Fetch Error:", err);
         setErrorMsg("Failed to load holdings. Please try again.");
       } finally {
         setLoading(false);
@@ -27,128 +29,121 @@ const Holdings = () => {
     };
 
     fetchHoldings();
-
-    // ✅ refresh every 30s (ok)
-    const interval = setInterval(fetchHoldings, 30000);
-    return () => clearInterval(interval);
   }, []);
 
-  // ✅ totals
+  /* ============================================================
+     HOLDINGS TOTALS
+  ============================================================ */
+
   const totals = useMemo(() => {
-    const totalInvestment = holdings.reduce((acc, s) => {
-      const qty = Number(s.qty || 0);
-      const avg = Number(s.avg || 0);
-      return acc + avg * qty;
-    }, 0);
+    const investment = holdings.reduce(
+      (acc, stock) => acc + stock.qty * stock.avg,
+      0
+    );
 
-    const currentValue = holdings.reduce((acc, s) => {
-      const qty = Number(s.qty || 0);
-      const price = Number(s.price || 0);
-      return acc + price * qty;
-    }, 0);
+    const currentValue = holdings.reduce(
+      (acc, stock) => acc + stock.qty * stock.price,
+      0
+    );
 
-    const pnl = currentValue - totalInvestment;
+    const pnl = currentValue - investment;
 
-    return { totalInvestment, currentValue, pnl };
+    return {
+      investment,
+      currentValue,
+      pnl,
+    };
   }, [holdings]);
 
-  // ✅ graph (safe)
+  /* ============================================================
+     CHART DATA
+  ============================================================ */
+
   const graphData = useMemo(() => {
     return {
-      labels: holdings.map((s) => s.name || "--"),
+      labels: holdings.map((s) => s.name),
       datasets: [
         {
-          label: "Stock Price",
+          label: "Stock Prices",
           data: holdings.map((s) => Number(s.price || 0)),
-          backgroundColor: "rgba(255, 99, 132, 0.5)",
+          borderRadius: 6,
+          barThickness: 26,
         },
       ],
     };
   }, [holdings]);
 
-  // ✅ UI STATES
+  /* ============================================================
+     UI STATES
+  ============================================================ */
+
   if (loading) {
-    return <div className="orders-loading">Loading your holdings...</div>;
+    return (
+      <div className="route-loading">
+        Loading your holdings...
+      </div>
+    );
   }
 
   if (errorMsg) {
     return (
-      <div className="orders-empty">
-        <p>{errorMsg}</p>
+      <div className="route-loading">
+        {errorMsg}
       </div>
     );
   }
 
   if (!holdings.length) {
     return (
-      <>
-        <h3 className="title">Holdings (0)</h3>
-        <div className="orders-empty">
-          <p>No holdings yet</p>
-        </div>
-      </>
+      <div className="route-loading">
+        No holdings yet 📭
+      </div>
     );
   }
 
-  return (
-    <>
-      <h3 className="title">Holdings ({holdings.length})</h3>
+  /* ============================================================
+     UI RENDER
+  ============================================================ */
 
-      <div className="order-table">
+  return (
+    <div>
+      {/* Title */}
+      <h3 className="holdings-title">
+        Holdings ({holdings.length})
+      </h3>
+
+      {/* Holdings Table */}
+      <div className="holdings-table-card">
         <table>
           <thead>
             <tr>
               <th>Instrument</th>
-              <th>Qty.</th>
-              <th>Avg. cost</th>
+              <th>Qty</th>
+              <th>Avg Cost</th>
               <th>LTP</th>
-              <th>Cur. val</th>
+              <th>Current Value</th>
               <th>P&amp;L</th>
-              <th>Net chg.</th>
-              <th>Day chg.</th>
             </tr>
           </thead>
 
           <tbody>
-            {holdings.map((stock, index) => {
-              const name = stock.name || "--";
+            {holdings.map((stock) => {
               const qty = Number(stock.qty || 0);
               const avg = Number(stock.avg || 0);
               const price = Number(stock.price || 0);
 
-              const curValue = price * qty;
-              const pnl = curValue - avg * qty;
-
-              const profClass = pnl >= 0 ? "profit" : "loss";
-
-              // ✅ day change: infer from stock.day if numeric
-              const dayValue = stock.day ?? 0;
-              const dayNum =
-                typeof dayValue === "string" ? Number(dayValue) : Number(dayValue || 0);
-              const dayClass = dayNum >= 0 ? "profit" : "loss";
-
-              const netValue = stock.net ?? (avg ? ((pnl / (avg * qty)) * 100) : 0);
-              const netNum =
-                typeof netValue === "string" ? Number(netValue) : Number(netValue || 0);
+              const currentValue = qty * price;
+              const pnl = currentValue - qty * avg;
 
               return (
-                <tr key={stock._id || name || index}>
-                  <td>{name}</td>
+                <tr key={stock._id}>
+                  <td>{stock.name}</td>
                   <td>{qty}</td>
                   <td>{avg.toFixed(2)}</td>
                   <td>{price.toFixed(2)}</td>
-                  <td>{curValue.toFixed(2)}</td>
-
-                  <td className={profClass}>{pnl.toFixed(2)}</td>
-
-                  {/* net change */}
-                  <td className={profClass}>
-                    {Number.isFinite(netNum) ? `${netNum.toFixed(2)}%` : "--"}
-                  </td>
-
-                  {/* day change */}
-                  <td className={dayClass}>
-                    {typeof stock.day === "string" ? stock.day : dayNum.toFixed(2)}
+                  <td>{currentValue.toFixed(2)}</td>
+                  <td className={pnl >= 0 ? "profit" : "loss"}>
+                    {pnl.toFixed(2)}
                   </td>
                 </tr>
               );
@@ -157,29 +152,31 @@ const Holdings = () => {
         </table>
       </div>
 
-      {/* totals row */}
-      <div className="row">
-        <div className="col">
-          <h5>{totals.totalInvestment.toFixed(2)}</h5>
-          <p>Total investment</p>
+      {/* Totals Summary */}
+      <div className="holdings-summary">
+        <div className="holdings-summary-card">
+          <h5>₹{totals.investment.toFixed(2)}</h5>
+          <p>Total Investment</p>
         </div>
 
-        <div className="col">
-          <h5>{totals.currentValue.toFixed(2)}</h5>
-          <p>Current value</p>
+        <div className="holdings-summary-card">
+          <h5>₹{totals.currentValue.toFixed(2)}</h5>
+          <p>Current Value</p>
         </div>
 
-        <div className="col">
+        <div className="holdings-summary-card">
           <h5 className={totals.pnl >= 0 ? "profit" : "loss"}>
-            {totals.pnl.toFixed(2)}
+            ₹{totals.pnl.toFixed(2)}
           </h5>
-          <p>P&amp;L</p>
+          <p>Total P&amp;L</p>
         </div>
       </div>
 
-      {/* graph */}
-      <VerticalGraph data={graphData} />
-    </>
+      {/* Graph */}
+      <div className="dashboard-chart-card">
+        <VerticalGraph data={graphData} />
+      </div>
+    </div>
   );
 };
 
