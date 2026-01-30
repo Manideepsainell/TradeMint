@@ -1,5 +1,6 @@
 import React from "react";
-import './Leftsec.css'
+import "./Leftsec.css";
+
 function Leftsec({
   imageURL,
   productName,
@@ -11,33 +12,33 @@ function Leftsec({
     <section className="landing-section">
       <div className="landing-inner">
         <div className="product-row">
-          {/* ✅ Dynamic Image */}
+
+          {/* Image */}
           <div className="product-img">
-            <img src={imageURL} alt={productName} />
+            <div className="product-image-wrapper">
+              <img src={imageURL} alt={productName} />
+            </div>
           </div>
 
-          {/* ✅ Content */}
+          {/* Content */}
           <div className="product-info">
             <h2>{productName}</h2>
             <p>{productDescription}</p>
 
-            {/* ✅ TradeMint Links */}
             <div className="product-links">
               {primaryLink && (
                 <a href={primaryLink.href} className="landing-link">
-                  {primaryLink.label}{" "}
-                  <i className="fa fa-long-arrow-right" />
+                  {primaryLink.label} <i className="fa fa-long-arrow-right" />
                 </a>
               )}
-
               {secondaryLink && (
                 <a href={secondaryLink.href} className="landing-link">
-                  {secondaryLink.label}{" "}
-                  <i className="fa fa-long-arrow-right" />
+                  {secondaryLink.label} <i className="fa fa-long-arrow-right" />
                 </a>
               )}
             </div>
           </div>
+
         </div>
       </div>
     </section>
