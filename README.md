@@ -1,152 +1,200 @@
 # TradeMint 🚀  
-A Zerodha-inspired full stack stock trading dashboard built with the MERN stack.
+**TradeMint** is a full-stack MERN trading simulation platform designed to demonstrate how modern brokerage systems handle **order execution, portfolio tracking, and brokerage-aware profit calculation**.
 
-TradeMint allows users to securely sign up/login, manage holdings & positions, place orders, and track portfolio value using live market prices.
+It focuses on **real trading logic and production-style backend architecture**, not just UI — making it an internship-ready fintech engineering project.
 
 ---
 
-## ✨ Features
+## ✨ Core Highlights
 
-### ✅ Authentication & Security
-- Secure **JWT cookie-based authentication** (`httpOnly`)
-- Protected routes (frontend + backend)
-- Session restore using `/auth/me`
-- Logout support
+### 🔐 Secure Authentication
+- JWT **httpOnly cookie-based authentication**
+- Protected frontend & backend routes
+- Session restoration via `/auth/me`
+- Secure logout handling
 
-### 📈 Trading Dashboard
-- Portfolio overview (investment value, current value, overall P&L)
-- Holdings, positions, and orders management
-- Watchlist support
-- Market indices view (NIFTY / SENSEX)
+### 📈 Trading Execution System
+- Buy/Sell order placement workflow
+- Holdings & positions tracking
+- Order history with execution logic
+- User-level portfolio management
 
-### ⚙️ Backend APIs
-- REST APIs for:
-  - Orders
-  - Holdings
-  - Positions
-  - Watchlist
+### 💰 Brokerage-Aware Profit Engine
+Unlike basic dashboards, TradeMint calculates:
+
+✔ Gross Profit  
+✔ Brokerage & exchange charges  
+✔ Taxes (GST, STT, etc.)  
+✔ **Net Profit after charges**
+
+This mirrors how real brokerage apps compute returns.
+
+### 📊 Portfolio Analytics
+- Real-time portfolio value tracking
+- Individual stock P&L
+- Investment vs current value comparison
+
+### 🔔 Smart Portfolio Insights
+- Exposure monitoring
+- Activity tracking
+- Performance-focused dashboard design
+
+### 🌐 Live Market Data
+- Integrated **Yahoo Finance API**
+- Dynamic quote fetching
+- Real-time portfolio updates
+
+---
+
+## 🧠 Smart Backend Engineering
+
+TradeMint applies real-world backend practices:
+
+- **In-memory caching** for live market prices (performance optimization)
+- **Zod validation** for critical request payloads (orders, authentication)
+- Secure cookie-based JWT authentication middleware
+- Modular business logic for trade execution & portfolio updates
+
+---
+
+## ⚙️ Backend Architecture
+
+TradeMint follows a **production-style backend structure**:
+
+```
+Routes → Controllers → Services → Models → Database
+```
+
+- REST API communication between React and Node.js
 - User-level data separation using `userId`
-- Modular middleware-based architecture
-
-### 🌐 Live Market Pricing
-- Integrated **Yahoo Finance API** for real-time quote data
-- Dynamic portfolio updates based on live prices
+- MongoDB schemas for Orders, Holdings, Positions
+- Middleware-based authentication & request handling
 
 ---
 
 ## 🛠 Tech Stack
 
-**Frontend (Dashboard):**
+### Frontend
 - React.js
 - React Router
+- Context API
 - Bootstrap
 
-**Backend:**
+### Backend
 - Node.js
 - Express.js
-- JWT Authentication (cookie-based)
-- Middleware architecture
+- JWT Authentication (httpOnly cookie-based)
+- Zod schema validation
+- In-memory caching layer
+- Middleware-based architecture
 
-**Database:**
+### Database
 - MongoDB + Mongoose
 
-**Tools:**
+### Tools & Deployment
 - Git & GitHub
 - Postman
+- Render (Backend Deployment)
+- AWS Amplify (Frontend Hosting)
 
 ---
 
 ## 📂 Project Structure
+
+```
 TradeMint/
 │
-├── backend/ # Node.js + Express API
-└── dashboard/ # React frontend
-
+├── backend/     # Node.js + Express REST API
+└── dashboard/   # React frontend application
+```
 
 ---
 
 ## ⚡ Getting Started
 
-### 1) Clone the Repository
+### 1️⃣ Clone the Repository
 ```bash
 git clone https://github.com/Manideepsainell/TradeMint.git
 cd TradeMint
+```
 
-🔧 Backend Setup
-2) Install Dependencies
+---
+
+### 🔧 Backend Setup
+
+```bash
 cd backend
 npm install
+```
 
+Create a `.env` file:
 
-3) Setup Environment Variables
-
-Create a .env file inside backend/:
-
+```env
 PORT=8000
 MONGO_URI=your_mongodb_connection_string
 JWT_SECRET=your_jwt_secret
 CLIENT_URL=http://localhost:3000
-
-4) Run Backend
-npm start
-
-
-Backend will run at:
-http://localhost:8000
-
-5) Install Dependencies
-cd ../dashboard
-npm install
-
-6) Run Frontend
-npm start
-
-
-Frontend will run at:
-http://localhost:3000
 ```
 
-🔑 API Highlights
-Auth
+Run backend:
 
-POST /api/auth/signup — Register
+```bash
+npm start
+```
 
-POST /api/auth/login — Login
+Backend runs on:  
+👉 `http://localhost:8000`
 
-GET /api/auth/me — Session restore
+---
 
-POST /api/auth/logout — Logout
+### 💻 Frontend Setup
 
-Trading Data
+```bash
+cd ../dashboard
+npm install
+npm start
+```
 
-GET /api/orders
+Frontend runs on:  
+👉 `http://localhost:3000`
 
-GET /api/holdings
+---
 
-GET /api/positions
+## 🔌 Key API Endpoints
 
-GET /api/watchlist
+### Auth
+- `POST /api/auth/signup` — Register  
+- `POST /api/auth/login` — Login  
+- `GET /api/auth/me` — Restore session  
+- `POST /api/auth/logout` — Logout  
 
-📌 Roadmap / Improvements
+### Trading Data
+- `GET /api/orders`
+- `GET /api/holdings`
+- `GET /api/positions`
+- `GET /api/watchlist`
+
+---
+
+## 🛣 Roadmap
 
 Planned production upgrades:
 
-Input validation (Zod/Joi)
+- Advanced trade reports & analytics  
+- WebSocket-based live price streaming  
+- Performance monitoring & logging  
+- Mobile responsiveness improvements  
 
-Central error handling middleware
+---
 
-Quote caching (performance improvement)
+## 👨‍💻 Author
 
-Better loading & error UI on dashboard
+**Manideep Sai Nellutla**  
+MERN Stack Developer  
 
-Deployment (Render/Vercel)
+🔗 GitHub: https://github.com/Manideepsainell  
+🔗 LinkedIn: https://linkedin.com/in/manideep-sai-97681a330  
 
-👨‍💻 Author
+---
 
-Manideep Sai Nellutla
-
-GitHub: https://github.com/Manideepsainell
-
-LinkedIn: https://linkedin.com/in/manideep-sai-97681a330
-⭐ If you like this project, consider giving it a star!
-----
+⭐ If you found this project interesting, consider giving it a star!
