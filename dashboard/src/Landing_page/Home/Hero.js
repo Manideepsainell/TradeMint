@@ -9,7 +9,7 @@ function Hero() {
 
         {/* Platform Preview */}
         <img
-          src="/media/platform/dashboard.png"
+          src="/media/platform/Dashboard.png"
           alt="TradeMint Trading Dashboard"
           className="img-fluid hero-image"
         />

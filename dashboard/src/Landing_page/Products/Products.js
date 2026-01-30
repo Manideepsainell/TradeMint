@@ -12,7 +12,7 @@ function Products() {
 
       {/* 🚀 Module 1 — Dashboard Overview */}
       <Leftsec
-        imageURL="/media/platform/dashboard.png"
+        imageURL="/media/platform/Dashboard.png"
         productName="TradeMint Trading Dashboard"
         productDescription="A modern trading dashboard featuring secure authentication, live market tracking, portfolio summaries, and real-time financial insights — inspired by production brokerage platforms."
         primaryLink={{ href: "/login", label: "Launch Dashboard" }}
@@ -23,12 +23,12 @@ function Products() {
       <Rightsec
         prodtitle="Holdings & Portfolio Analytics"
         description="Monitor your investments with real-time valuation, profit/loss tracking, asset allocation insights, and portfolio performance visualization."
-        imgurl="/media/platform/holdings.png"
+        imgurl="/media/platform/Holdings.png"
       />
 
       {/* 🚨 Module 3 — Smart Alerts */}
       <Leftsec
-        imageURL="/media/platform/alerts.png"
+        imageURL="/media/platform/Alerts.png"
         productName="Smart Alerts Engine"
         productDescription="Receive intelligent portfolio alerts including exposure warnings, stock movement notifications, and activity-based insights to stay informed about market risks."
         primaryLink={{ href: "/dashboard", label: "View Alerts" }}
@@ -38,7 +38,7 @@ function Products() {
       <Rightsec
         prodtitle="Order Execution & History"
         description="Track buy and sell orders with timestamps, execution records, and portfolio impact — replicating real-world trading workflows."
-        imgurl="/media/platform/orders.png"
+        imgurl="/media/platform/Orders.png"
         primaryLink={{ href: "/dashboard/orders", label: "View Orders" }}
       />
 
