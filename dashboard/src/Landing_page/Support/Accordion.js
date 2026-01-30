@@ -1,72 +1,61 @@
 import React, { useState } from "react";
 import "./Accordion.css";
+import { Rocket, ArrowLeftRight, PieChart, Calculator, BellRing, Network } from "lucide-react";
 
 const items = [
   {
     title: "Getting Started",
-    icon: "media/images/icon_1.png",
-    iconSize: 60,
+    icon: <Rocket size={28} />,
     links: [
-      "Login & Session Restore",
-      "Dashboard Overview",
-      "Protected Routes",
-      "Demo Account Setup",
+      "How to create an account and log in",
+      "Understanding the dashboard layout",
+      "Using the demo account",
     ],
   },
   {
     title: "Trading & Orders",
-    icon: "media/images/icon_2.png",
-    iconSize: 60,
+    icon: <ArrowLeftRight size={28} />,
     links: [
-      "Placing Buy Orders",
-      "Placing Sell Orders",
-      "Order History",
-      "Execution Engine Workflow",
+      "How to place buy and sell orders",
+      "Tracking order history",
+      "Understanding order execution",
     ],
   },
   {
     title: "Portfolio Analytics",
-    icon: "media/images/icon_7.png",
-    iconSize: 50,
+    icon: <PieChart size={28} />,
     links: [
-      "Holdings Tracking",
-      "Positions Monitoring",
-      "Real-Time P&L Calculation",
-      "Portfolio Value Summary",
+      "Reading holdings and positions",
+      "How P&L is calculated",
+      "Portfolio value overview",
     ],
   },
   {
     title: "Brokerage & Charges",
-    icon: "media/images/icon_3.png",
-    iconSize: 60,
+    icon: <Calculator size={28} />,
     links: [
-      "Charges Breakdown",
-      "Gross vs Net Profit",
-      "Trade Cost Transparency Module",
+      "Breakdown of brokerage fees",
+      "Gross vs net profit",
     ],
   },
   {
     title: "Smart Alerts",
-    icon: "media/images/icon_4.png",
-    iconSize: 60,
+    icon: <BellRing size={28} />,
     links: [
-      "Exposure Warnings",
-      "Daily Drop Alerts",
-      "Recent Activity Insights",
+      "Setting price alerts",
+      "Understanding portfolio alerts",
     ],
   },
   {
-    title: "Backend Architecture",
-    icon: "media/images/icon_5.png",
-    iconSize: 60,
+    title: "Platform Architecture",
+    icon: <Network size={28} />,
     links: [
-      "Routes → Controllers → Services",
-      "MongoDB Models & Schemas",
-      "Caching + Market Data Integration",
-      "API Security with Middleware",
+      "Frontend–backend communication",
+      "Database and security design",
     ],
   },
 ];
+
 
 function Accordion() {
   const [open, setOpen] = useState(null);
@@ -88,12 +77,10 @@ function Accordion() {
                       onClick={() => toggle(i)}
                     >
                       <span className="corner-block">
-                        <img
-                          src={item.icon}
-                          alt={item.title}
-                          width={item.iconSize}
-                          height={item.iconSize}
-                        />
+                       <span className="help-icon">
+  {item.icon}
+</span>
+
                       </span>
 
                       <span className="accordion-title fs-5">
@@ -128,11 +115,12 @@ function Accordion() {
           <div className="col-lg-4 col-12">
             <div className="support-alert">
               <p className="mb-2 fw-bold">Platform Note</p>
-              <p className="text-muted mb-0">
-                TradeMint is a full-stack fintech engineering project built to
-                demonstrate real trading workflows, execution logic, and backend
-                architecture.
-              </p>
+             <p className="text-muted mb-0">
+  TradeMint is a full-stack trading simulation platform designed to
+  demonstrate how modern brokerage dashboards handle orders, portfolios,
+  alerts, and backend systems in real-world applications.
+</p>
+
             </div>
 
             <div className="support-quicklinks mt-4">
