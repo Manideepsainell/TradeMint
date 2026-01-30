@@ -1,9 +1,9 @@
 /* ============================================================
-   ABOUT HERO — TradeMint Branding (Themed)
+   ABOUT HERO — TradeMint Branding
 ============================================================ */
 
 .about-hero-section {
-  padding: 80px 20px;
+  padding: 90px 20px;
   background: var(--card);
 }
 
@@ -19,7 +19,7 @@
 }
 
 .about-heading h1 {
-  font-size: 32px;
+  font-size: 34px;
   font-weight: 900;
   line-height: 1.3;
   color: var(--text);
@@ -33,13 +33,41 @@
   color: var(--muted);
 }
 
-/* Grid */
+/* Highlight Badges */
+.about-highlights {
+  margin-top: 30px;
+  display: flex;
+  justify-content: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.about-highlight {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--soft);
+  border: 1px solid var(--border);
+  padding: 8px 16px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.about-highlight svg {
+  color: var(--brand);
+  font-size: 14px;
+}
+
+/* Content Grid */
 .about-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 40px;
   border-top: 1px solid var(--border);
   padding-top: 40px;
+  margin-top: 50px;
 }
 
 .about-grid p {
