@@ -1,12 +1,14 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import './Pricing.css'
+import { Zap, Calculator, BellRing } from "lucide-react";
+import "./Pricing.css";
+
 function Pricing() {
   return (
     <section className="landing-section pricing-section py-5" id="features">
       <div className="container">
         <div className="row align-items-center g-4">
-          {/* ✅ Left Content */}
+          {/* Left Content */}
           <div className="col-lg-5">
             <h1 className="fs-3 mb-3 fw-bold">
               Built with Real Trading Logic
@@ -24,12 +26,15 @@ function Pricing() {
             </Link>
           </div>
 
-          {/* ✅ Right Feature Blocks */}
+          {/* Right Feature Blocks */}
           <div className="col-lg-6 ms-lg-auto">
             <div className="row text-center g-4">
+              
               {/* Feature 1 */}
               <div className="col-md-4">
-                <div className="feature-icon">⚡</div>
+                <div className="feature-icon modern-icon">
+                  <Zap size={26} />
+                </div>
                 <p className="mt-3 fw-semibold">
                   Real Buy/Sell <br /> Execution Engine
                 </p>
@@ -37,7 +42,9 @@ function Pricing() {
 
               {/* Feature 2 */}
               <div className="col-md-4">
-                <div className="feature-icon">📊</div>
+                <div className="feature-icon modern-icon">
+                  <Calculator size={26} />
+                </div>
                 <p className="mt-3 fw-semibold">
                   Brokerage-Aware <br /> Net Profit
                 </p>
@@ -45,11 +52,14 @@ function Pricing() {
 
               {/* Feature 3 */}
               <div className="col-md-4">
-                <div className="feature-icon">🔔</div>
+                <div className="feature-icon modern-icon">
+                  <BellRing size={26} />
+                </div>
                 <p className="mt-3 fw-semibold">
                   Smart Alerts <br /> & Portfolio Insights
                 </p>
               </div>
+
             </div>
           </div>
         </div>

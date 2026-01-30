@@ -1,59 +1,62 @@
 import React from "react";
 import './Awards.css';
+
 function Awards() {
   return (
     <section className="landing-section awards-section py-5">
       <div className="container">
         <div className="row align-items-center g-4">
-          {/* ✅ Left Illustration */}
+
+          {/* 🖼 Left: System Architecture Illustration */}
           <div className="col-md-6 text-center">
             <img
-              src="/media/images/largestBroker.svg"
-              alt="TradeMint Dashboard"
+              src="/media/platform/Architecture.png"
+              alt="TradeMint System Architecture"
               className="img-fluid awards-hero-img"
             />
           </div>
 
-          {/* ✅ Right Content */}
+          {/* 📝 Right: Engineering Overview */}
           <div className="col-md-6">
             <h1 className="fs-2 fw-bold">
-              TradeMint — A Modern Trading Platform
+              TradeMint — System Architecture Overview
             </h1>
 
             <p className="mt-3 text-muted">
-              TradeMint is a full-stack stock trading dashboard built with the
-              MERN stack. It delivers real brokerage-style workflows with secure
-              authentication, live pricing, and portfolio analytics.
+              TradeMint is engineered as a full-stack MERN trading simulation
+              platform, designed with modular backend services, secure
+              authentication, and scalable portfolio data management.
             </p>
 
-            {/* ✅ Feature Grid */}
+            {/* 🧠 Technical Feature Grid */}
             <div className="row mt-4">
               <div className="col-6">
                 <ul className="ps-3 feature-list">
-                  <li className="mb-2">Buy & Sell Execution Engine</li>
-                  <li className="mb-2">Holdings & Positions Tracking</li>
-                  <li className="mb-2">Real-Time Portfolio P&L</li>
+                  <li className="mb-2">Modular REST API Architecture</li>
+                  <li className="mb-2">Node.js + Express Backend</li>
+                  <li className="mb-2">JWT Authentication via Cookies</li>
                 </ul>
               </div>
 
               <div className="col-6">
                 <ul className="ps-3 feature-list">
-                  <li className="mb-2">Brokerage-Aware Net Profit</li>
-                  <li className="mb-2">Smart Portfolio Alerts</li>
-                  <li className="mb-2">Production-Style Backend APIs</li>
+                  <li className="mb-2">MongoDB Portfolio Persistence</li>
+                  <li className="mb-2">Service Layer for Trading Logic</li>
+                  <li className="mb-2">Frontend–Backend Data Sync</li>
                 </ul>
               </div>
             </div>
 
-            {/* ✅ Branding Note */}
+            {/* 🏗 Project Note */}
             <div className="mt-4 project-note">
               <p className="small text-muted mb-0">
-                Designed as an internship-ready fintech engineering project —
-                inspired by platforms like Zerodha, but developed end-to-end as
-                TradeMint.
+                Built as an internship-ready fintech engineering project focused
+                on clean architecture, real trading workflows, and scalable
+                system design.
               </p>
             </div>
           </div>
+
         </div>
       </div>
     </section>

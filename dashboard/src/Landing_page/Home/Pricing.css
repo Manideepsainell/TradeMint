@@ -1,70 +1,72 @@
 /* ============================================================
-   PRICING / PLATFORM FEATURES — TradeMint
+   PLATFORM FEATURES — TradeMint
 ============================================================ */
 
 .pricing-section {
-  background: var(--bg);
+  background: linear-gradient(to bottom, #0b1220, #0a0f1a);
+  padding-top: 90px;
+  padding-bottom: 90px;
 }
 
-/* Left Text */
-.pricing-section h1 {
+/* LEFT SIDE */
+.pricing-title {
+  font-size: 34px;
   font-weight: 900;
-  color: var(--text);
+  color: #fff;
+  line-height: 1.3;
 }
 
-.pricing-section p {
-  color: var(--muted) !important;
-  font-size: 15px;
-  line-height: 1.7;
-}
-
-/* CTA Link */
-.pricing-section .landing-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
+.pricing-title span {
   color: var(--brand);
+}
+
+.pricing-subtitle {
+  color: #9ca3af;
+  font-size: 16px;
+  line-height: 1.7;
+  margin-top: 14px;
+  margin-bottom: 24px;
+  max-width: 460px;
+}
+
+.pricing-cta {
   font-weight: 700;
-  text-decoration: none;
-  transition: 0.2s ease;
 }
 
-.pricing-section .landing-link i {
-  transition: transform 0.2s ease;
-}
-
-.pricing-section .landing-link:hover {
-  color: var(--brand-dark);
-}
-
-.pricing-section .landing-link:hover i {
-  transform: translateX(4px);
-}
-
-/* Feature Icons */
-.feature-icon {
-  width: 64px;
-  height: 64px;
+/* FEATURE CARDS */
+.feature-card {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 18px;
-  background: var(--soft);
+  padding: 26px 16px;
+  text-align: center;
+  transition: all 0.3s ease;
+  height: 100%;
+}
+
+.feature-card p {
+  margin-top: 16px;
+  font-weight: 600;
+  color: #e5e7eb;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+/* ICON */
+.feature-icon {
+  width: 70px;
+  height: 70px;
+  border-radius: 20px;
+  background: linear-gradient(135deg, var(--brand), #7c4dff);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 28px;
   margin: 0 auto;
-  border: 1px solid var(--border);
-  transition: 0.25s ease;
-}
-
-/* Feature Block Hover */
-.pricing-section .col-md-4:hover .feature-icon {
-  background: var(--brand);
   color: white;
-  transform: translateY(-4px);
+  transition: all 0.3s ease;
 }
 
-/* Feature Text */
-.pricing-section .fw-semibold {
-  color: var(--text);
-  font-weight: 700 !important;
+.pricing-section .col-md-4:hover .feature-icon {
+  transform: translateY(-6px) scale(1.05);
+  box-shadow: 0 14px 30px rgba(124, 77, 255, 0.25);
 }

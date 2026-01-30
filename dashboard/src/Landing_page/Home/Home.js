@@ -11,7 +11,6 @@ function Home() {
     <div className="landing-home">
       <Hero />
       <Awards />
-      <Stats />
       <Pricing />
       <Education />
       <Openacc />

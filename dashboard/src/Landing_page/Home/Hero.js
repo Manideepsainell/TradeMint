@@ -1,43 +1,45 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import './Hero.css'
+
 function Hero() {
   return (
-    <section className="landing-section hero-section py-5">
+    <section className="landing-section hero-section">
       <div className="container text-center">
-        {/* ✅ Hero Image */}
+
+        {/* Platform Preview */}
         <img
-          src="/media/images/homeHero.png"
-          alt="TradeMint Platform"
+          src="/media/platform/dashboard.png"
+          alt="TradeMint Trading Dashboard"
           className="img-fluid hero-image"
         />
 
-        {/* ✅ Main Heading */}
-        <h1 className="mt-5 hero-title">
-          TradeMint — Trading & Portfolio Intelligence
+        {/* Main Heading */}
+        <h1 className="hero-title">
+          Trading Infrastructure <span>Built for Portfolio Intelligence</span>
         </h1>
 
-        {/* ✅ Subtitle */}
+        {/* Subtitle */}
         <p className="hero-subtitle">
-          A modern full-stack trading platform with live market data, secure
-          execution workflows, brokerage-aware net profit, and smart portfolio
-          insights.
+          TradeMint is a production-style full-stack trading platform featuring
+          secure execution workflows, live market tracking, brokerage-aware
+          profit analytics, and intelligent portfolio insights.
         </p>
 
-        {/* ✅ CTA Buttons */}
+        {/* CTA Buttons */}
         <div className="hero-cta">
           <Link to="/login" className="btn hero-btn-primary">
             Launch Dashboard
           </Link>
 
           <a href="#features" className="btn hero-btn-secondary">
-            View Features
+            Explore Platform
           </a>
         </div>
 
-        {/* ✅ Small Recruiter Note */}
+        {/* Recruiter Note */}
         <p className="hero-note">
-          Built as a production-style MERN fintech project.
+          Built as an internship-ready MERN fintech engineering project.
         </p>
       </div>
     </section>
