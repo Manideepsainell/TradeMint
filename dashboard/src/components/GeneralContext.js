@@ -1,54 +1,42 @@
-import React, { useState } from "react";
+import React, { createContext, useState, useCallback } from "react";
 import TradeModal from "./TradeModal";
 
-const GeneralContext = React.createContext({
-  openBuyWindow: (uid) => {},
-  openSellWindow: (uid) => {},
-  closeTradeWindow: () => {},
-});
+/* ============================================================
+   ✅ GENERAL CONTEXT (TradeMint)
+============================================================ */
+
+const GeneralContext = createContext();
 
 export const GeneralContextProvider = ({ children }) => {
   /* ============================================================
-     SINGLE MODAL STATE
+     MODAL STATE
   ============================================================ */
 
   const [tradeModal, setTradeModal] = useState({
     isOpen: false,
     uid: null,
-    mode: "BUY", // BUY or SELL
+    mode: "BUY",
   });
 
   /* ============================================================
-     OPEN BUY / SELL
+     OPEN BUY / SELL WINDOWS
   ============================================================ */
 
-  const openBuyWindow = (uid) => {
-    setTradeModal({
-      isOpen: true,
-      uid,
-      mode: "BUY",
-    });
-  };
+  const openBuyWindow = useCallback((uid) => {
+    setTradeModal({ isOpen: true, uid, mode: "BUY" });
+  }, []);
 
-  const openSellWindow = (uid) => {
-    setTradeModal({
-      isOpen: true,
-      uid,
-      mode: "SELL",
-    });
-  };
+  const openSellWindow = useCallback((uid) => {
+    setTradeModal({ isOpen: true, uid, mode: "SELL" });
+  }, []);
 
   /* ============================================================
      CLOSE MODAL
   ============================================================ */
 
-  const closeTradeWindow = () => {
-    setTradeModal({
-      isOpen: false,
-      uid: null,
-      mode: "BUY",
-    });
-  };
+  const closeTradeWindow = useCallback(() => {
+    setTradeModal({ isOpen: false, uid: null, mode: "BUY" });
+  }, []);
 
   /* ============================================================
      PROVIDER
@@ -57,6 +45,7 @@ export const GeneralContextProvider = ({ children }) => {
   return (
     <GeneralContext.Provider
       value={{
+        tradeModal,
         openBuyWindow,
         openSellWindow,
         closeTradeWindow,
@@ -64,7 +53,7 @@ export const GeneralContextProvider = ({ children }) => {
     >
       {children}
 
-      {/* ✅ Render ONE Unified Modal */}
+      {/* ✅ Unified Trade Modal */}
       {tradeModal.isOpen && (
         <TradeModal
           uid={tradeModal.uid}

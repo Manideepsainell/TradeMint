@@ -42,13 +42,55 @@ const Positions = () => {
     return <div className="route-loading">{errorMsg}</div>;
   }
 
-  if (!positions.length) {
-    return (
-      <div className="route-loading">
-        No open positions right now 📭
+ if (!positions.length) {
+  return (
+    <div className="positions-empty glass-card">
+      <h2>No open positions</h2>
+
+      <p className="muted">
+        You don’t have any active trades right now.  
+        Once you place Buy/Sell orders, your positions will appear here.
+      </p>
+
+      <div className="positions-badge">
+        🚧 Live Positions tracking coming soon
       </div>
-    );
-  }
+
+      <button
+        className="dashboard-btn"
+        onClick={() => window.location.href = "/dashboard"}
+      >
+        Explore Dashboard →
+      </button>
+        <p className="example-label" style={{ marginTop: "12px" }}>
+  Example Position:
+</p>
+      {/* Table Preview Header */}
+      <div className="positions-preview">
+        <div className="preview-row">
+          <span>Instrument</span>
+          <span>Qty</span>
+          <span>Avg</span>
+          <span>LTP</span>
+          <span>P&L</span>
+        </div>
+ 
+        <div className="preview-row muted">
+ 
+
+  <span>RELIANCE</span>
+  <span>10</span>
+  <span>₹1400</span>
+  <span>₹1442</span>
+  <span className="profit">+₹420</span>
+</div>
+
+
+      </div>
+    </div>
+  );
+}
+
 
   /* ============================================================
      MAIN UI

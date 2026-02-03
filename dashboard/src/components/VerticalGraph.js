@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -10,7 +10,7 @@ import {
 } from "chart.js";
 import { Bar } from "react-chartjs-2";
 
-/* ✅ Register Chart.js components */
+/* ✅ Register Chart.js modules */
 ChartJS.register(
   CategoryScale,
   LinearScale,
@@ -21,73 +21,82 @@ ChartJS.register(
 );
 
 /* ============================================================
-   PREMIUM DASHBOARD OPTIONS
-============================================================ */
-
-const options = {
-  responsive: true,
-  maintainAspectRatio: false,
-
-  plugins: {
-    legend: {
-      position: "top",
-      labels: {
-        color: "#94a3b8",
-        font: { weight: "600" },
-      },
-    },
-
-    title: {
-      display: true,
-      text: "Holdings Performance",
-      color: "#e2e8f0",
-      font: {
-        size: 15,
-        weight: "800",
-      },
-      padding: { bottom: 14 },
-    },
-
-    tooltip: {
-      backgroundColor: "#0f172a",
-      titleColor: "#ffffff",
-      bodyColor: "#cbd5e1",
-      borderColor: "#1e293b",
-      borderWidth: 1,
-      padding: 10,
-    },
-  },
-
-  scales: {
-    x: {
-      ticks: {
-        color: "#94a3b8",
-        font: { weight: "600" },
-      },
-      grid: { display: false },
-    },
-
-    y: {
-      ticks: {
-        color: "#94a3b8",
-      },
-      grid: {
-        color: "rgba(148, 163, 184, 0.08)",
-      },
-    },
-  },
-};
-
-/* ============================================================
-   COMPONENT
+   ✅ VerticalGraph (TradeMint Themed)
 ============================================================ */
 
 export function VerticalGraph({ data }) {
+  /* ✅ Read theme variables from CSS */
+  const styles = getComputedStyle(document.documentElement);
+
+  const brand = styles.getPropertyValue("--brand") || "#7c3aed";
+  const muted = styles.getPropertyValue("--muted") || "#94a3b8";
+  const text = styles.getPropertyValue("--text") || "#f8fafc";
+  const border = styles.getPropertyValue("--border") || "rgba(255,255,255,0.12)";
+
+  /* ✅ Chart Options (Theme Aware) */
+  const options = useMemo(() => {
+    return {
+      responsive: true,
+      maintainAspectRatio: false,
+
+      plugins: {
+        legend: {
+          position: "top",
+          labels: {
+            color: muted.trim(),
+            font: { weight: "600" },
+          },
+        },
+
+        title: {
+          display: false,
+          text: "Holdings Performance",
+          color: text.trim(),
+          font: {
+            size: 15,
+            weight: "800",
+          },
+          padding: { bottom: 14 },
+        },
+
+       
+        tooltip: {
+  callbacks: {
+    label: function (ctx) {
+      return "₹" + ctx.raw.toLocaleString("en-IN");
+    },
+  },
+},
+
+      },
+
+      scales: {
+        x: {
+          ticks: {
+            color: muted.trim(),
+            font: { weight: "600" },
+          },
+          grid: { display: false },
+        },
+
+        y: {
+          ticks: {
+            color: muted.trim(),
+          },
+          grid: {
+            color: border.trim(),
+          },
+        },
+      },
+    };
+  }, [brand, muted, text, border]);
+
+  /* ✅ Themed Dataset */
   const themedData = {
     ...data,
     datasets: data.datasets.map((ds) => ({
       ...ds,
-      backgroundColor: "rgba(56, 189, 248, 0.65)", // TradeMint Accent
+      backgroundColor: `rgba(124, 58, 237, 0.65)`, // ✅ Purple Brand
       borderRadius: 8,
     })),
   };

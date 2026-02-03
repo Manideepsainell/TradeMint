@@ -5,25 +5,27 @@ const PortfolioHero = ({ holdings = [], report = {} }) => {
      HELPERS
   ============================================================ */
 
-  const formatMoney = (value) => Number(value || 0).toFixed(2);
+  const formatMoney = (value) =>
+    `₹${Number(value || 0).toFixed(2)}`;
 
   /* ============================================================
-     METRICS
+     PORTFOLIO METRICS (Single Loop Optimized)
   ============================================================ */
 
   const metrics = useMemo(() => {
-    const investment = holdings.reduce(
-      (acc, stock) => acc + stock.qty * stock.avg,
-      0
-    );
+    let investment = 0;
+    let currentValue = 0;
 
-    const currentValue = holdings.reduce(
-      (acc, stock) => acc + stock.qty * stock.price,
-      0
-    );
+    holdings.forEach((stock) => {
+      const qty = Number(stock.qty || 0);
+      const avg = Number(stock.avg || 0);
+      const price = Number(stock.price || 0);
+
+      investment += qty * avg;
+      currentValue += qty * price;
+    });
 
     const grossPnl = currentValue - investment;
-
     const returnPercent =
       investment > 0 ? (grossPnl / investment) * 100 : 0;
 
@@ -35,8 +37,12 @@ const PortfolioHero = ({ holdings = [], report = {} }) => {
     };
   }, [holdings]);
 
-  const netProfit = report?.totalNetProfit || 0;
-  const charges = report?.totalCharges || 0;
+  /* ============================================================
+     REPORT METRICS
+  ============================================================ */
+
+  const totalCharges = Number(report?.totalCharges || 0);
+  const netProfit = Number(report?.totalNetProfit || 0);
 
   /* ============================================================
      UI
@@ -44,32 +50,32 @@ const PortfolioHero = ({ holdings = [], report = {} }) => {
 
   return (
     <div className="portfolio-hero">
-      {/* Total Portfolio Value */}
+      {/* ✅ Total Portfolio Value */}
       <div>
         <p className="hero-label">Total Portfolio Value</p>
 
         <h1 className="hero-value">
-          ₹{formatMoney(metrics.currentValue)}
+          {formatMoney(metrics.currentValue)}
         </h1>
       </div>
 
-      {/* Stats Grid */}
+      {/* ✅ Stats Grid */}
       <div className="hero-stats">
         {/* Investment */}
         <div>
           <p>Investment</p>
-          <h3>₹{formatMoney(metrics.investment)}</h3>
+          <h3>{formatMoney(metrics.investment)}</h3>
         </div>
 
         {/* Gross P&L */}
         <div>
           <p>Gross P&amp;L</p>
           <h3 className={metrics.grossPnl >= 0 ? "profit" : "loss"}>
-            ₹{formatMoney(metrics.grossPnl)}
+            {formatMoney(metrics.grossPnl)}
           </h3>
         </div>
 
-        {/* Return */}
+        {/* Return Percentage */}
         <div>
           <p>Return</p>
           <h3 className={metrics.grossPnl >= 0 ? "profit" : "loss"}>
@@ -78,17 +84,17 @@ const PortfolioHero = ({ holdings = [], report = {} }) => {
           </h3>
         </div>
 
-        {/* Charges */}
+        {/* Charges Paid */}
         <div>
           <p>Charges Paid</p>
-          <h3>₹{formatMoney(charges)}</h3>
+          <h3>{formatMoney(totalCharges)}</h3>
         </div>
 
         {/* Net Profit */}
         <div>
           <p>Net Profit</p>
           <h3 className={netProfit >= 0 ? "profit" : "loss"}>
-            ₹{formatMoney(netProfit)}
+            {formatMoney(netProfit)}
           </h3>
         </div>
       </div>

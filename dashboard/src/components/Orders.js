@@ -20,7 +20,15 @@ const Orders = () => {
         setLoading(true);
 
         const res = await api.get("/api/user/orders");
-        setOrders(res.data?.data || []);
+
+        const data = res.data?.data || [];
+
+        // ✅ Latest orders first
+        const sorted = data.sort(
+          (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+        );
+
+        setOrders(sorted);
       } catch (err) {
         console.error("Orders Fetch Error:", err);
         setErrorMsg("Failed to load orders. Please try again.");
@@ -40,9 +48,7 @@ const Orders = () => {
     setExpandedId((prev) => (prev === id ? null : id));
   };
 
-  const formatMoney = (value) => {
-    return Number(value || 0).toFixed(2);
-  };
+  const formatMoney = (value) => Number(value || 0).toFixed(2);
 
   /* ============================================================
      UI STATES
@@ -57,11 +63,7 @@ const Orders = () => {
   }
 
   if (!orders.length) {
-    return (
-      <div className="route-loading">
-        No orders placed yet 📭
-      </div>
-    );
+    return <div className="route-loading">No orders placed yet 📭</div>;
   }
 
   /* ============================================================
@@ -83,7 +85,8 @@ const Orders = () => {
               })
             : "--";
 
-          const isSell = order.mode === "SELL";
+          const mode = order.mode?.toUpperCase();
+          const isSell = mode === "SELL";
 
           return (
             <div
@@ -98,10 +101,8 @@ const Orders = () => {
                   <p className="order-date">{createdAt}</p>
                 </div>
 
-                <span
-                  className={`order-mode ${isSell ? "sell" : "buy"}`}
-                >
-                  {order.mode}
+                <span className={`order-mode ${isSell ? "sell" : "buy"}`}>
+                  {mode}
                 </span>
               </div>
 
@@ -112,7 +113,12 @@ const Orders = () => {
                 </span>
 
                 <span>
-                  <strong>Price:</strong> ₹{formatMoney(order.price)}
+                  <strong>Price:</strong>{" "}
+                  {order.price ? (
+                    <>₹{formatMoney(order.price)}</>
+                  ) : (
+                    <span className="muted">Market</span>
+                  )}
                 </span>
               </div>
 
@@ -124,29 +130,26 @@ const Orders = () => {
                   </p>
 
                   <p>
-                    <strong>Status:</strong>{" "}
-                    {order.status || "Completed"}
+                    <strong>Status:</strong> {order.status || "Completed"}
                   </p>
 
                   {/* SELL PROFIT BREAKDOWN */}
                   {isSell && (
                     <>
                       <p>
-                        <strong>Gross Profit:</strong>{" "}
-                        ₹{formatMoney(order.grossProfit)}
+                        <strong>Gross Profit:</strong> ₹
+                        {formatMoney(order.grossProfit)}
                       </p>
 
                       <p>
-                        <strong>Total Charges:</strong>{" "}
-                        ₹{formatMoney(order?.charges?.totalCharges)}
+                        <strong>Total Charges:</strong> ₹
+                        {formatMoney(order?.charges?.totalCharges)}
                       </p>
 
                       <p>
                         <strong>Net Profit:</strong>{" "}
                         <span
-                          className={
-                            order.netProfit >= 0 ? "profit" : "loss"
-                          }
+                          className={order.netProfit >= 0 ? "profit" : "loss"}
                         >
                           ₹{formatMoney(order.netProfit)}
                         </span>

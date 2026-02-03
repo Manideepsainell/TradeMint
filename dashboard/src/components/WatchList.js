@@ -1,22 +1,20 @@
-import React, { useContext, useEffect, useState } from "react";
-
+import React, { useContext, useEffect, useMemo, useState } from "react";
 import GeneralContext from "./GeneralContext";
+
 import { Tooltip, Grow } from "@mui/material";
 import { BarChartOutlined, MoreHoriz } from "@mui/icons-material";
 
-import { DoughnutChart } from "./DoughnutChart";
 import { fetchSensex } from "../services/stockService";
-
 import "../styles/watchlist.css";
 
 const Watchlist = () => {
   const [stocks, setStocks] = useState([]);
   const [loading, setLoading] = useState(true);
-  
-const [animateSnapshot, setAnimateSnapshot] = useState(false);
+
+  const [search, setSearch] = useState("");
 
   /* ============================================================
-     FETCH MARKET WATCHLIST DATA
+     FETCH MARKET DATA
   ============================================================ */
 
   useEffect(() => {
@@ -35,34 +33,26 @@ const [animateSnapshot, setAnimateSnapshot] = useState(false);
 
     loadStocks();
   }, []);
-useEffect(() => {
-  if (!loading) {
-    setAnimateSnapshot(true);
-
-    const timer = setTimeout(() => {
-      setAnimateSnapshot(false);
-    }, 700);
-
-    return () => clearTimeout(timer);
-  }
-}, [loading]);
-
 
   /* ============================================================
-     CHART DATA (No Hardcoded Colors)
+     FILTER STOCKS (Search)
   ============================================================ */
-const topStocks = stocks.slice(0, 4);
 
-const chartData = {
-  labels: topStocks.map((s) => s.symbol),
-  datasets: [
-    {
-      label: "Market Share",
-      data: topStocks.map((s) => s.price),
-    },
-  ],
-};
+  const filteredStocks = useMemo(() => {
+    return stocks.filter((stock) =>
+      stock.symbol.toLowerCase().includes(search.toLowerCase())
+    );
+  }, [stocks, search]);
 
+  /* ============================================================
+     TOP MOVERS SNAPSHOT
+  ============================================================ */
+
+  const topMovers = useMemo(() => {
+    return [...stocks]
+      .sort((a, b) => Math.abs(b.changePercent) - Math.abs(a.changePercent))
+      .slice(0, 3);
+  }, [stocks]);
 
   /* ============================================================
      UI
@@ -70,66 +60,67 @@ const chartData = {
 
   return (
     <aside className="watchlist-sidebar">
-      {/* Search */}
+      {/* ✅ Search */}
       <div className="watchlist-search-bar">
         <input
           className="watchlist-search-input"
           type="text"
           placeholder="Search stocks..."
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
         />
-        <span className="watchlist-count">{stocks.length} / 50</span>
+
+        <span className="watchlist-count">
+          {filteredStocks.length} / {stocks.length}
+        </span>
       </div>
 
-      {/* Loading */}
+      {/* ✅ Loading */}
       {loading ? (
         <div className="route-loading">Loading market data...</div>
       ) : (
         <>
-          {/* Stock List */}
+          {/* ✅ Stock List */}
           <ul className="watchlist-stocks">
-            {stocks.map((stock) => (
+            {filteredStocks.map((stock) => (
               <WatchlistItem key={stock.symbol} stock={stock} />
             ))}
           </ul>
-            <div className="watchlist-mini-chart">
-  <p className="watchlist-chart-title">Market Overview</p>
 
-  {/* ✅ Index Summary */}
-  <div className="market-index">
-    <span>NIFTY 50</span>
-    <strong>25,293</strong>
-    <p className="up">+0.32%</p>
-  </div>
+          {/* ✅ Market Snapshot */}
+          <div className="watchlist-mini-chart snapshot-bounce">
+            <p className="watchlist-chart-title">Market Overview</p>
 
-  {/* ✅ Movers */}
-  <div className="snapshot-movers">
-    <p className="mini-title">Top Movers</p>
+            <div className="market-index">
+              <span>NIFTY 50</span>
+              <strong>25,293</strong>
+              <p className="up">+0.32%</p>
+            </div>
 
-    {topStocks.slice(0, 3).map((s) => (
-      <div key={s.symbol} className="mover-row">
-        <span className="mover-name">{s.symbol}</span>
+            <div className="snapshot-movers">
+              <p className="mini-title">Top Movers</p>
 
-        <span
-          className={`mover-change ${
-            s.changePercent >= 0 ? "up" : "down"
-          }`}
-        >
-          {s.changePercent >= 0 ? "+" : ""}
-          {Number(s.changePercent).toFixed(2)}%
-        </span>
-      </div>
-    ))}
-  </div>
-</div>
+              {topMovers.map((s) => (
+                <div key={s.symbol} className="mover-row">
+                  <span className="mover-name">{s.symbol}</span>
 
-
+                  <span
+                    className={`mover-change ${
+                      s.changePercent >= 0 ? "up" : "down"
+                    }`}
+                  >
+                    {s.changePercent >= 0 ? "+" : ""}
+                    {Number(s.changePercent).toFixed(2)}%
+                  </span>
+                </div>
+              ))}
+            </div>
+          </div>
         </>
       )}
     </aside>
   );
 };
-
-
 
 /* ============================================================
    SINGLE STOCK ITEM
@@ -138,7 +129,7 @@ const chartData = {
 const WatchlistItem = ({ stock }) => {
   const [hover, setHover] = useState(false);
 
-  const changeClass = stock.change < 0 ? "down" : "up";
+  const changeClass = stock.changePercent < 0 ? "down" : "up";
 
   return (
     <li
@@ -152,6 +143,7 @@ const WatchlistItem = ({ stock }) => {
 
         <div className="watchlist-metrics">
           <span className={`watchlist-change ${changeClass}`}>
+            {stock.changePercent >= 0 ? "+" : ""}
             {Number(stock.changePercent || 0).toFixed(2)}%
           </span>
 
@@ -162,7 +154,7 @@ const WatchlistItem = ({ stock }) => {
       </div>
 
       {/* Hover Actions */}
-      {hover && <WatchlistActions uid={stock.symbol} />}
+      {hover && <WatchlistActions stock={stock} />}
     </li>
   );
 };
@@ -171,8 +163,8 @@ const WatchlistItem = ({ stock }) => {
    ACTION BUTTONS
 ============================================================ */
 
-const WatchlistActions = ({ uid }) => {
-  const generalContext = useContext(GeneralContext);
+const WatchlistActions = ({ stock }) => {
+  const { openBuyWindow, openSellWindow } = useContext(GeneralContext);
 
   return (
     <div className="watchlist-actions">
@@ -180,7 +172,7 @@ const WatchlistActions = ({ uid }) => {
       <Tooltip title="Buy" arrow TransitionComponent={Grow}>
         <button
           className="watchlist-btn-buy"
-          onClick={() => generalContext.openBuyWindow(uid)}
+          onClick={() => openBuyWindow(stock.symbol)}
         >
           Buy
         </button>
@@ -190,7 +182,7 @@ const WatchlistActions = ({ uid }) => {
       <Tooltip title="Sell" arrow TransitionComponent={Grow}>
         <button
           className="watchlist-btn-sell"
-          onClick={() => generalContext.openSellWindow(uid)}
+          onClick={() => openSellWindow(stock.symbol)}
         >
           Sell
         </button>
@@ -212,4 +204,5 @@ const WatchlistActions = ({ uid }) => {
     </div>
   );
 };
+
 export default Watchlist;

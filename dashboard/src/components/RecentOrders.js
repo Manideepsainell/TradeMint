@@ -3,6 +3,8 @@ import api from "../api/axios";
 
 const RecentOrders = () => {
   const [orders, setOrders] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
 
   /* ============================================================
      FETCH RECENT ORDERS
@@ -11,10 +13,20 @@ const RecentOrders = () => {
   useEffect(() => {
     const fetchRecentOrders = async () => {
       try {
+        setLoading(true);
+        setError("");
+
         const res = await api.get("/api/user/orders");
-        setOrders((res.data?.data || []).slice(0, 5));
+
+        const allOrders = res.data?.data || [];
+
+        // ✅ Show only latest 5 orders
+        setOrders(allOrders.slice(0, 5));
       } catch (err) {
         console.error("Recent Orders Error:", err);
+        setError("Unable to load recent orders.");
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -22,7 +34,29 @@ const RecentOrders = () => {
   }, []);
 
   /* ============================================================
-     UI
+     UI STATES
+  ============================================================ */
+
+  if (loading) {
+    return (
+      <div className="summary-card recent-orders-card">
+        <div className="title">Recent Orders</div>
+        <p className="empty-note">Loading recent orders...</p>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="summary-card recent-orders-card">
+        <div className="title">Recent Orders</div>
+        <p className="empty-note">{error}</p>
+      </div>
+    );
+  }
+
+  /* ============================================================
+     MAIN UI
   ============================================================ */
 
   return (
@@ -33,21 +67,28 @@ const RecentOrders = () => {
         <p className="empty-note">No recent orders yet 📭</p>
       ) : (
         <ul className="recent-orders">
-          {orders.map((order) => (
-            <li key={order._id}>
-              <span className="stock">{order.name}</span>
+          {orders.map((order) => {
+            const mode = order.mode?.toUpperCase() || "BUY";
 
-              <span
-                className={`badge ${
-                  order.mode === "BUY" ? "buy" : "sell"
-                }`}
-              >
-                {order.mode}
-              </span>
+            return (
+              <li key={order._id}>
+                {/* Stock Name */}
+                <span className="stock">{order.name}</span>
 
-              <span className="qty">Qty: {order.qty}</span>
-            </li>
-          ))}
+                {/* Buy / Sell Badge */}
+                <span
+                  className={`badge ${
+                    mode === "BUY" ? "buy" : "sell"
+                  }`}
+                >
+                  {mode}
+                </span>
+
+                {/* Quantity */}
+                <span className="qty">Qty: {order.qty}</span>
+              </li>
+            );
+          })}
         </ul>
       )}
     </div>

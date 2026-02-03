@@ -11,21 +11,20 @@ const Menu = () => {
     { label: "Positions", path: "/dashboard/positions" },
     { label: "Funds", path: "/dashboard/funds" },
     { label: "Alerts", path: "/dashboard/alerts" },
-
   ];
 
   return (
-    <nav className="menu-bar">
-      {navLinks.map((link) => (
+    <nav className="menu-bar" aria-label="Dashboard Navigation">
+      {navLinks.map(({ label, path }) => (
         <NavLink
-          key={link.path}
-          to={link.path}
-          end={link.path === "/dashboard"}
+          key={path}
+          to={path}
+          end={path === "/dashboard"}
           className={({ isActive }) =>
-            isActive ? "menu-link active" : "menu-link"
+            `menu-link ${isActive ? "active" : ""}`
           }
         >
-          {link.label}
+          {label}
         </NavLink>
       ))}
     </nav>

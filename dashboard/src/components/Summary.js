@@ -5,7 +5,6 @@ import PortfolioHero from "./PortfolioHero";
 import PortfolioAlerts from "./PortfolioAlerts";
 import RecentOrders from "./RecentOrders";
 import PositionsSummary from "./PositionsSummary";
-import PriceAlerts from "./PriceAlerts";
 
 const Summary = () => {
   const [holdings, setHoldings] = useState([]);
@@ -16,6 +15,7 @@ const Summary = () => {
   });
 
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
 
   /* ============================================================
      FETCH DASHBOARD DATA
@@ -24,6 +24,9 @@ const Summary = () => {
   useEffect(() => {
     const fetchDashboard = async () => {
       try {
+        setLoading(true);
+        setError("");
+
         const [holdingsRes, fundsRes, reportRes] = await Promise.all([
           api.get("/api/user/holdings"),
           api.get("/api/user/funds"),
@@ -35,6 +38,7 @@ const Summary = () => {
         setReport(reportRes.data?.data || {});
       } catch (err) {
         console.error("Dashboard Fetch Error:", err);
+        setError("Unable to load dashboard data. Please refresh.");
       } finally {
         setLoading(false);
       }
@@ -65,13 +69,12 @@ const Summary = () => {
       investment,
       currentValue,
       pnl,
-      percentage:
-        investment > 0 ? ((pnl / investment) * 100).toFixed(2) : 0,
+      percentage: investment > 0 ? (pnl / investment) * 100 : 0,
     };
   }, [holdings]);
 
   /* ============================================================
-     LOADING STATE
+     UI STATES
   ============================================================ */
 
   if (loading) {
@@ -82,22 +85,26 @@ const Summary = () => {
     );
   }
 
+  if (error) {
+    return <div className="route-loading">{error}</div>;
+  }
+
   /* ============================================================
-     UI RENDER
+     MAIN UI
   ============================================================ */
 
   return (
     <div className="summary-container">
-      {/* Header */}
+      {/* ✅ Professional Header */}
       <div className="summary-header">
-        <h2>Hi bro 👋</h2>
-        <p>Here’s your portfolio overview.</p>
+        <h2>Portfolio Overview</h2>
+        <p>Track your holdings, funds, positions and recent trades.</p>
       </div>
 
-      {/* Hero Card */}
+      {/* ✅ Hero Portfolio Card */}
       <PortfolioHero holdings={holdings} report={report} />
 
-      {/* Dashboard Grid */}
+      {/* ✅ Dashboard Grid */}
       <div className="dashboard-grid">
         {/* Equity Card */}
         <div className="summary-card">
@@ -107,21 +114,21 @@ const Summary = () => {
             <div>
               <p>Margin available</p>
               <p className="imp colored">
-                ₹{funds?.availableMargin?.toFixed(2) || "0.00"}
+                ₹{Number(funds?.availableMargin || 0).toFixed(2)}
               </p>
             </div>
 
             <div>
               <p>Margin used</p>
               <p className="imp">
-                ₹{funds?.usedMargin?.toFixed(2) || "0.00"}
+                ₹{Number(funds?.usedMargin || 0).toFixed(2)}
               </p>
             </div>
 
             <div>
               <p>Opening balance</p>
               <p className="imp">
-                ₹{funds?.openingBalance?.toFixed(2) || "0.00"}
+                ₹{Number(funds?.openingBalance || 0).toFixed(2)}
               </p>
             </div>
           </div>
@@ -133,12 +140,12 @@ const Summary = () => {
 
           <div className="data">
             <div>
-              <p>Total P&L</p>
+              <p>Total P&amp;L</p>
               <p className={`imp ${portfolio.pnl >= 0 ? "profit" : "loss"}`}>
                 ₹{portfolio.pnl.toFixed(2)}
                 <span className="small-text">
                   ({portfolio.pnl >= 0 ? "+" : ""}
-                  {portfolio.percentage}%)
+                  {portfolio.percentage.toFixed(2)}%)
                 </span>
               </p>
             </div>
@@ -167,9 +174,6 @@ const Summary = () => {
 
         {/* Positions Summary */}
         <PositionsSummary />
-
-        
-
       </div>
     </div>
   );

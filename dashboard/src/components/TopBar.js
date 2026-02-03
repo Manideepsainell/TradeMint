@@ -2,6 +2,7 @@ import React, { useEffect, useState,useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import api from "../api/axios";
 import { ThemeContext } from "../context/ThemeContext";
+import { AuthContext } from "../context/AuthContext";
 
 import "../styles/topbar.css";
 
@@ -10,6 +11,8 @@ const Topbar = () => {
   const [username, setUsername] = useState("");
   const [lastUpdated, setLastUpdated] = useState("");
   const { theme, toggleTheme } = useContext(ThemeContext);
+  const { logout } = useContext(AuthContext);
+
 
   const navigate = useNavigate();
 
@@ -95,15 +98,11 @@ const Topbar = () => {
      LOGOUT
   ============================================================ */
 
-  const handleLogout = async () => {
-    try {
-      await api.post("/api/auth/logout");
-    } catch (err) {
-      console.error("Logout Error:", err);
-    } finally {
-      navigate("/login");
-    }
-  };
+const handleLogout = async () => {
+  await logout();
+  navigate("/login");
+};
+
 
   /* ============================================================
      DATA
