@@ -1,13 +1,25 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import api from "../../api/axios";
 
 import { AuthContext } from "../../context/AuthContext";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 function Login() {
   const [form, setForm] = useState({ email: "", password: "" });
+
   const { login } = useContext(AuthContext);
   const navigate = useNavigate();
+  const location = useLocation();
+
+  // ✅ Autofill Demo Credentials
+  useEffect(() => {
+    if (location.state?.demo) {
+      setForm({
+        email: location.state.email,
+        password: location.state.password,
+      });
+    }
+  }, [location]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();

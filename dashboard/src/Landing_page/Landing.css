@@ -301,6 +301,7 @@ body {
   background: var(--brand);
   color: white;
   transition: 0.2s ease;
+    height: 40px; 
 }
 
 .dashboard-btn:hover {
