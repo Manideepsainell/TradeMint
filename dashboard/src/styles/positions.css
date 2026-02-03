@@ -76,3 +76,70 @@
     min-width: 700px;
   }
 }
+
+.positions-empty {
+  margin: 40px auto;
+  max-width: 650px;
+  padding: 35px;
+  text-align: center;
+  border-radius: 18px;
+}
+
+.positions-empty h2 {
+  font-size: 20px;
+  font-weight: 800;
+  margin-bottom: 10px;
+}
+
+.positions-empty p {
+  font-size: 14px;
+  margin-bottom: 18px;
+  line-height: 1.6;
+}
+
+.positions-badge {
+  display: inline-block;
+  padding: 8px 14px;
+  border-radius: 12px;
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 20px;
+
+  background: rgba(124, 58, 237, 0.12);
+  color: var(--brand);
+}
+
+.positions-preview {
+  margin-top: 25px;
+  padding: 15px;
+  border-radius: 14px;
+  border: 1px solid var(--border);
+}
+
+.preview-row {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  font-size: 13px;
+  font-weight: 700;
+  padding: 8px 0;
+  text-align: center;
+}
+.preview-row span:first-child {
+  text-align: left; /* ✅ Instrument left aligned */
+}
+.preview-row.muted {
+  font-weight: 500;
+}
+.positions-badge,
+.btn-primary {
+  height: 44px;
+  display: inline-flex;
+  align-items: center;
+}
+.example-label {
+  text-align: left;
+  margin: 12px 0;
+  font-size: 13px;
+  color: var(--muted);
+}
+

@@ -1,76 +1,134 @@
 /* ============================================================
-   DASHBOARD.CSS — MAIN LAYOUT + HOME SUMMARY
+   ✅ DASHBOARD.CSS — TRADEMINT (Purple Premium Clean)
 ============================================================ */
 
-/* Main Dashboard Layout Wrapper */
+/* ============================================================
+   MAIN LAYOUT
+============================================================ */
+
 .dashboard-container {
   display: flex;
-  align-items: flex-start;
   min-height: 100vh;
   background: var(--bg);
 }
 
-/* Main Content Area (Right Side) */
 .content {
   flex: 1;
   padding: 28px;
-  min-height: calc(100vh - 110px);
   background: var(--bg);
 }
 
-/* Global Dashboard Section Padding */
 .summary-container {
   padding: 22px 24px;
 }
 
 /* ============================================================
-   DASHBOARD — HEADER INTRO
+   HEADER INTRO
 ============================================================ */
 
 .summary-header h2 {
-  margin: 0;
   font-size: 22px;
   font-weight: 900;
   color: var(--text);
+  margin: 0;
 }
 
 .summary-header p {
-  margin-top: 4px;
+  margin-top: 6px;
   font-size: 14px;
   color: var(--muted);
 }
 
 /* ============================================================
-   DASHBOARD — GRID CARDS
+   PORTFOLIO HERO (Main Highlight)
+============================================================ */
+
+.portfolio-hero {
+  margin: 18px 0 26px;
+  padding: 26px 28px;
+  border-radius: 22px;
+
+  background: rgba(124, 58, 237, 0.10);
+  border: 1px solid rgba(124, 58, 237, 0.18);
+
+  backdrop-filter: blur(18px);
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.35);
+
+  color: white;
+}
+
+.hero-label {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  opacity: 0.7;
+}
+
+.hero-value {
+  font-size: 36px;
+  font-weight: 900;
+  margin: 8px 0 20px;
+  font-variant-numeric: tabular-nums;
+}
+
+.hero-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 18px;
+}
+
+.hero-stats p {
+  font-size: 12px;
+  opacity: 0.65;
+  margin: 0;
+}
+
+.hero-stats h3 {
+  font-size: 18px;
+  font-weight: 800;
+  margin-top: 4px;
+}
+
+.profit {
+  color: var(--up);
+}
+
+.loss {
+  color: var(--down);
+}
+
+/* ============================================================
+   DASHBOARD GRID CARDS
 ============================================================ */
 
 .dashboard-grid {
-  margin-top: 20px;
+  margin-top: 22px;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
   gap: 18px;
 }
 
-/* Dashboard Card Base */
 .summary-card {
   background: var(--card);
   border: 1px solid var(--border);
   border-radius: 18px;
   padding: 18px;
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.04);
+
+  backdrop-filter: blur(14px);
+  box-shadow: 0 10px 25px rgba(15, 23, 42, 0.10);
 }
 
 /* Card Title */
 .summary-card .title {
   font-size: 13px;
   font-weight: 800;
-  margin-bottom: 14px;
   text-transform: uppercase;
   letter-spacing: 0.4px;
+  margin-bottom: 14px;
   color: var(--muted);
 }
 
-/* Card Data Rows */
+/* Data Rows */
 .summary-card .data {
   display: flex;
   flex-direction: column;
@@ -91,118 +149,112 @@
   font-variant-numeric: tabular-nums;
 }
 
-/* Accent Highlight */
+/* Purple Highlight */
 .summary-card .colored {
-  color: var(--accent);
+  color: var(--brand);
 }
-
-/* Empty Note */
-.empty-note {
-  font-size: 13px;
-  color: var(--muted);
-}
-
-/* ============================================================
-   DASHBOARD — PORTFOLIO HERO
-============================================================ */
-
-.portfolio-hero {
-  background: linear-gradient(135deg, #1e293b, #0f172a);
-  border-radius: 22px;
-  padding: 26px 28px;
-  color: white;
-  margin: 18px 0 26px 0;
-  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.35);
-}
-
-/* Label */
-.hero-label {
+.small-text {
   font-size: 12px;
-  text-transform: uppercase;
-  letter-spacing: 0.6px;
+  margin-left: 6px;
   opacity: 0.7;
 }
 
-/* Value */
-.hero-value {
-  margin: 6px 0 18px 0;
-  font-size: 36px;
-  font-weight: 900;
-  font-variant-numeric: tabular-nums;
-}
-
-/* Stats Grid */
-.hero-stats {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-  gap: 18px;
-}
-
-.hero-stats p {
-  margin: 0;
-  font-size: 12px;
-  opacity: 0.65;
-}
-
-.hero-stats h3 {
-  margin-top: 4px;
-  font-size: 18px;
-  font-weight: 800;
-  font-variant-numeric: tabular-nums;
-}
-
-/* Profit/Loss Override */
-.portfolio-hero .profit {
-  color: var(--up);
-}
-
-.portfolio-hero .loss {
-  color: var(--down);
-}
 
 /* ============================================================
-   DASHBOARD — ALERTS CARD
+   ALERTS CARD
 ============================================================ */
-
-.alerts-card {
-  margin-top: 22px;
-}
 
 .alerts-list {
   list-style: none;
   padding: 0;
-  margin-top: 10px;
+  margin-top: 14px;
+
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 12px;
 }
 
 .alerts-list li {
-  background: var(--soft);
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  padding: 10px 12px;
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+
+  padding: 12px 14px;
+  border-radius: 14px;
+
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+
   font-size: 13px;
+  font-weight: 600;
   color: var(--text);
-  line-height: 1.5;
+
+  transition: 0.2s ease;
+}
+
+.alerts-list li:hover {
+  transform: translateY(-2px);
+  background: rgba(124, 58, 237, 0.08);
+  border-color: var(--brand-soft);
 }
 
 .alerts-list li::before {
-  content: "⚡ ";
+  content: "⚡";
+
+  width: 32px;
+  height: 32px;
+  border-radius: 10px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: rgba(124, 58, 237, 0.15);
+  font-size: 14px;
+}
+
+.empty-note {
+  margin-top: 14px;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+/* Alert Form */
+.alert-form {
+  display: flex;
+  gap: 10px;
+  margin-top: 14px;
+}
+
+.alert-form input,
+.alert-form select {
+  padding: 8px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: var(--soft);
+  color: var(--text);
+  font-size: 13px;
+}
+
+.alert-form button {
+  padding: 8px 12px;
+  border-radius: 10px;
+  font-weight: 800;
+  background: var(--brand);
+  color: white;
+  border: none;
+  cursor: pointer;
 }
 
 /* ============================================================
-   DASHBOARD — RECENT ORDERS CARD
+   RECENT ORDERS CARD
 ============================================================ */
-
-.recent-orders-card {
-  margin-top: 22px;
-}
 
 .recent-orders {
   list-style: none;
   padding: 0;
-  margin-top: 8px;
+  margin-top: 12px;
+
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -212,10 +264,13 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+
+  padding: 10px 12px;
+  border-radius: 10px;
+
   background: var(--soft);
   border: 1px solid var(--border);
-  border-radius: 10px;
-  padding: 10px 12px;
+
   font-size: 13px;
 }
 
@@ -229,7 +284,7 @@
   color: var(--muted);
 }
 
-/* Buy/Sell Badge */
+/* Buy/Sell Badges */
 .badge {
   padding: 3px 8px;
   border-radius: 999px;
@@ -238,39 +293,21 @@
 }
 
 .badge.buy {
-  background: rgba(16, 185, 129, 0.15);
+  background: rgba(34, 197, 94, 0.15);
   color: var(--up);
 }
 
 .badge.sell {
-  background: rgba(220, 38, 38, 0.15);
+  background: rgba(239, 68, 68, 0.15);
   color: var(--down);
 }
 
 /* ============================================================
-   DASHBOARD — CHART CARD
-============================================================ */
-
-.dashboard-chart-card {
-  margin-top: 28px;
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: 16px;
-  padding: 20px;
-  height: 360px;
-}
-
-.dashboard-chart-card.small {
-  height: 260px;
-  margin-top: 10px;
-}
-
-/* ============================================================
-   ROUTE LOADING STATE
+   ROUTE LOADING
 ============================================================ */
 
 .route-loading {
-  padding: 40px 20px;
+  padding: 50px 20px;
   text-align: center;
   font-size: 14px;
   color: var(--muted);
@@ -297,115 +334,26 @@
     font-size: 28px;
   }
 }
-.portfolio-hero {
-  background: rgba(56, 189, 248, 0.08);
-  border: 1px solid rgba(56, 189, 248, 0.18);
-  backdrop-filter: blur(20px);
-}
-.summary-card {
+/* ============================================================
+   ✅ HOLDINGS CHART CARD (BIGGER PREMIUM)
+============================================================ */
+/* ============================================================
+   ✅ HOLDINGS PERFORMANCE CHART CARD (Premium Large)
+============================================================ */
+
+.dashboard-chart-card {
+  margin-top: 26px;
+
+  height: 480px;            /* ✅ Bigger chart space */
+  padding: 26px;
+
   background: var(--card);
   border: 1px solid var(--border);
   border-radius: 18px;
-  padding: 18px;
-  backdrop-filter: blur(14px);
-  box-shadow: 0 10px 25px rgba(15, 23, 42, 0.08);
-}
 
-[data-theme="light"] .btn-primary { background: linear-gradient(135deg, #2563eb, #1d4ed8); } [data-theme="light"] .portfolio-hero { background: rgba(37, 99, 235, 0.08); border: 1px solid rgba(37, 99, 235, 0.14); color: var(--text); box-shadow: 0 18px 40px rgba(15, 23, 42, 0.10); }
-
-/* ============================================================
-   SMART ALERTS — PREMIUM FINTECH STYLE
-============================================================ */
-
-.alerts-card {
-  padding: 18px;
-}
-
-/* List wrapper */
-.alerts-list {
-  list-style: none;
-  padding: 0;
-  margin: 14px 0 0 0;
+  backdrop-filter: blur(16px);
+  box-shadow: 0 12px 30px rgba(15, 23, 42, 0.12);
 
   display: flex;
   flex-direction: column;
-  gap: 12px;
 }
-
-/* Single alert */
-.alerts-list li {
-  display: flex;
-  align-items: flex-start;
-  gap: 12px;
-
-  padding: 12px 14px;
-  border-radius: 14px;
-
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.06);
-
-  font-size: 13px;
-  font-weight: 600;
-  line-height: 1.5;
-  color: var(--text);
-
-  transition: 0.2s ease;
-}
-
-/* Hover lift */
-.alerts-list li:hover {
-  transform: translateY(-2px);
-  border-color: var(--accent-soft);
-  background: rgba(56, 189, 248, 0.06);
-}
-
-/* Icon bubble */
-.alerts-list li::before {
-  content: "⚡";
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  width: 32px;
-  height: 32px;
-
-  background: rgba(56, 189, 248, 0.14);
-  border-radius: 10px;
-
-  font-size: 14px;
-  flex-shrink: 0;
-}
-
-/* Empty note */
-.empty-note {
-  margin-top: 14px;
-  font-size: 13px;
-  color: var(--muted);
-}
-.alert-form {
-  display: flex;
-  gap: 8px;
-  margin-top: 12px;
-}
-
-.alert-form input,
-.alert-form select {
-  padding: 8px;
-  border-radius: 10px;
-  border: 1px solid var(--border);
-  background: var(--soft);
-  color: var(--text);
-  font-size: 13px;
-}
-
-.alert-form button {
-  padding: 8px 12px;
-  border-radius: 10px;
-  background: var(--accent);
-  color: white;
-  font-weight: 800;
-  border: none;
-  cursor: pointer;
-}
-

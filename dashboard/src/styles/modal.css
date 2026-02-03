@@ -15,17 +15,7 @@
   align-items: center;
 }
 
-/* Modal Card */
-.trade-modal {
-  width: 420px;
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: 18px;
-  overflow: hidden;
-  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.35);
 
-  animation: popIn 0.2s ease;
-}
 
 @keyframes popIn {
   from {
@@ -56,8 +46,9 @@
 }
 
 .trade-modal-header span {
-  color: var(--accent);
+  color: var(--brand);
 }
+
 
 /* Close Button */
 .trade-close-btn {
@@ -125,8 +116,33 @@ input {
   display: flex;
   gap: 10px;
 }
+
 .trade-modal {
+  width: 420px;
+
   background: rgba(255, 255, 255, 0.06);
   border: 1px solid rgba(255, 255, 255, 0.12);
+
   backdrop-filter: blur(18px);
+  border-radius: 18px;
+  overflow: hidden;
+
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.35);
+  animation: popIn 0.2s ease;
+}
+
+.buy-btn {
+  background: rgba(34, 197, 94, 0.15);
+  color: var(--up);
+}
+
+.sell-btn {
+  background: rgba(239, 68, 68, 0.15);
+  color: var(--down);
+}
+.trade-error {
+  margin-top: 12px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--down);
 }

@@ -1,41 +1,149 @@
+/* ============================================================
+   ✅ TRADEMINT THEME.CSS — GLOBAL DESIGN SYSTEM
+   Brand: Premium Purple Fintech
+============================================================ */
+
+
+/* ============================================================
+   ✅ DEFAULT THEME = DARK (Glass Premium)
+============================================================ */
+
 :root {
-  /* Core */
-  --text: #111827;      /* Deep gray (not black) */
-  --muted: #6B7280;     /* Soft secondary text */
-  --border: #E5E7EB;
+  /* Backgrounds */
+  --bg: #0b1220;
+  --card: rgba(255, 255, 255, 0.04);
+  --soft: rgba(255, 255, 255, 0.08);
 
-  --bg: #F3F4F6;        /* App background */
-  --card: #FFFFFF;      /* Card surfaces */
-  --soft: #F9FAFB;
+  /* Borders */
+  --border: rgba(255, 255, 255, 0.12);
 
-  /* 🔥 Premium Brand System */
-  --brand: #7C3AED;        /* Electric Indigo */
-  --brand-dark: #6D28D9;   /* Hover */
-  --accent: #1F2937;       /* Deep slate for structure */
+  /* Text */
+  --text: #f8fafc;
+  --muted: #94a3b8;
+
+  /* ✅ Brand Purple */
+  --brand: #7c3aed;
+  --brand-dark: #6d28d9;
+  --brand-soft: rgba(124, 58, 237, 0.15);
+
+  /* Accent (Headings / Structure) */
+  --accent: #e2e8f0;
 
   /* Trading Colors */
-  --up: #059669;       /* Emerald profit */
-  --down: #BE123C;     /* Premium red loss */
+  --up: #22c55e;
+  --down: #ef4444;
+
+  /* Glass Base */
+  --glass-bg: rgba(255, 255, 255, 0.06);
+  --glass-border: rgba(255, 255, 255, 0.12);
+  --glass-shadow: 0 10px 35px rgba(0, 0, 0, 0.25);
+  --blur: blur(14px);
+
+  /* Transition */
+  --transition: 0.25s ease;
 }
-.landing-link {
-  color: var(--accent);
+
+
+/* ============================================================
+   ✅ LIGHT MODE OVERRIDE (Premium SaaS White + Purple)
+============================================================ */
+
+[data-theme="light"] {
+  /* Core Text */
+  --text: #111827;
+  --muted: #6b7280;
+  --border: #e5e7eb;
+
+  /* Backgrounds */
+  --bg: #f3f4f6;
+  --card: #ffffff;
+  --soft: #f9fafb;
+
+  /* Brand Purple (Same Identity) */
+  --brand: #7c3aed;
+  --brand-dark: #6d28d9;
+  --brand-soft: rgba(124, 58, 237, 0.12);
+
+  /* Accent Structure */
+  --accent: #1f2937;
+
+  /* Trading Colors */
+  --up: #059669;
+  --down: #be123c;
+
+  /* Glass Light */
+  --glass-bg: rgba(255, 255, 255, 0.75);
+  --glass-border: rgba(15, 23, 42, 0.10);
+  --glass-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+  --blur: blur(10px);
 }
-.landing-link:hover {
+
+
+/* ============================================================
+   ✅ GLOBAL BASE STYLES
+============================================================ */
+
+body {
+  background: radial-gradient(
+      circle at top,
+      rgba(124, 58, 237, 0.18),
+      transparent 55%
+    ),
+    radial-gradient(
+      circle at bottom,
+      rgba(34, 197, 94, 0.08),
+      transparent 60%
+    ),
+    var(--bg);
+
+  color: var(--text);
+  font-family: "Inter", sans-serif;
+  transition: var(--transition);
+}
+
+
+/* ============================================================
+   ✅ GLOBAL BUTTON SYSTEM
+============================================================ */
+
+.btn-primary {
+  background: var(--brand);
+  color: white;
+}
+
+.btn-primary:hover {
+  background: var(--brand-dark);
+}
+
+.btn-soft {
+  background: var(--brand-soft);
   color: var(--brand);
 }
+
+.btn-soft:hover {
+  background: rgba(124, 58, 237, 0.22);
+}
+
+
+/* ============================================================
+   ✅ GLOBAL LINKS + HEADINGS
+============================================================ */
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
 h1, h2, h3 {
   color: var(--accent);
 }
-.hero-btn-primary,
-.dashboard-btn {
-  background: var(--brand);
-}
 
-.hero-btn-primary:hover,
-.dashboard-btn:hover {
-  background: var(--brand-dark);
-}
+
+/* ============================================================
+   ✅ FLASH MESSAGE (Purple Brand)
+============================================================ */
+
 .landing-flash {
-  background: var(--accent);
+  background: var(--brand);
   color: white;
 }

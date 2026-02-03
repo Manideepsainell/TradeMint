@@ -1,35 +1,68 @@
 /* ============================================================
-   MENU.CSS — DASHBOARD NAVIGATION BAR
+   ✅ MENU BAR — DASHBOARD NAVIGATION (FINAL)
 ============================================================ */
 
 .menu-bar {
   display: flex;
-  gap: 10px;
-  padding: 14px 18px;
-  background: var(--card);
-  border-bottom: 1px solid var(--border);
+  align-items: center;
+  gap: 14px;
+
+  padding: 14px 22px;
+
+  background: rgba(15, 23, 42, 0.65);
+  backdrop-filter: blur(18px);
+
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 
-/* Navigation Link */
+/* Links */
 .menu-link {
   font-size: 14px;
   font-weight: 700;
-  padding: 8px 14px;
-  border-radius: 10px;
+
+  padding: 9px 16px;
+  border-radius: 12px;
+
   color: var(--muted);
   text-decoration: none;
+
   transition: 0.2s ease;
 }
 
 /* Hover */
 .menu-link:hover {
-  background: var(--soft);
+  background: rgba(124, 58, 237, 0.10);
   color: var(--text);
 }
 
 /* Active Tab */
 .menu-link.active {
-  background: var(--accent-soft);
-  color: var(--accent);
-  box-shadow: 0 2px 6px rgba(56, 189, 248, 0.15);
+  background: rgba(124, 58, 237, 0.18);
+  color: var(--brand);
+
+  box-shadow: 0 6px 18px rgba(124, 58, 237, 0.22);
+}
+
+/* ============================================================
+   ✅ LIGHT MODE OVERRIDE (FIXED)
+============================================================ */
+
+[data-theme="light"] .menu-bar {
+  background: rgba(255, 255, 255, 0.75);
+  border-bottom: 1px solid rgba(15, 23, 42, 0.08);
+}
+
+[data-theme="light"] .menu-link {
+  color: #475569;
+}
+
+[data-theme="light"] .menu-link:hover {
+  background: rgba(124, 58, 237, 0.08);
+  color: #111827;
+}
+
+[data-theme="light"] .menu-link.active {
+  background: rgba(124, 58, 237, 0.14);
+  color: var(--brand);
+  box-shadow: 0 6px 16px rgba(124, 58, 237, 0.18);
 }

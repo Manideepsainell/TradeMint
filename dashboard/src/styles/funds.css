@@ -96,3 +96,57 @@
     align-items: flex-start;
   }
 }
+
+.funds-badge {
+  margin-top: 8px;
+  font-size: 13px;
+  color: var(--brand);
+  font-weight: 600;
+}
+
+/* Summary Cards */
+.funds-summary {
+  display: flex;
+  gap: 18px;
+  margin: 20px 0;
+}
+
+.summary-box {
+  flex: 1;
+  padding: 18px;
+  border-radius: 16px;
+}
+
+.summary-box h2 {
+  margin-top: 6px;
+  font-size: 20px;
+  font-weight: 800;
+}
+
+/* Modal */
+.funds-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.funds-modal {
+  width: 380px;
+  padding: 25px;
+  border-radius: 18px;
+  text-align: center;
+}
+
+.funds-modal input {
+  width: 100%;
+  padding: 10px;
+  margin: 14px 0;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text);
+}
