@@ -3,6 +3,11 @@
 
 It focuses on **real trading logic and production-style backend architecture**, not just UI — making it an internship-ready fintech engineering project.
 
+![MERN](https://img.shields.io/badge/MERN-FullStack-purple)
+![JWT](https://img.shields.io/badge/Auth-JWT%20Cookies-blue)
+![MongoDB](https://img.shields.io/badge/Database-MongoDB-green)
+
+
 ---
 
 ## ✨ Core Highlights
@@ -76,7 +81,13 @@ Structured documentation explaining platform modules and internal workflows.
 
 ### 🧠 Backend Architecture
 High-level system design showing API layers, services, and data flow.  
-![System Architecture](./screenshots/system-architecture.png)
+![System Architecture](./screenshots/system-architecture.png
+
+
+> ⚠️ **Disclaimer**
+> TradeMint is an educational trading simulation built for learning and demonstration.
+> It does not execute real trades or provide financial services.
+
 
 ## 🧠 Smart Backend Engineering
 
