@@ -83,7 +83,6 @@ Structured documentation explaining platform modules and internal workflows.
 High-level system design showing API layers, services, and data flow.  
 ![System Architecture](./screenshots/system-architecture.png
 
-
 > ⚠️ **Disclaimer**
 > TradeMint is an educational trading simulation built for learning and demonstration.
 > It does not execute real trades or provide financial services.
