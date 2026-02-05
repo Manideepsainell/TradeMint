@@ -45,6 +45,42 @@ This mirrors how real brokerage apps compute returns.
 - Real-time portfolio updates
 
 ---
+📸 Platform Screenshots
+
+Below are real screenshots from the TradeMint platform showcasing core features, execution workflows, and system design.
+
+🏠 Landing Page — Platform Overview
+
+Trading infrastructure built for portfolio intelligence.
+
+📊 Dashboard Overview
+
+High-level portfolio summary, exposure insights, recent orders, and alerts.
+
+📈 Holdings & Portfolio Analytics
+
+Holdings table, investment vs current value, P&L, allocation donut, and performance charts.
+
+📝 Orders & Trade Execution
+
+Buy/sell order execution workflow with order history tracking.
+
+💰 Brokerage & Charges Transparency
+
+Execution-level brokerage calculation and net profit after charges.
+
+🔔 Smart Alerts & Insights
+
+Exposure alerts, portfolio warnings, and activity-based insights.
+
+🆘 Help Center & Platform Documentation
+
+In-app help center explaining platform modules and architecture.
+
+🧠 Backend Architecture
+
+High-level backend architecture demonstrating modular MERN design.
+
 
 ## 🧠 Smart Backend Engineering
 
