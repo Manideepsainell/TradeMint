@@ -4,64 +4,53 @@ import { Zap, Calculator, BellRing } from "lucide-react";
 import "./Pricing.css";
 
 function Pricing() {
+  const features = [
+    {
+      icon: <Zap size={26} />,
+      title: "Real Buy/Sell",
+      desc: "Execution Engine",
+    },
+    {
+      icon: <Calculator size={26} />,
+      title: "Brokerage-Aware",
+      desc: "Net Profit Analytics",
+    },
+    {
+      icon: <BellRing size={26} />,
+      title: "Smart Alerts",
+      desc: "Portfolio Insights",
+    },
+  ];
+
   return (
-    <section className="landing-section pricing-section py-5" id="features">
-      <div className="container">
-        <div className="row align-items-center g-4">
-          {/* Left Content */}
-          <div className="col-lg-5">
-            <h1 className="fs-3 mb-3 fw-bold">
-              Built with Real Trading Logic
-            </h1>
+    <section className="pricing-section" id="features">
+      <div className="pricing-container">
+        {/* ✅ Left Content */}
+        <div className="pricing-left">
+          <h2 className="pricing-title">
+            Built with <span>Real Trading Logic</span>
+          </h2>
 
-            <p className="mb-3 text-muted" style={{ maxWidth: "420px" }}>
-              TradeMint focuses on execution-level accuracy — including portfolio
-              tracking, brokerage-aware net profit, and production-style backend
-              APIs inspired by real trading platforms.
-            </p>
+          <p className="pricing-subtitle">
+            TradeMint focuses on execution-level accuracy — portfolio tracking,
+            brokerage-aware profits, and production-style backend APIs inspired
+            by real trading platforms.
+          </p>
 
-            <Link to="/login" className="landing-link">
-              Launch Dashboard{" "}
-              <i className="fa fa-long-arrow-right" aria-hidden="true"></i>
-            </Link>
-          </div>
+          <Link to="/login" className="pricing-link">
+            Launch Dashboard →
+          </Link>
+        </div>
 
-          {/* Right Feature Blocks */}
-          <div className="col-lg-6 ms-lg-auto">
-            <div className="row text-center g-4">
-              
-              {/* Feature 1 */}
-              <div className="col-md-4">
-                <div className="feature-icon modern-icon">
-                  <Zap size={26} />
-                </div>
-                <p className="mt-3 fw-semibold">
-                  Real Buy/Sell <br /> Execution Engine
-                </p>
-              </div>
-
-              {/* Feature 2 */}
-              <div className="col-md-4">
-                <div className="feature-icon modern-icon">
-                  <Calculator size={26} />
-                </div>
-                <p className="mt-3 fw-semibold">
-                  Brokerage-Aware <br /> Net Profit
-                </p>
-              </div>
-
-              {/* Feature 3 */}
-              <div className="col-md-4">
-                <div className="feature-icon modern-icon">
-                  <BellRing size={26} />
-                </div>
-                <p className="mt-3 fw-semibold">
-                  Smart Alerts <br /> & Portfolio Insights
-                </p>
-              </div>
-
+        {/* ✅ Right Feature Cards */}
+        <div className="pricing-features">
+          {features.map((f, idx) => (
+            <div key={idx} className="feature-card">
+              <div className="feature-icon">{f.icon}</div>
+              <h4>{f.title}</h4>
+              <p>{f.desc}</p>
             </div>
-          </div>
+          ))}
         </div>
       </div>
     </section>

@@ -39,6 +39,23 @@ function Footer() {
             <a href="#features" className="footer-link">Tech Architecture</a>
           </div>
         </div>
+        {/* Demo Account */}
+
+<div>
+  <p className="footer-title">Demo Login</p>
+
+  <p className="footer-demo">
+    Email: <b>Nikhil@gmail.com</b>
+  </p>
+  <p className="footer-demo">
+    Password: <b>123456</b>
+  </p>
+
+  <p className="footer-note">
+    Use this demo account to explore TradeMint instantly.
+  </p>
+</div>
+
 
         {/* Disclaimer */}
         <div className="footer-disclaimer">
@@ -53,6 +70,29 @@ function Footer() {
             actual market trades. Market data is used for demonstration purposes only.
           </p>
         </div>
+        {/* Social */}
+<div>
+  <p className="footer-title">Connect</p>
+
+  <a
+    href="https://github.com/Manideepsainell"
+    target="_blank"
+    rel="noreferrer"
+    className="footer-link"
+  >
+    GitHub →
+  </a>
+
+  <a
+    href="https://linkedin.com"
+    target="_blank"
+    rel="noreferrer"
+    className="footer-link"
+  >
+    LinkedIn →
+  </a>
+</div>
+
       </div>
     </footer>
   );

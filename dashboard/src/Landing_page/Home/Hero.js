@@ -1,43 +1,46 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import './Hero.css'
+import "./Hero.css";
 
 function Hero() {
   return (
-    <section className="landing-section hero-section">
-      <div className="container text-center">
+    <section className="hero-section">
+      <div className="hero-container">
 
-        {/* Platform Preview */}
-        <img
-          src="/media/platform/Dashboard.png"
-          alt="TradeMint Trading Dashboard"
-          className="img-fluid hero-image"
-        />
+        {/* ✅ Dashboard Preview */}
+        <div className="hero-preview">
+          <img
+            src="/media/platform/Dashboard.png"
+            alt="TradeMint Trading Dashboard"
+            className="hero-image"
+          />
+        </div>
 
-        {/* Main Heading */}
+        {/* ✅ Heading */}
         <h1 className="hero-title">
-          Trading Infrastructure <span>Built for Portfolio Intelligence</span>
+          Trading Infrastructure{" "}
+          <span>Built for Portfolio Intelligence</span>
         </h1>
 
-        {/* Subtitle */}
+        {/* ✅ Subtitle */}
         <p className="hero-subtitle">
-          TradeMint is a production-style full-stack trading platform featuring
-          secure execution workflows, live market tracking, brokerage-aware
-          profit analytics, and intelligent portfolio insights.
+          TradeMint is a production-style full-stack trading simulation platform
+          featuring secure execution workflows, live tracking, brokerage-aware
+          analytics, and intelligent portfolio insights.
         </p>
 
-        {/* CTA Buttons */}
-        <div className="hero-cta">
-          <Link to="/login" className="btn hero-btn-primary">
-            Launch Dashboard
+        {/* ✅ CTAs */}
+        <div className="hero-actions">
+          <Link to="/login" className="hero-btn primary">
+            Launch Dashboard →
           </Link>
 
-          <a href="#features" className="btn hero-btn-secondary">
+          <a href="#features" className="hero-btn secondary">
             Explore Platform
           </a>
         </div>
 
-        {/* Recruiter Note */}
+        {/* ✅ Footer Note */}
         <p className="hero-note">
           Built as an internship-ready MERN fintech engineering project.
         </p>

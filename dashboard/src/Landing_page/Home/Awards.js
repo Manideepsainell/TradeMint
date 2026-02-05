@@ -1,59 +1,48 @@
 import React from "react";
-import './Awards.css';
+import "./Awards.css";
 
 function Awards() {
   return (
-    <section className="landing-section awards-section py-5">
-      <div className="container">
-        <div className="row align-items-center g-4">
+    <section className="awards-section">
+      <div className="awards-container">
+        <div className="awards-grid">
 
-          {/* 🖼 Left: System Architecture Illustration */}
-          <div className="col-md-6 text-center">
+          {/* ✅ Left: Architecture Image */}
+          <div className="awards-image-wrap">
             <img
               src="/media/platform/Architecture.png"
               alt="TradeMint System Architecture"
-              className="img-fluid awards-hero-img"
+              className="awards-hero-img"
             />
           </div>
 
-          {/* 📝 Right: Engineering Overview */}
-          <div className="col-md-6">
-            <h1 className="fs-2 fw-bold">
-              TradeMint — System Architecture Overview
-            </h1>
+          {/* ✅ Right: Content */}
+          <div className="awards-content">
+            <h2 className="awards-title">
+              TradeMint — System Architecture
+            </h2>
 
-            <p className="mt-3 text-muted">
+            <p className="awards-subtitle">
               TradeMint is engineered as a full-stack MERN trading simulation
-              platform, designed with modular backend services, secure
-              authentication, and scalable portfolio data management.
+              platform with modular backend services, secure authentication,
+              and scalable portfolio management.
             </p>
 
-            {/* 🧠 Technical Feature Grid */}
-            <div className="row mt-4">
-              <div className="col-6">
-                <ul className="ps-3 feature-list">
-                  <li className="mb-2">Modular REST API Architecture</li>
-                  <li className="mb-2">Node.js + Express Backend</li>
-                  <li className="mb-2">JWT Authentication via Cookies</li>
-                </ul>
-              </div>
+            {/* ✅ Feature Grid */}
+            <div className="awards-features">
+              <div className="feature-item">Modular REST API Architecture</div>
+              <div className="feature-item">Node.js + Express Backend</div>
+              <div className="feature-item">JWT Auth via HttpOnly Cookies</div>
 
-              <div className="col-6">
-                <ul className="ps-3 feature-list">
-                  <li className="mb-2">MongoDB Portfolio Persistence</li>
-                  <li className="mb-2">Service Layer for Trading Logic</li>
-                  <li className="mb-2">Frontend–Backend Data Sync</li>
-                </ul>
-              </div>
+              <div className="feature-item">MongoDB Portfolio Persistence</div>
+              <div className="feature-item">Service Layer Trading Logic</div>
+              <div className="feature-item">Frontend–Backend Data Sync</div>
             </div>
 
-            {/* 🏗 Project Note */}
-            <div className="mt-4 project-note">
-              <p className="small text-muted mb-0">
-                Built as an internship-ready fintech engineering project focused
-                on clean architecture, real trading workflows, and scalable
-                system design.
-              </p>
+            {/* ✅ Note */}
+            <div className="awards-note">
+              Built as an internship-ready fintech engineering project focused on
+              real trading workflows, scalable design, and clean architecture.
             </div>
           </div>
 

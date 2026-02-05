@@ -1,50 +1,52 @@
 import React from "react";
-import './Education.css'
+import "./Education.css";
 
 function Education() {
   return (
-    <section className="landing-section education-section py-5">
-      <div className="container">
-        <div className="row align-items-center g-4">
+    <section className="education-section">
+      <div className="education-container">
+        <div className="education-grid">
 
-          {/* 🖼 Illustration */}
-          <div className="col-md-6 text-center">
+          {/* ✅ Left: Image Preview */}
+          <div className="education-image-wrap">
             <img
               src="/media/platform/Holdings.png"
               alt="TradeMint Portfolio Insights"
-              className="img-fluid education-img"
+              className="education-img"
             />
           </div>
 
-          {/* 📝 Content */}
-          <div className="col-md-6">
-            <h1 className="mb-3 fs-3 fw-bold">
+          {/* ✅ Right: Content */}
+          <div className="education-content">
+            <h2 className="education-title">
               Portfolio Intelligence & Execution Transparency
-            </h1>
+            </h2>
 
-            <p className="mt-4 text-muted">
+            <p className="education-subtitle">
               TradeMint provides detailed visibility into portfolio performance,
-              trade execution history, and brokerage-aware profit calculations —
+              execution history, and brokerage-aware profit calculations —
               enabling users to track financial outcomes with precision.
             </p>
 
-            <a href="/dashboard/holdings" className="landing-link">
-              Explore Portfolio Insights
-              <i className="fa fa-long-arrow-right" aria-hidden="true"></i>
-            </a>
+            {/* ✅ CTA Buttons */}
+            <div className="education-actions">
+              <a href="/dashboard/holdings" className="cta-btn primary">
+                Explore Portfolio Insights →
+              </a>
 
-            <p className="mt-5 text-muted">
+              <a href="/dashboard" className="cta-btn secondary">
+                View Trading Dashboard →
+              </a>
+            </div>
+
+            {/* ✅ Note */}
+            <p className="education-note">
               With smart exposure alerts and execution-level analytics,
               TradeMint delivers actionable insights while maintaining a clean,
               professional trading interface.
             </p>
-
-            <a href="/dashboard" className="landing-link">
-              View Trading Dashboard
-              <i className="fa fa-long-arrow-right" aria-hidden="true"></i>
-            </a>
-
           </div>
+
         </div>
       </div>
     </section>

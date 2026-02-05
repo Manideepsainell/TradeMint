@@ -79,3 +79,19 @@
     grid-template-columns: 1fr;
   }
 }
+.footer-demo {
+  font-size: 13px;
+  color: var(--muted);
+  margin-bottom: 6px;
+}
+
+.footer-demo b {
+  color: var(--text);
+}
+
+.footer-note {
+  font-size: 12px;
+  color: var(--muted);
+  opacity: 0.8;
+  margin-top: 8px;
+}
