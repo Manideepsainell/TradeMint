@@ -44,43 +44,39 @@ This mirrors how real brokerage apps compute returns.
 - Dynamic quote fetching
 - Real-time portfolio updates
 
----
-📸 Platform Screenshots
+---## 📸 Platform Screenshots
 
-Below are real screenshots from the TradeMint platform showcasing core features, execution workflows, and system design.
+### 🏠 Landing Page — Platform Overview
+Entry point showcasing TradeMint’s purpose, architecture focus, and dashboard preview.  
+![TradeMint Landing Page](./screenshots/landing-hero-dashboard.png)
 
-🏠 Landing Page — Platform Overview
+### 📊 Dashboard Overview
+Central portfolio dashboard with investment summary, P&L, alerts, and recent activity.  
+![Dashboard Overview](./screenshots/dashboard-overview.png)
 
-Trading infrastructure built for portfolio intelligence.
+### 📈 Holdings & Portfolio Analytics
+Detailed holdings table with allocation charts and real-time portfolio value tracking.  
+![Holdings & Analytics](./screenshots/holdings-analytics.png)
 
-📊 Dashboard Overview
+### 📝 Orders & Trade Execution
+Buy/sell execution workflow with order history and status tracking.  
+![Orders Execution](./screenshots/orders-execution.png)
 
-High-level portfolio summary, exposure insights, recent orders, and alerts.
+### 💰 Brokerage & Charges Transparency
+Execution-level charge breakdown showing net profit after brokerage and taxes.  
+![Brokerage Charges](./screenshots/charges-breakdown.png)
 
-📈 Holdings & Portfolio Analytics
+### 🔔 Smart Alerts & Insights
+Portfolio-driven alerts including exposure warnings and performance signals.  
+![Smart Alerts](./screenshots/alerts-insights.png)
 
-Holdings table, investment vs current value, P&L, allocation donut, and performance charts.
+### 🆘 Help Center
+Structured documentation explaining platform modules and internal workflows.  
+![Help Center](./screenshots/help-center.png)
 
-📝 Orders & Trade Execution
-
-Buy/sell order execution workflow with order history tracking.
-
-💰 Brokerage & Charges Transparency
-
-Execution-level brokerage calculation and net profit after charges.
-
-🔔 Smart Alerts & Insights
-
-Exposure alerts, portfolio warnings, and activity-based insights.
-
-🆘 Help Center & Platform Documentation
-
-In-app help center explaining platform modules and architecture.
-
-🧠 Backend Architecture
-
-High-level backend architecture demonstrating modular MERN design.
-
+### 🧠 Backend Architecture
+High-level system design showing API layers, services, and data flow.  
+![System Architecture](./screenshots/system-architecture.png)
 
 ## 🧠 Smart Backend Engineering
 
