@@ -1,142 +1,177 @@
 /* ============================================================
-   HELP CENTER ACCORDION — THEME ADAPTIVE
+   ✅ HELP CENTER — ACCORDION LAYOUT (TradeMint Premium)
 ============================================================ */
 
-.accordion-custom {
-  font-family: Inter, system-ui, sans-serif;
+.support-accordion-section {
+  padding: 60px 20px;
+  background: var(--bg);
 }
 
-/* Card */
-.accordion-custom .card {
+.support-container {
+  max-width: 1100px;
+  margin: auto;
+
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 30px;
+}
+
+/* ============================================================
+   LEFT — ACCORDION ITEMS
+============================================================ */
+
+.accordion-item {
+  background: var(--card);
   border: 1px solid var(--border);
-  border-radius: 14px;
+  border-radius: 16px;
+
+  margin-bottom: 16px;
   overflow: hidden;
-  background: var(--card); /* ✅ theme card */
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+  transition: 0.2s ease;
 }
 
-.accordion-custom .card:hover {
+.accordion-item:hover {
   transform: translateY(-2px);
-  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.08);
+  border-color: rgba(124, 58, 237, 0.25);
 }
 
-/* Button/Header */
+/* Button */
 .accordion-btn {
-  font-weight: 700;
-  background: var(--card) !important; /* ✅ adaptive */
-  border: none !important;
-  min-height: 78px;
-  color: var(--text); /* ✅ adaptive */
-}
-
-.accordion-btn:hover {
-  background: var(--soft) !important;
-}
-
-/* Icon Box */
-.corner-block {
-  width: 55px;
-  height: 55px;
-  background: var(--soft); /* ✅ adaptive */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 12px;
-  box-shadow: 0 0 12px rgba(99, 102, 241, 0.15);
-}
-
-/* Title */
-.accordion-title {
-  flex: 1;
-  margin-left: 14px;
-  color: var(--text); /* ✅ adaptive */
-}
-
-/* Caret */
-.accordion-caret i {
-  color: var(--brand);
-  font-size: 1rem;
-  margin-right: 14px;
-}
-
-/* Panel */
-.accordion-panel {
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.3s ease, padding 0.3s ease;
-  padding: 0 18px;
-  background: var(--card); /* ✅ adaptive */
-  color: var(--muted);
-}
-
-.accordion-panel.open {
-  max-height: 400px;
-  padding: 12px 18px;
-}
-
-.accordion-panel ul {
-  margin: 0;
-  padding-left: 18px;
-}
-
-.accordion-panel li {
-  margin: 10px 0;
-  color: var(--muted);
-  font-weight: 600;
-}
-
-/* Sidebar Note */
-.support-alert {
-  background: var(--soft);
+  width: 100%;
   padding: 18px;
-  border-left: 4px solid var(--brand);
-  border-radius: 14px;
+
+  display: flex;
+  align-items: center;
+  gap: 14px;
+
+  border: none;
+  cursor: pointer;
+
+  background: transparent;
+  color: var(--text);
+  text-align: left;
 }
 
-/* Quick Links Box */
-.support-quicklinks {
-  border: 1px solid var(--border);
-  border-radius: 14px;
-  overflow: hidden;
-  background: var(--card); /* ✅ adaptive */
-}
+/* Icon */
+.accordion-icon {
+  width: 48px;
+  height: 48px;
 
-/* Quick Link Item */
-.support-quicklink {
-  display: block;
-  padding: 12px 14px;
-  text-decoration: none;
+  border-radius: 14px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: rgba(124, 58, 237, 0.12);
   color: var(--brand);
-  font-weight: 700;
-  border-top: 1px solid var(--border);
 }
 
-.support-quicklink:hover {
-  background: var(--soft);
+/* Text */
+.accordion-text h3 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 800;
+}
+
+.accordion-text p {
+  margin: 4px 0 0;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+/* Toggle */
+.accordion-toggle {
+  margin-left: auto;
+  font-size: 22px;
+  font-weight: 900;
+  color: var(--brand);
+}
+
+/* Expand Panel */
+.accordion-panel {
+  padding: 16px 18px;
+  border-top: 1px solid var(--border);
+
+  font-size: 13px;
+  color: var(--muted);
+}
+
+/* ============================================================
+   RIGHT — SIDEBAR BOXES
+============================================================ */
+
+.accordion-right {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.support-note-box,
+.support-links-box {
+  background: var(--card);
+  border: 1px solid var(--border);
+
+  padding: 18px;
+  border-radius: 16px;
+}
+
+.support-note-box h4,
+.support-links-box h4 {
+  margin: 0 0 10px;
+  font-weight: 900;
+  font-size: 14px;
   color: var(--text);
 }
 
-/* Remove unwanted bootstrap styles */
-.card-header {
-  border: none !important;
-  background: transparent !important;
+.support-note-box p {
+  margin: 0;
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.6;
 }
 
-.accordion-custom .card::before,
-.accordion-custom .card-header::before {
-  display: none !important;
-}
+/* Links */
+.support-links-box a {
+  display: block;
+  padding: 10px 0;
 
-.accordion-custom .card,
-.accordion-custom .card-header {
-  border-left: none !important;
-}
+  font-size: 13px;
+  font-weight: 700;
 
-/* Icons */
-.help-icon {
   color: var(--brand);
+  text-decoration: none;
+}
+
+.support-links-box a:hover {
+  color: var(--brand-dark);
+}
+
+/* ============================================================
+   RESPONSIVE
+============================================================ */
+
+@media (max-width: 900px) {
+  .support-container {
+    grid-template-columns: 1fr;
+  }
+}
+.accordion-panel ul {
+  margin: 0;
+  padding-left: 18px;
+
   display: flex;
-  align-items: center;
-  justify-content: center;
-  filter: drop-shadow(0 0 6px rgba(99, 102, 241, 0.25));
+  flex-direction: column;
+  gap: 10px;
+}
+
+.accordion-panel li {
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.accordion-panel li::marker {
+  color: var(--brand);
 }

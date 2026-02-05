@@ -1,76 +1,89 @@
 /* ============================================================
-   SUPPORT HERO — TradeMint Help Center
+   ✅ HELP HERO — TradeMint Premium Header
 ============================================================ */
 
 .support-hero {
-  background: var(--soft);
-  padding: 50px 20px 40px;
+  padding: 60px 20px;
   border-bottom: 1px solid var(--border);
+
+  background: radial-gradient(
+    circle at top,
+    rgba(124, 58, 237, 0.16),
+    transparent 70%
+  );
 }
 
 .support-hero-inner {
-  max-width: 900px;
-  margin: 0 auto;
+  max-width: 1050px;
+  margin: auto;
 }
 
-/* Top row */
+/* Top Row */
 .support-hero-top {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 16px;
-  flex-wrap: wrap;
-  margin-bottom: 14px;
+  gap: 18px;
 }
 
 .support-title {
-  font-size: 26px;
+  font-size: 30px;
   font-weight: 900;
   color: var(--text);
-  margin: 0;
+}
+
+.support-subtitle {
+  font-size: 14px;
+  color: var(--muted);
+  margin-top: 6px;
+  max-width: 520px;
 }
 
 /* Dashboard Button */
-.support-ticket-btn {
+.support-dashboard-btn {
   background: var(--brand);
   color: white;
-  font-weight: 700;
-  border: none;
-  padding: 10px 16px;
-  border-radius: 10px;
-  cursor: pointer;
+  font-weight: 800;
+
+  padding: 11px 18px;
+  border-radius: 14px;
   text-decoration: none;
+
   transition: 0.2s ease;
 }
 
-.support-ticket-btn:hover {
+.support-dashboard-btn:hover {
   background: var(--brand-dark);
-  transform: translateY(-1px);
+  transform: translateY(-2px);
 }
 
 /* Search Bar */
 .support-search {
+  margin-top: 26px;
+
   display: flex;
   align-items: center;
-  background: white;
+  gap: 10px;
+
+  padding: 14px 16px;
+  border-radius: 16px;
+
+  background: var(--card);
   border: 1px solid var(--border);
-  border-radius: 12px;
-  padding: 10px 14px;
-  margin-top: 10px;
+}
+
+.support-search i {
+  color: var(--muted);
 }
 
 .support-search input {
+  width: 100%;
   border: none;
   outline: none;
-  width: 100%;
   font-size: 14px;
-  color: var(--text);
-  margin-left: 10px;
-}
 
-.search-icon {
-  color: var(--muted);
-  font-size: 14px;
+  background: transparent;
+  color: var(--text);
 }
 
 /* Note */
@@ -81,7 +94,7 @@
 }
 
 /* Responsive */
-@media (max-width: 600px) {
+@media (max-width: 700px) {
   .support-hero-top {
     flex-direction: column;
     align-items: flex-start;

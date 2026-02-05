@@ -1,31 +1,38 @@
 import React from "react";
-import './Hero.css'
+import { Link } from "react-router-dom";
+import "./Hero.css";
+
 function Hero() {
   return (
     <section className="support-hero">
       <div className="support-hero-inner">
         {/* Top Row */}
         <div className="support-hero-top">
-          <p className="support-title">TradeMint Help Center</p>
+          <div>
+            <h1 className="support-title">TradeMint Help Center</h1>
+            <p className="support-subtitle">
+              Learn how the platform works — from trading execution to portfolio analytics.
+            </p>
+          </div>
 
-          <a href="/dashboard" className="support-ticket-btn">
-            Go to Dashboard
-          </a>
+          <Link to="/dashboard" className="support-dashboard-btn">
+            Open Dashboard →
+          </Link>
         </div>
 
         {/* Search */}
         <div className="support-search">
-          <i className="fa-solid fa-magnifying-glass search-icon"></i>
+          <i className="fa-solid fa-magnifying-glass"></i>
 
           <input
             type="text"
-            placeholder="Search: Orders, Holdings, Brokerage Charges, Alerts..."
+            placeholder="Search modules: Orders, Holdings, Charges, Alerts..."
           />
         </div>
 
-        {/* Small Note */}
+        {/* Note */}
         <p className="support-note">
-          Browse platform modules and learn how TradeMint works internally.
+          TradeMint is a production-style MERN fintech simulation platform.
         </p>
       </div>
     </section>
