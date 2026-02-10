@@ -51,20 +51,21 @@ async function fetchStocks(symbols) {
   return results;
 }
 
-// ✅ Route for Sensex (frontend expects /api/stocks/sensex)
-router.get("/sensex", async (req, res) => {
+//Route for Sensex (frontend expects /api/stocks/sensex)
+router.get("/sensex", asyncHandler(async (req, res) => {
   const data = await fetchStocks(sensexNseSymbols);
   res.json(data);
-});
+}));
 
-// ✅ Route for Nifty (frontend expects /api/stocks/nifty)
-router.get("/nifty", async (req, res) => {
+
+//Route for Nifty (frontend expects /api/stocks/nifty)
+router.get("/nifty", asyncHandler (async(req, res) => {
   const data = await fetchStocks(niftyNseSymbols);
   res.json(data);
-});
+}));
 
-// ✅ Watchlist
-router.get("/watchlist", async (req, res) => {
+//Watchlist
+router.get("/watchlist",asyncHandler(async (req, res) => {
   try {
     const data = await fetchStocks(watchlistSymbols);
     res.json(data);
@@ -72,10 +73,10 @@ router.get("/watchlist", async (req, res) => {
     console.error("Error fetching watchlist:", error.message);
     res.status(500).json({ error: "Failed to fetch watchlist" });
   }
-});
+}));
 
 // ✅ Single stock route (keep last!)
-router.get("/:symbol", async (req, res) => {
+router.get("/:symbol",asyncHandler( async (req, res) => {
   try {
     const input = req.params.symbol.toUpperCase();
 
@@ -113,6 +114,6 @@ router.get("/:symbol", async (req, res) => {
     console.error("Error fetching Yahoo Finance stock:", error.message);
     res.status(500).json({ error: "Failed to fetch stock data" });
   }
-});
+}));
 
 export default router;

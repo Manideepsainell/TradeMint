@@ -21,5 +21,11 @@ export const createOrderSchema = z.object({
 });
 
 export const ordersQuerySchema = z.object({
-  limit: z.coerce.number().int().positive().max(100).optional(),
+  limit: z
+    .union([
+      z.coerce.number().int().positive().max(100),
+      z.literal(""),
+      z.undefined()
+    ])
+    .optional(),
 });

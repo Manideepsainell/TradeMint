@@ -29,10 +29,10 @@ const getLivePrice = async (symbol, fallbackPrice) => {
 
   return price;
 };
-
 export const getHoldingsService = async (userId) => {
   const holdings = await Holdings.find({ userId });
-  if (!holdings.length) return [];
+
+  if (!holdings || holdings.length === 0) return [];
 
   return Promise.all(
     holdings.map(async (holding) => {
@@ -55,7 +55,8 @@ export const getHoldingsService = async (userId) => {
 
 export const getPositionsService = async (userId) => {
   const positions = await Positions.find({ userId });
-  if (!positions.length) return [];
+
+  if (!positions || positions.length === 0) return [];
 
   return Promise.all(
     positions.map(async (position) => {

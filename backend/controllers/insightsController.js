@@ -2,9 +2,11 @@ import asyncHandler from "../utils/asyncHandler.js";
 import Holding from "../model/HoldingsModel.js";
 
 export const getPortfolioInsights = asyncHandler(async (req, res) => {
-  const holdings = await Holding.find({ userId: req.user.id });
+const holdings = await Holding.find({ userId: req.user.id });
 
-  if (!holdings.length) {
+
+
+  if (!holdings || holdings.length === 0) {
     return res.json({
       success: true,
       data: {
@@ -32,7 +34,7 @@ export const getPortfolioInsights = asyncHandler(async (req, res) => {
       );
     }
 
-    if (Number(stock.day) < -3) {
+    if (stock.day !== undefined && Number(stock.day) < -3) {
       alerts.push(
         `⚠️ ${stock.name} dropped ${stock.day}% today. Consider risk management`
       );

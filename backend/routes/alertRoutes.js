@@ -15,20 +15,8 @@ import {
 
 
 const router = express.Router();
-
-router.post(
-  "/",
-  protect,
-  validateRequest(createAlertSchema),
-  asyncHandler( createAlert)
-);
-
-router.get("/", protect, asyncHandler(getAlerts));
-router.delete(
-  "/:id",
-  protect,
-  validateRequest(alertIdParamSchema,"params"),
-  asyncHandler(deleteAlert)
-);
+router.post("/", protect, validateRequest(createAlertSchema), createAlert);
+router.get("/", protect, getAlerts);
+router.delete("/:id", protect, validateRequest(alertIdParamSchema,"params"), deleteAlert);
 
 export default router;
