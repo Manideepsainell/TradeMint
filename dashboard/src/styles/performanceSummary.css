@@ -1,0 +1,93 @@
+.perf-card {
+  background: linear-gradient(145deg, #0f172a, #0b1220);
+  border-radius: 16px;
+  padding: 20px;
+  color: #e2e8f0;
+  box-shadow: 0 0 0 1px rgba(255,255,255,0.05);
+  transition: 0.3s ease;
+}
+
+.perf-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.perf-header h3 {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.perf-badge {
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-weight: 600;
+}
+
+.perf-badge.up {
+  background: rgba(0, 255, 150, 0.1);
+  color: #22c55e;
+}
+
+.perf-badge.down {
+  background: rgba(255, 0, 80, 0.1);
+  color: #ef4444;
+}
+
+.perf-gain {
+  margin-top: 8px;
+  font-size: 14px;
+  color: #22c55e;
+}
+
+.perf-grid {
+  margin-top: 16px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+.perf-grid label {
+  font-size: 12px;
+  color: #94a3b8;
+}
+
+.perf-grid p {
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.profit { color: #22c55e; }
+.loss { color: #ef4444; }
+
+.chart-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.range-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.range-buttons button {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
+  color: #ccc;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.range-buttons button:hover {
+  background: rgba(255,255,255,0.1);
+}
+
+.range-buttons button.active {
+  background: linear-gradient(90deg, #00ffae, #00c6ff);
+  color: #000;
+  font-weight: 600;
+}

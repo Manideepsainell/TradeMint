@@ -5,6 +5,10 @@ import PortfolioHero from "./PortfolioHero";
 import PortfolioAlerts from "./PortfolioAlerts";
 import RecentOrders from "./RecentOrders";
 import PositionsSummary from "./PositionsSummary";
+import PerformanceSummary from "./PerformanceSummary";
+
+
+
 
 const Summary = () => {
   const [holdings, setHoldings] = useState([]);
@@ -174,6 +178,8 @@ const Summary = () => {
 
         {/* Positions Summary */}
         <PositionsSummary />
+
+        <PerformanceSummary />
       </div>
     </div>
   );
