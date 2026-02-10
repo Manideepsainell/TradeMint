@@ -1,13 +1,12 @@
-const validateRequest=(schema)=>(req,res,next)=>{
+const validateRequest=(schema,source="body")=>(req,res,next)=>{
     try{
-        schema.parse(req.body);
+        const validatedData=schema.parse(req[source]);
+        req[source]=validatedData;
         next(); 
     }catch(err){
-        res.status(400);
-
         const messages=err.issues.map(e=>e.message);
-        const error=new Error(messages.join(","));
-        next(error);
+        res.status(400);
+        next(new Error(messages.join(", ")));
     }
 };
 
