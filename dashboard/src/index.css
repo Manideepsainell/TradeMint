@@ -195,3 +195,195 @@ body {
   font-weight: 600;
   margin-bottom: 10px;
 }
+
+.risk-banner-wrapper {
+  margin: 18px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.risk-banner {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 14px 18px;
+  border-radius: 10px;
+  border-left: 5px solid;
+  backdrop-filter: blur(6px);
+}
+
+.risk-icon {
+  font-size: 22px;
+  margin-top: 2px;
+}
+
+.risk-title {
+  font-weight: 600;
+  font-size: 15px;
+  margin-bottom: 4px;
+}
+
+.risk-message {
+  font-size: 14px;
+  opacity: 0.85;
+}
+
+.risk-banner.high {
+  background: linear-gradient(90deg, rgba(255,77,79,0.15), rgba(255,77,79,0.05));
+  border-color: #ff4d4f;
+  color: #ffb3b3;
+}
+
+.risk-banner.medium {
+  background: linear-gradient(90deg, rgba(255,169,64,0.15), rgba(255,169,64,0.05));
+  border-color: #ffa940;
+  color: #ffd591;
+}
+.risk-icon {
+  font-size: 20px;
+  margin-top: 3px;
+  display: flex;
+  align-items: center;
+}
+
+.risk-banner.high .risk-icon {
+  color: #ff4d4f;
+}
+
+.risk-banner.medium .risk-icon {
+  color: #ffa940;
+}
+.health-badge {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-left: auto;
+}
+
+.health-score {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  font-weight: 700;
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 6px;
+}
+
+.health-score.good {
+  background: rgba(82, 196, 26, 0.15);
+  color: #52c41a;
+  border: 2px solid #52c41a;
+}
+
+.health-score.average {
+  background: rgba(250, 173, 20, 0.15);
+  color: #faad14;
+  border: 2px solid #faad14;
+}
+
+.health-score.poor {
+  background: rgba(255, 77, 79, 0.15);
+  color: #ff4d4f;
+  border: 2px solid #ff4d4f;
+}
+
+.health-label {
+  font-size: 12px;
+  opacity: 0.7;
+}
+.health-status {
+  font-size: 11px;
+  opacity: 0.5;
+}
+.health-score {
+  width: 52px;
+  height: 52px;
+  font-size: 18px;
+}
+.health-label-top {
+  font-size: 11px;
+  opacity: 0.6;
+  margin-bottom: 4px;
+}
+.health-badge {
+  border-left: 1px solid rgba(255,255,255,0.06);
+  padding-left: 18px;
+  margin-left: 18px;
+}
+.hero-stats {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-top: 18px;
+}
+
+.stat-block {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.stat-label {
+  font-size: 12px;
+  opacity: 0.55;
+  margin-bottom: 2px;
+  letter-spacing: 0.3px;
+}
+
+.stat-value {
+  font-weight: 600;
+}
+
+.health-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+}
+.health-block {
+  transform: translateY(-2px);
+}
+
+.health-score-inline {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  font-size: 14px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.health-score-inline.good {
+  border: 2px solid #52c41a;
+  color: #52c41a;
+}
+
+.health-score-inline.average {
+  border: 2px solid #faad14;
+  color: #faad14;
+}
+
+.health-score-inline.poor {
+  border: 2px solid #ff4d4f;
+  color: #ff4d4f;
+}
+
+.health-status {
+  font-size: 11px;
+  opacity: 0.6;
+}
+
+.hero-stats {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;   /* 🔥 this is key */
+  margin-top: 18px;
+}

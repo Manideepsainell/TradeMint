@@ -1,6 +1,6 @@
 import React, { useMemo } from "react";
 
-const PortfolioHero = ({ holdings = [], report = {} }) => {
+const PortfolioHero = ({ holdings = [], report = {} ,health}) => {
   /* ============================================================
      HELPERS
   ============================================================ */
@@ -37,6 +37,13 @@ const PortfolioHero = ({ holdings = [], report = {} }) => {
     };
   }, [holdings]);
 
+  const getHealthColor = (score) => {
+  if (score >= 70) return "good";
+  if (score >= 40) return "average";
+  return "poor";
+};
+
+
   /* ============================================================
      REPORT METRICS
   ============================================================ */
@@ -58,6 +65,9 @@ const PortfolioHero = ({ holdings = [], report = {} }) => {
           {formatMoney(metrics.currentValue)}
         </h1>
       </div>
+
+
+
 
       {/* ✅ Stats Grid */}
       <div className="hero-stats">
@@ -84,11 +94,29 @@ const PortfolioHero = ({ holdings = [], report = {} }) => {
           </h3>
         </div>
 
-        {/* Charges Paid */}
-        <div>
-          <p>Charges Paid</p>
-          <h3>{formatMoney(totalCharges)}</h3>
-        </div>
+       {/* Health Score */}
+{health && (
+  <div className="stat-block health-block">
+    <p className="stat-label">Health</p>
+    <div className={`health-score-inline ${getHealthColor(health.score)}`}>
+      {health.score}
+    </div>
+    <p className="health-status">
+      {health.score >= 70
+        ? "Well Diversified"
+        : health.score >= 40
+        ? "Moderate Risk"
+        : "High Risk"}
+    </p>
+  </div>
+)}
+
+{/* Charges Paid */}
+<div className="stat-block">
+  <p className="stat-label">Charges Paid</p>
+  <h3 className="stat-value">{formatMoney(totalCharges)}</h3>
+</div>
+
 
         {/* Net Profit */}
         <div>

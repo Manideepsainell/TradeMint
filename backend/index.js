@@ -14,6 +14,11 @@ import errorHandler from "./middlewares/errorMiddleware.js";
 import alertRoutes from "./routes/alertRoutes.js";
 import performanceRoutes from "./routes/performanceRoutes.js";
 import performanceHistoryRoutes from "./routes/performanceHistoryRoute.js";
+import riskRoutes from "./routes/riskRoutes.js";
+import healthRoutes from "./routes/healthRoutes.js";
+
+
+
 
 
 const app = express();
@@ -57,7 +62,8 @@ app.use("/api/summary", summaryRoutes);
 app.use("/api/alerts", alertRoutes);
 app.use("/api/performance", performanceRoutes);
 app.use("/api/performance-history", performanceHistoryRoutes);
-
+app.use("/api", riskRoutes);
+app.use("/api", healthRoutes);
 // ================== DB CONNECTION ==================
 mongoose
   .connect(MONGO_URL)

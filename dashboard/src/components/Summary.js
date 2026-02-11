@@ -2,10 +2,11 @@ import React, { useEffect, useMemo, useState } from "react";
 import api from "../api/axios";
 
 import PortfolioHero from "./PortfolioHero";
-import PortfolioAlerts from "./PortfolioAlerts";
 import RecentOrders from "./RecentOrders";
 import PositionsSummary from "./PositionsSummary";
 import PerformanceSummary from "./PerformanceSummary";
+import { FaExclamationTriangle } from "react-icons/fa";
+import { MdWarningAmber } from "react-icons/md";
 
 
 
@@ -19,6 +20,9 @@ const Summary = () => {
   });
 
   const [loading, setLoading] = useState(true);
+  const [riskAlerts, setRiskAlerts] = useState([]);
+  const [health, setHealth] = useState(null);
+
   const [error, setError] = useState("");
 
   /* ============================================================
@@ -31,15 +35,21 @@ const Summary = () => {
         setLoading(true);
         setError("");
 
-        const [holdingsRes, fundsRes, reportRes] = await Promise.all([
-          api.get("/api/user/holdings"),
-          api.get("/api/user/funds"),
-          api.get("/api/user/report/charges"),
-        ]);
+       const [holdingsRes, fundsRes, reportRes, riskRes,healthRes] = await Promise.all([
+  api.get("/api/user/holdings"),
+  api.get("/api/user/funds"),
+  api.get("/api/user/report/charges"),
+  api.get("/api/risk-alerts"),
+  api.get("/api/portfolio-health"),
+]);
+
 
         setHoldings(holdingsRes.data?.data || []);
         setFunds(fundsRes.data?.data || null);
         setReport(reportRes.data?.data || {});
+        setRiskAlerts(riskRes.data?.alerts || []);
+        setHealth(healthRes.data);
+
       } catch (err) {
         console.error("Dashboard Fetch Error:", err);
         setError("Unable to load dashboard data. Please refresh.");
@@ -106,7 +116,35 @@ const Summary = () => {
       </div>
 
       {/* ✅ Hero Portfolio Card */}
-      <PortfolioHero holdings={holdings} report={report} />
+      <PortfolioHero holdings={holdings} report={report} health={health} />
+      {/* 🚨 Portfolio Risk Banners */}
+{riskAlerts.length > 0 && (
+  <div className="risk-banner-wrapper">
+    {riskAlerts.map((alert, index) => (
+      <div key={index} className={`risk-banner ${alert.severity}`}>
+        <div className="risk-icon">
+  {alert.severity === "high" ? (
+    <FaExclamationTriangle />
+  ) : (
+    <MdWarningAmber />
+  )}
+</div>
+
+
+        <div className="risk-content">
+          <div className="risk-title">
+            {alert.type === "HIGH_EXPOSURE"
+              ? "High Stock Concentration Risk"
+              : alert.type === "SECTOR_CONCENTRATION"
+              ? "Sector Concentration Warning"
+              : "Low Diversification Warning"}
+          </div>
+          <div className="risk-message">{alert.message}</div>
+        </div>
+      </div>
+    ))}
+  </div>
+)}
 
       {/* ✅ Dashboard Grid */}
       <div className="dashboard-grid">
@@ -171,7 +209,7 @@ const Summary = () => {
         </div>
 
         {/* Alerts */}
-        <PortfolioAlerts />
+        {/*<PortfolioAlerts />}
 
         {/* Recent Orders */}
         <RecentOrders />

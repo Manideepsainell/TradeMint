@@ -70,12 +70,12 @@ const Holdings = () => {
 
   const graphData = useMemo(() => {
     return {
-      labels: holdings.map((s) => s.name),
+      labels: holdings.map((h) => h.symbol),
       datasets: [
         {
           label: "Holding Value (₹)",
           data: holdings.map(
-            (s) => Number(s.qty || 0) * Number(s.price || 0)
+            (h) => Number(h.qty || 0) * Number(h.price || 0)
           ),
           borderRadius: 10,
           barThickness: 45,

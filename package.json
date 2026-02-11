@@ -1,5 +1,6 @@
 {
   "dependencies": {
-    "mongoosh": "^0.0.7"
+    "mongoosh": "^0.0.7",
+    "react-icons": "^5.5.0"
   }
 }
