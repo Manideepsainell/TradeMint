@@ -25,10 +25,7 @@ router.get(
 
     // ✅ Serve cached data if valid
     if (cache.data && now - cache.timestamp < CACHE_TTL) {
-      return res.json({
-        ...cache.data,
-        cached: true,
-      });
+      return res.json(cache.data);
     }
 
     try {
@@ -59,21 +56,14 @@ router.get(
         timestamp: now,
       };
 
-      return res.json({
-        ...freshData,
-        cached: false,
-      });
+      return res.json(freshData);
 
     } catch (error) {
       console.error("Yahoo fetch failed:", error.message);
 
       // ✅ If Yahoo fails, serve stale cache instead of crashing
       if (cache.data) {
-        return res.json({
-          ...cache.data,
-          cached: true,
-          stale: true,
-        });
+       return res.json(cache.data);
       }
 
       return res.status(500).json({
