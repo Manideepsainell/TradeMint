@@ -108,7 +108,7 @@ const Summary = () => {
   ============================================================ */
 
   return (
-    <div className="summary-container">
+    <>
       {/* ✅ Professional Header */}
       <div className="summary-header">
         <h2>Portfolio Overview</h2>
@@ -219,7 +219,7 @@ const Summary = () => {
 
         <PerformanceSummary />
       </div>
-    </div>
+    </>
   );
 };
 

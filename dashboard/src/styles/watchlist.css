@@ -16,7 +16,7 @@
   overflow: visible;
 
   backdrop-filter: blur(16px);
-  box-shadow: 6px 0 20px rgba(15, 23, 42, 0.05);
+ 
 }
 
 /* ✅ Light Mode Premium Sidebar */
@@ -82,7 +82,7 @@
 
 /* Row */
 .watchlist-stock-row {
-  padding: 10px 14px;
+  padding: 10px 16px;
   cursor: pointer;
 
   transition: 0.2s ease;
@@ -92,8 +92,17 @@
 
 .watchlist-stock-row:hover {
   background: rgba(124, 58, 237, 0.08); /* ✅ Purple */
-  transform: translateY(-1px);
 }
+.watchlist-change {
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.watchlist-price {
+  font-size: 11px;
+  opacity: 0.65;
+}
+
 
 /* Stock Line */
 .watchlist-stock-main {
@@ -104,11 +113,10 @@
 
 .watchlist-symbol {
   font-size: 13px;
-  font-weight: 900;
-  color: var(--brand);
-
-
+  font-weight: 600;   
+  color: var(--text); 
 }
+
 
 .watchlist-metrics {
   display: flex;
@@ -195,14 +203,18 @@
 .watchlist-mini-chart {
   margin: 12px;
   padding: 16px;
-  border-radius: 18px;
+  border-radius: 14px;
 
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(15, 23, 42, 0.5);
+  border: 1px solid rgba(15, 23, 42, 0.08);
 
   backdrop-filter: blur(16px);
   flex-shrink: 0;
 }
+.watchlist-stocks {
+  gap: 2px;
+}
+
 
 /* Title */
 .watchlist-chart-title {

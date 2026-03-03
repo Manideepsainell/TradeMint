@@ -30,7 +30,7 @@ const MONGO_URL = process.env.MONGO_URL;
 // ============== CORS MIDDLEWARE ==============
 const allowedOrigins = [
   "http://localhost:3000",
-  "https://main.d1z91v4h87g5dz.amplifyapp.com",
+  "https://trademint001.vercel.app",
 ];
 
 app.use(

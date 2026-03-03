@@ -207,7 +207,7 @@ body {
   display: flex;
   align-items: flex-start;
   gap: 14px;
-  padding: 14px 18px;
+  padding: 12px 16px;
   border-radius: 10px;
   border-left: 5px solid;
   backdrop-filter: blur(6px);
@@ -230,7 +230,7 @@ body {
 }
 
 .risk-banner.high {
-  background: linear-gradient(90deg, rgba(255,77,79,0.15), rgba(255,77,79,0.05));
+  background: linear-gradient(90deg, rgba(255,77,79,0.10), rgba(255,77,79,0.04));
   border-color: #ff4d4f;
   color: #ffb3b3;
 }
@@ -386,4 +386,14 @@ body {
   justify-content: space-between;
   align-items: center;   /* 🔥 this is key */
   margin-top: 18px;
+}
+
+.analytics-section {
+  margin-top: 48px;
+}
+
+.analytics-wrapper {
+  padding: 28px;
+  border-radius: 20px;
+  background: rgba(255,255,255,0.02);
 }
