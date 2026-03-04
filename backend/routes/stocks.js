@@ -56,8 +56,6 @@ async function fetchStocks(symbols) {
 
   return results;
 }
-
-// 🔥 Generic cached handler
 async function handleCachedRoute(key, symbols, res) {
   const now = Date.now();
 
@@ -65,10 +63,7 @@ async function handleCachedRoute(key, symbols, res) {
     routeCache[key].data &&
     now - routeCache[key].timestamp < CACHE_TTL
   ) {
-    return res.json({
-      data: routeCache[key].data,
-      cached: true
-    });
+    return res.json(routeCache[key].data);
   }
 
   try {
@@ -79,44 +74,35 @@ async function handleCachedRoute(key, symbols, res) {
       timestamp: now
     };
 
-    return res.json({
-      data,
-      cached: false
-    });
+    return res.json(data);
 
   } catch (error) {
     console.error(`${key} fetch failed:`, error.message);
 
     if (routeCache[key].data) {
-      return res.json({
-        data: routeCache[key].data,
-        cached: true,
-        stale: true
-      });
+      return res.json(routeCache[key].data);
     }
 
-    return res.status(500).json({
-      error: `Failed to fetch ${key}`
-    });
+    return res.json([]);
   }
 }
 
-// ✅ Sensex
+//Sensex
 router.get("/sensex", asyncHandler(async (req, res) => {
   await handleCachedRoute("sensex", sensexNseSymbols, res);
 }));
 
-// ✅ Nifty
+// Nifty
 router.get("/nifty", asyncHandler(async (req, res) => {
   await handleCachedRoute("nifty", niftyNseSymbols, res);
 }));
 
-// ✅ Watchlist
+// Watchlist
 router.get("/watchlist", asyncHandler(async (req, res) => {
   await handleCachedRoute("watchlist", watchlistSymbols, res);
 }));
 
-// ✅ Single stock (no heavy caching needed)
+// Single stock (no heavy caching needed)
 router.get("/:symbol", asyncHandler(async (req, res) => {
   try {
     const input = req.params.symbol.toUpperCase();
@@ -158,4 +144,7 @@ router.get("/:symbol", asyncHandler(async (req, res) => {
   }
 }));
 
+
 export default router;
+
+  
