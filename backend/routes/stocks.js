@@ -5,7 +5,6 @@ import asyncHandler from "../utils/asyncHandler.js";
 const yahooFinance = new YahooFinance();
 const router = express.Router();
 
-// 🔥 In-memory route cache
 let routeCache = {
   sensex: { data: null, timestamp: 0 },
   nifty: { data: null, timestamp: 0 },
