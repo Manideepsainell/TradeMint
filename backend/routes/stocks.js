@@ -1,7 +1,7 @@
 import express from "express";
 import YahooFinance from "yahoo-finance2";
 import asyncHandler from "../utils/asyncHandler.js";
-
+import { mockStocks } from "../data/mockStocks.js";
 const yahooFinance = new YahooFinance();
 const router = express.Router();
 
@@ -76,15 +76,12 @@ async function handleCachedRoute(key, symbols, res) {
     return res.json(data);
 
   } catch (error) {
-    console.error(`${key} fetch failed:`, error.message);
+  console.error(`${key} fetch failed:`, error.message);
 
-    if (routeCache[key].data) {
-      return res.json(routeCache[key].data);
-    }
+  // return mock data instead
+  return res.json(mockStocks[key] || []);
+}  }
 
-    return res.json([]);
-  }
-}
 
 
 // ✅ ROUTES
