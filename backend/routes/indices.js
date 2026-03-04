@@ -2,16 +2,13 @@ import express from "express";
 import YahooFinance from "yahoo-finance2";
 import asyncHandler from "../utils/asyncHandler.js";
 
-const yahooFinance = new YahooFinance({
+import YahooFinance from "yahoo-finance2";
+
+const yahooFinance = new YahooFinance();
+
+yahooFinance.setGlobalConfig({
   queue: {
-    concurrency: 1,
-    timeout: 10000
-  },
-  requestOptions: {
-    headers: {
-      "User-Agent":
-        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120 Safari/537.36"
-    }
+    concurrency: 1
   }
 });
 const router = express.Router();
