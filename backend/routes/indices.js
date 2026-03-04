@@ -2,7 +2,6 @@ import express from "express";
 import YahooFinance from "yahoo-finance2";
 import asyncHandler from "../utils/asyncHandler.js";
 
-import YahooFinance from "yahoo-finance2";
 
 const yahooFinance = new YahooFinance();
 
