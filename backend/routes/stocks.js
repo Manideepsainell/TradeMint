@@ -26,33 +26,21 @@ const niftyNseSymbols = [
 ];
 
 
-// ✅ BATCH FETCH
 async function fetchStocks(symbols) {
-  try {
-    const quotes = await yahooFinance.quote(symbols);
+  const quotes = await yahooFinance.quote(symbols);
 
-    return quotes.map((quote) => ({
-      symbol: quote.symbol,
-      price: quote.regularMarketPrice ?? 0,
-      change: quote.regularMarketChange ?? 0,
-      changePercent: quote.regularMarketChangePercent ?? 0,
-      open: quote.regularMarketOpen ?? 0,
-      high: quote.regularMarketDayHigh ?? 0,
-      low: quote.regularMarketDayLow ?? 0,
-      previousClose: quote.regularMarketPreviousClose ?? 0,
-      marketTime: quote.regularMarketTime ?? null,
-    }));
-
-  } catch (error) {
-    console.error("Yahoo batch fetch failed:", error.message);
-
-    return symbols.map(symbol => ({
-      symbol,
-      error: "Failed to fetch"
-    }));
-  }
+  return quotes.map((quote) => ({
+    symbol: quote.symbol,
+    price: quote.regularMarketPrice ?? 0,
+    change: quote.regularMarketChange ?? 0,
+    changePercent: quote.regularMarketChangePercent ?? 0,
+    open: quote.regularMarketOpen ?? 0,
+    high: quote.regularMarketDayHigh ?? 0,
+    low: quote.regularMarketDayLow ?? 0,
+    previousClose: quote.regularMarketPreviousClose ?? 0,
+    marketTime: quote.regularMarketTime ?? null,
+  }));
 }
-
 
 // ✅ CACHE HANDLER
 async function handleCachedRoute(key, symbols, res) {
