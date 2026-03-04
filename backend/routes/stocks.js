@@ -3,12 +3,6 @@ import YahooFinance from "yahoo-finance2";
 import asyncHandler from "../utils/asyncHandler.js";
 
 const yahooFinance = new YahooFinance();
-
-yahooFinance.setGlobalConfig({
-  queue: {
-    concurrency: 1
-  }
-});
 const router = express.Router();
 
 let routeCache = {
