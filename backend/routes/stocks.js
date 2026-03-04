@@ -56,34 +56,29 @@ async function fetchStocks(symbols) {
 
   return results;
 }
-async function handleCachedRoute(key, symbols, res) {
-  const now = Date.now();
-
-  if (
-    routeCache[key].data &&
-    now - routeCache[key].timestamp < CACHE_TTL
-  ) {
-    return res.json(routeCache[key].data);
-  }
-
+async function fetchStocks(symbols) {
   try {
-    const data = await fetchStocks(symbols);
+    const quotes = await yahooFinance.quote(symbols);
 
-    routeCache[key] = {
-      data,
-      timestamp: now
-    };
-
-    return res.json(data);
+    return quotes.map((quote) => ({
+      symbol: quote.symbol,
+      price: quote.regularMarketPrice ?? 0,
+      change: quote.regularMarketChange ?? 0,
+      changePercent: quote.regularMarketChangePercent ?? 0,
+      open: quote.regularMarketOpen ?? 0,
+      high: quote.regularMarketDayHigh ?? 0,
+      low: quote.regularMarketDayLow ?? 0,
+      previousClose: quote.regularMarketPreviousClose ?? 0,
+      marketTime: quote.regularMarketTime ?? null,
+    }));
 
   } catch (error) {
-    console.error(`${key} fetch failed:`, error.message);
+    console.error("Yahoo batch fetch failed:", error.message);
 
-    if (routeCache[key].data) {
-      return res.json(routeCache[key].data);
-    }
-
-    return res.json([]);
+    return symbols.map(symbol => ({
+      symbol,
+      error: "Failed to fetch"
+    }));
   }
 }
 
