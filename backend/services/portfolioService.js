@@ -36,19 +36,20 @@ export const getHoldingsService = async (userId) => {
 
   return Promise.all(
     holdings.map(async (holding) => {
-      const symbol = SYMBOL_MAP[holding.name] || `${holding.name}.NS`;
+      const symbol = SYMBOL_MAP[holding.symbol] || `${holding.symbol}.NS`;
       const price = await getLivePrice(symbol, holding.avg);
 
       const curValue = price * holding.qty;
       const net = curValue - holding.avg * holding.qty;
 
-      return {
-        ...holding._doc,
-        price,
-        day: (price - holding.avg).toFixed(2),
-        net: net.toFixed(2),
-        isLoss: net < 0,
-      };
+     return {
+  ...holding._doc,
+  name: holding.symbol,
+  price,
+  day: (price - holding.avg).toFixed(2),
+  net: net.toFixed(2),
+  isLoss: net < 0,
+};
     })
   );
 };

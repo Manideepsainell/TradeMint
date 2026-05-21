@@ -1,7 +1,8 @@
 import Holding from "../model/HoldingsModel.js";
 import Order from "../model/OrdersModel.js";
-import { calculateCharges } from "../utils/chargesCalculater.js";
+import Funds from "../model/FundsModel.js";
 
+import { calculateCharges } from "../utils/chargesCalculater.js";
 const SECTOR_MAP = {
   RELIANCE: "ENERGY",
   TCS: "IT",
@@ -21,7 +22,30 @@ export const executeBuyOrder = async ({ userId, name, qty, price }) => {
 
   qty = Number(qty);
   price = Number(price);
+  console.log("USER ID:", userId);
+ console.log("TYPE:", typeof userId);
+  const totalCost = qty * price;
+console.log("FUNDS BEFORE:", funds);
+let funds = await Funds.findOne({ userId });
 
+if (!funds) {
+  funds = await Funds.create({
+    userId,
+    openingBalance: 100000,
+    availableMargin: 100000,
+    usedMargin: 0,
+  });
+}
+
+if (funds.availableMargin < totalCost) {
+  throw new Error("Insufficient funds");
+}
+
+funds.availableMargin -= totalCost;
+funds.usedMargin += totalCost;
+
+await funds.save();
+console.log("FUNDS AFTER SAVE:", funds);
   const order = await Order.create({
     userId,
     name,
@@ -89,6 +113,23 @@ export const executeSellOrder = async ({ userId, name, qty, price }) => {
   });
 
   const netProfit = grossProfit - charges.totalCharges;
+  const sellValue = qty * price;
+
+let funds = await Funds.findOne({ userId });
+
+if (!funds) {
+  funds = await Funds.create({
+    userId,
+    openingBalance: 100000,
+    availableMargin: 100000,
+    usedMargin: 0,
+  });
+}
+
+funds.availableMargin += sellValue;
+funds.usedMargin = Math.max(0, funds.usedMargin - buyPrice * qty);
+
+await funds.save();
 
   const order = await Order.create({
     userId,
