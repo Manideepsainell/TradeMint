@@ -1,6 +1,27 @@
 import Orders from "../model/OrdersModel.js";
 import Holdings from "../model/HoldingsModel.js";
 
+const SECTOR_MAP = {
+  RELIANCE: "ENERGY",
+  TCS: "IT",
+  INFY: "IT",
+  HDFCBANK: "BANKING",
+  ICICIBANK: "BANKING",
+  ITC: "FMCG",
+  KOTAKBANK: "BANKING",
+  SBIN: "BANKING",
+};
+
+const SYMBOL_MAP = {
+  RELIANCE: "RELIANCE.NS",
+  TCS: "TCS.NS",
+  INFY: "INFY.NS",
+  HDFCBANK: "HDFCBANK.NS",
+  ICICIBANK: "ICICIBANK.NS",
+  ITC: "ITC.NS",
+  KOTAKBANK: "KOTAKBANK.NS",
+  SBIN: "SBIN.NS",
+};
 export const createOrderService = async ({
   name,
   qty,
@@ -10,7 +31,10 @@ export const createOrderService = async ({
 }) => {
   // SELL rule
   if (mode === "SELL") {
-    const holding = await Holdings.findOne({ name, userId });
+   const holding = await Holdings.findOne({
+  symbol: name,
+  userId,
+});
 
     if (!holding || holding.qty < qty) {
       throw new Error("Insufficient holdings to sell");
@@ -27,16 +51,30 @@ export const createOrderService = async ({
 
   // Update holdings
   if (mode === "BUY") {
-    await Holdings.findOneAndUpdate(
-      { name, userId },
-      { $inc: { qty } },
-      { upsert: true }
-    );
+  const existingHolding = await Holdings.findOne({
+    symbol: name,
+    userId,
+  });
+
+  if (existingHolding) {
+    existingHolding.qty += qty;
+    existingHolding.price = price;
+    await existingHolding.save();
+  } else {
+    await Holdings.create({
+      symbol: name,
+      qty,
+      avg: price,
+      price,
+      sector: SECTOR_MAP[name] || "UNKNOWN",
+      userId,
+    });
   }
+}
 
   if (mode === "SELL") {
     await Holdings.findOneAndUpdate(
-      { name, userId },
+      { symbol: name, userId },
       { $inc: { qty: -qty } }
     );
   }
@@ -47,16 +85,6 @@ export const createOrderService = async ({
 import yahooFinance from "yahoo-finance2";
 import { getCachedPrice, setCachedPrice } from "../utils/priceCache.js";
 
-const SYMBOL_MAP = {
-  RELIANCE: "RELIANCE.NS",
-  TCS: "TCS.NS",
-  INFY: "INFY.NS",
-  HDFCBANK: "HDFCBANK.NS",
-  ICICIBANK: "ICICIBANK.NS",
-  ITC: "ITC.NS",
-  KOTAKBANK: "KOTAKBANK.NS",
-  SBIN: "SBIN.NS",
-};
 
 export const getOrdersService = async (userId) => {
   const orders = await Orders.find({ userId }).sort({
