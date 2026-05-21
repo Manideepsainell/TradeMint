@@ -2,8 +2,19 @@ import Holding from "../model/HoldingsModel.js";
 import Order from "../model/OrdersModel.js";
 import { calculateCharges } from "../utils/chargesCalculater.js";
 
+const SECTOR_MAP = {
+  RELIANCE: "ENERGY",
+  TCS: "IT",
+  INFY: "IT",
+  HDFCBANK: "BANKING",
+  ICICIBANK: "BANKING",
+  ITC: "FMCG",
+  KOTAKBANK: "BANKING",
+  SBIN: "BANKING",
+};
+
 /* ===========================
-   ✅ BUY ORDER
+   BUY ORDER
 =========================== */
 export const executeBuyOrder = async ({ userId, name, qty, price }) => {
   name = name.replace(".NS", "").trim();
@@ -11,7 +22,6 @@ export const executeBuyOrder = async ({ userId, name, qty, price }) => {
   qty = Number(qty);
   price = Number(price);
 
-  // ✅ Save BUY order
   const order = await Order.create({
     userId,
     name,
@@ -20,8 +30,10 @@ export const executeBuyOrder = async ({ userId, name, qty, price }) => {
     mode: "BUY",
   });
 
-  // ✅ Update holdings
-  const existingHolding = await Holding.findOne({ userId, name });
+  const existingHolding = await Holding.findOne({
+    userId,
+    symbol: name,
+  });
 
   if (existingHolding) {
     const totalQty = existingHolding.qty + qty;
@@ -37,11 +49,12 @@ export const executeBuyOrder = async ({ userId, name, qty, price }) => {
   } else {
     await Holding.create({
       userId,
-      name,
+      symbol: name,
       qty,
       avg: price,
       price,
       day: 0,
+      sector: SECTOR_MAP[name] || "UNKNOWN",
     });
   }
 
@@ -49,38 +62,34 @@ export const executeBuyOrder = async ({ userId, name, qty, price }) => {
 };
 
 /* ===========================
-   ✅ SELL ORDER + BROKERAGE
+   SELL ORDER
 =========================== */
 export const executeSellOrder = async ({ userId, name, qty, price }) => {
-  console.log("✅ EXECUTE SELL ORDER WITH BROKERAGE RUNNING");
-
   name = name.replace(".NS", "").trim();
 
   qty = Number(qty);
   price = Number(price);
 
-  // ✅ Find holding
-  const holding = await Holding.findOne({ userId, name });
+  const holding = await Holding.findOne({
+    userId,
+    symbol: name,
+  });
 
   if (!holding) throw new Error("You do not own this stock");
   if (qty > holding.qty) throw new Error("Not enough quantity to sell");
 
   const buyPrice = Number(holding.avg);
 
-  // ✅ Gross Profit
   const grossProfit = (price - buyPrice) * qty;
 
-  // ✅ Charges
   const charges = calculateCharges({
     buyPrice,
     sellPrice: price,
     qty,
   });
 
-  // ✅ Net Profit
   const netProfit = grossProfit - charges.totalCharges;
 
-  // ✅ Save SELL order with breakdown
   const order = await Order.create({
     userId,
     name,
@@ -92,7 +101,6 @@ export const executeSellOrder = async ({ userId, name, qty, price }) => {
     charges,
   });
 
-  // ✅ Update holdings
   holding.qty -= qty;
 
   if (holding.qty === 0) await holding.deleteOne();
