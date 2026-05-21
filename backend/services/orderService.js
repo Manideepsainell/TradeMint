@@ -1,5 +1,7 @@
 import Orders from "../model/OrdersModel.js";
 import Holdings from "../model/HoldingsModel.js";
+import yahooFinance from "yahoo-finance2";
+import { getCachedPrice, setCachedPrice } from "../utils/priceCache.js";
 
 const SECTOR_MAP = {
   RELIANCE: "ENERGY",
@@ -22,6 +24,7 @@ const SYMBOL_MAP = {
   KOTAKBANK: "KOTAKBANK.NS",
   SBIN: "SBIN.NS",
 };
+
 export const createOrderService = async ({
   name,
   qty,
@@ -29,12 +32,13 @@ export const createOrderService = async ({
   mode,
   userId,
 }) => {
-  // SELL rule
+  const normalizedName = name.replace(".NS", "");
+
   if (mode === "SELL") {
-   const holding = await Holdings.findOne({
-  symbol: name,
-  userId,
-});
+    const holding = await Holdings.findOne({
+      symbol: normalizedName,
+      userId,
+    });
 
     if (!holding || holding.qty < qty) {
       throw new Error("Insufficient holdings to sell");
@@ -49,42 +53,37 @@ export const createOrderService = async ({
     userId,
   });
 
-  // Update holdings
   if (mode === "BUY") {
-  const existingHolding = await Holdings.findOne({
-    symbol: name,
-    userId,
-  });
-
-  if (existingHolding) {
-    existingHolding.qty += qty;
-    existingHolding.price = price;
-    await existingHolding.save();
-  } else {
-    await Holdings.create({
-      symbol: name,
-      qty,
-      avg: price,
-      price,
-      sector: SECTOR_MAP[name] || "UNKNOWN",
+    const existingHolding = await Holdings.findOne({
+      symbol: normalizedName,
       userId,
     });
+
+    if (existingHolding) {
+      existingHolding.qty += qty;
+      existingHolding.price = price;
+      await existingHolding.save();
+    } else {
+      await Holdings.create({
+        symbol: normalizedName,
+        qty,
+        avg: price,
+        price,
+        sector: SECTOR_MAP[normalizedName] || "UNKNOWN",
+        userId,
+      });
+    }
   }
-}
 
   if (mode === "SELL") {
     await Holdings.findOneAndUpdate(
-      { symbol: name, userId },
+      { symbol: normalizedName, userId },
       { $inc: { qty: -qty } }
     );
   }
 
   return newOrder;
 };
-
-import yahooFinance from "yahoo-finance2";
-import { getCachedPrice, setCachedPrice } from "../utils/priceCache.js";
-
 
 export const getOrdersService = async (userId) => {
   const orders = await Orders.find({ userId }).sort({
@@ -95,7 +94,8 @@ export const getOrdersService = async (userId) => {
 
   const updatedOrders = await Promise.all(
     orders.map(async (order) => {
-      const symbol = SYMBOL_MAP[order.name] || `${order.name}.NS`;
+      const normalizedName = order.name.replace(".NS", "");
+      const symbol = SYMBOL_MAP[normalizedName] || order.name;
 
       let price = getCachedPrice(symbol);
 
@@ -104,7 +104,7 @@ export const getOrdersService = async (userId) => {
           const quote = await yahooFinance.quote(symbol);
           price = quote.regularMarketPrice;
           setCachedPrice(symbol, price);
-        } catch (err) {
+        } catch {
           price = order.price;
         }
       }
