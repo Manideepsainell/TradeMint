@@ -1,5 +1,5 @@
 /* ============================================================
-   ✅ DASHBOARD.CSS — TRADEMINT (Purple Premium Clean)
+   DASHBOARD.CSS — TRADEMINT CLEAN FINAL
 ============================================================ */
 
 /* ============================================================
@@ -10,24 +10,24 @@
   display: flex;
   min-height: 100vh;
   background: var(--bg);
+  align-items: flex-start;
 }
 
 .content {
   flex: 1;
-  padding: 28px;
+  min-width: 0;
+  padding: 28px 32px;
   background: var(--bg);
 }
 
 .summary-container {
-  max-width: 1600px;
-  margin: 0 auto;
-  padding: 0 32px;
-  padding-bottom: 80px;
+  width: 100%;
+  padding: 0;
+  padding-bottom: 60px;
 }
 
-
 /* ============================================================
-   HEADER INTRO
+   HEADER
 ============================================================ */
 
 .summary-header h2 {
@@ -44,11 +44,11 @@
 }
 
 /* ============================================================
-   PORTFOLIO HERO (Main Highlight)
+   PORTFOLIO HERO
 ============================================================ */
 
 .portfolio-hero {
-  margin: 18px 0 26px;
+  margin: 18px 0 22px;
   padding: 28px 32px;
   border-radius: 16px;
 
@@ -56,7 +56,7 @@
   border: 1px solid rgba(124, 58, 237, 0.18);
 
   backdrop-filter: blur(18px);
-  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.35);
+  box-shadow: 0 16px 35px rgba(0, 0, 0, 0.22);
 
   color: white;
 }
@@ -77,7 +77,7 @@
 
 .hero-stats {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
   gap: 18px;
 }
 
@@ -102,16 +102,25 @@
 }
 
 /* ============================================================
-   DASHBOARD GRID CARDS
+   WARNINGS
+============================================================ */
+
+.summary-warning {
+  padding: 14px 18px;
+  border-radius: 14px;
+  margin-bottom: 14px;
+}
+
+/* ============================================================
+   DASHBOARD GRID
 ============================================================ */
 
 .dashboard-grid {
-  margin-top: 22px;
+  margin-top: 18px;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 20px;
-  margin-bottom: 32px;
-  row-gap: 28px;
+  margin-bottom: 26px;
 }
 
 .summary-card {
@@ -121,10 +130,9 @@
   padding: 18px;
 
   backdrop-filter: blur(14px);
-  box-shadow: 0 10px 25px rgba(15, 23, 42, 0.10);
+  box-shadow: 0 8px 20px rgba(15, 23, 42, 0.08);
 }
 
-/* Card Title */
 .summary-card .title {
   font-size: 13px;
   font-weight: 800;
@@ -134,7 +142,6 @@
   color: var(--muted);
 }
 
-/* Data Rows */
 .summary-card .data {
   display: flex;
   flex-direction: column;
@@ -147,7 +154,6 @@
   align-items: center;
 }
 
-/* Numbers */
 .summary-card .imp {
   font-size: 18px;
   font-weight: 900;
@@ -155,105 +161,18 @@
   font-variant-numeric: tabular-nums;
 }
 
-/* Purple Highlight */
 .summary-card .colored {
   color: var(--brand);
 }
+
 .small-text {
   font-size: 12px;
   margin-left: 6px;
   opacity: 0.7;
 }
 
-
 /* ============================================================
-   ALERTS CARD
-============================================================ */
-
-.alerts-list {
-  list-style: none;
-  padding: 0;
-  margin-top: 14px;
-
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.alerts-list li {
-  display: flex;
-  gap: 12px;
-  align-items: flex-start;
-
-  padding: 12px 14px;
-  border-radius: 14px;
-
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.06);
-
-  font-size: 13px;
-  font-weight: 600;
-  color: var(--text);
-
-  transition: 0.2s ease;
-}
-
-.alerts-list li:hover {
-  transform: translateY(-2px);
-  background: rgba(124, 58, 237, 0.08);
-  border-color: var(--brand-soft);
-}
-
-.alerts-list li::before {
-  content: "⚡";
-
-  width: 32px;
-  height: 32px;
-  border-radius: 10px;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  background: rgba(124, 58, 237, 0.15);
-  font-size: 14px;
-}
-
-.empty-note {
-  margin-top: 14px;
-  font-size: 13px;
-  color: var(--muted);
-}
-
-/* Alert Form */
-.alert-form {
-  display: flex;
-  gap: 10px;
-  margin-top: 14px;
-}
-
-.alert-form input,
-.alert-form select {
-  padding: 8px;
-  border-radius: 10px;
-  border: 1px solid var(--border);
-  background: var(--soft);
-  color: var(--text);
-  font-size: 13px;
-}
-
-.alert-form button {
-  padding: 8px 12px;
-  border-radius: 10px;
-  font-weight: 800;
-  background: var(--brand);
-  color: white;
-  border: none;
-  cursor: pointer;
-}
-
-/* ============================================================
-   RECENT ORDERS CARD
+   RECENT ORDERS
 ============================================================ */
 
 .recent-orders {
@@ -290,7 +209,6 @@
   color: var(--muted);
 }
 
-/* Buy/Sell Badges */
 .badge {
   padding: 3px 8px;
   border-radius: 999px;
@@ -309,7 +227,7 @@
 }
 
 /* ============================================================
-   ROUTE LOADING
+   LOADING
 ============================================================ */
 
 .route-loading {
@@ -320,10 +238,30 @@
 }
 
 /* ============================================================
-   RESPONSIVE FIXES
+   CHART CARD
 ============================================================ */
 
-@media (max-width: 900px) {
+.dashboard-chart-card {
+  margin-top: 20px;
+  height: 400px;
+  padding: 24px;
+
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+
+  backdrop-filter: blur(16px);
+  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.08);
+
+  display: flex;
+  flex-direction: column;
+}
+
+/* ============================================================
+   RESPONSIVE
+============================================================ */
+
+@media (max-width: 1100px) {
   .dashboard-container {
     flex-direction: column;
   }
@@ -340,28 +278,3 @@
     font-size: 28px;
   }
 }
-/* ============================================================
-   ✅ HOLDINGS CHART CARD (BIGGER PREMIUM)
-============================================================ */
-/* ============================================================
-   ✅ HOLDINGS PERFORMANCE CHART CARD (Premium Large)
-============================================================ */
-
-.dashboard-chart-card {
-  margin-top: 26px;
-  margin-bottom: 20px;
-
-  height: 420px;            /* ✅ Bigger chart space */
-  padding: 26px;
-
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: 18px;
-
-  backdrop-filter: blur(16px);
-  box-shadow: 0 12px 30px rgba(15, 23, 42, 0.12);
-
-  display: flex;
-  flex-direction: column;
-}
-

@@ -5,7 +5,6 @@ import WatchList from "./WatchList";
 import TopBar from "./TopBar";
 import Menu from "./Menu";
 import { GeneralContextProvider } from "./GeneralContext";
-
 const DashboardLayout = () => {
   return (
     <GeneralContextProvider>
@@ -20,8 +19,8 @@ const DashboardLayout = () => {
         <div className="dashboard-container">
           {/* Sidebar */}
           <aside>
-            <WatchList />
-          </aside>
+  <WatchList />
+</aside>
 
           {/* Page Content */}
           <main className="content">

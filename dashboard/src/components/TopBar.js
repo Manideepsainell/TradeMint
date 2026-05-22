@@ -1,179 +1,50 @@
-import React, { useEffect, useState,useContext } from "react";
-import { useNavigate } from "react-router-dom";
-import api from "../api/axios";
-import { ThemeContext } from "../context/ThemeContext";
-import { AuthContext } from "../context/AuthContext";
-
+import React from "react";
 import "../styles/topbar.css";
 
-const Topbar = () => {
-  const [indices, setIndices] = useState(null);
-  const [username, setUsername] = useState("");
-  const [lastUpdated, setLastUpdated] = useState("");
-  const { theme, toggleTheme } = useContext(ThemeContext);
-  const { logout } = useContext(AuthContext);
-
-
-  const navigate = useNavigate();
-
-  /* ============================================================
-     HELPERS
-  ============================================================ */
-
-  const getGreeting = () => {
-    const hour = new Date().getHours();
-    if (hour < 12) return "Good Morning";
-    if (hour < 17) return "Good Afternoon";
-    return "Good Evening";
-  };
-
-  const getTodayLabel = () => {
-    return new Date().toLocaleDateString("en-IN", {
-      weekday: "short",
-      day: "2-digit",
-      month: "short",
-    });
-  };
-
-  const formatNum = (n) =>
-    typeof n === "number" ? n.toFixed(2) : "--";
-
-  const getMarketStatus = () => {
-    const now = new Date();
-    const day = now.getDay();
-    const minutesNow = now.getHours() * 60 + now.getMinutes();
-
-    const openTime = 9 * 60 + 15;
-    const closeTime = 15 * 60 + 30;
-
-    const isWeekday = day >= 1 && day <= 5;
-
-    if (!isWeekday) {
-      return { label: "Closed", status: "closed", countdown: "" };
-    }
-
-    if (minutesNow >= openTime && minutesNow <= closeTime) {
-      return { label: "Open", status: "open", countdown: "" };
-    }
-
-    return { label: "Closed", status: "closed", countdown: "" };
-  };
-
-  /* ============================================================
-     FETCH DATA
-  ============================================================ */
-
-  useEffect(() => {
-    const fetchTopbarData = async () => {
-      try {
-        const [indicesRes, userRes] = await Promise.all([
-          api.get("/api/indices"),
-          api.get("/api/auth/me"),
-        ]);
-
-        setIndices(indicesRes.data);
-
-        if (userRes.data?.user?.username) {
-          setUsername(userRes.data.user.username);
-        }
-
-        setLastUpdated(
-          new Date().toLocaleTimeString("en-IN", {
-            hour: "2-digit",
-            minute: "2-digit",
-          })
-        );
-      } catch (err) {
-        console.error("Topbar Fetch Error:", err);
-      }
-    };
-
-    fetchTopbarData();
-    const interval = setInterval(fetchTopbarData, 30000);
-
-    return () => clearInterval(interval);
-  }, []);
-
-  /* ============================================================
-     LOGOUT
-  ============================================================ */
-
-const handleLogout = async () => {
-  await logout();
-  navigate("/login");
-};
-
-
-  /* ============================================================
-     DATA
-  ============================================================ */
-
-  const market = getMarketStatus();
-  const nifty = indices?.nifty;
-  const sensex = indices?.sensex;
-
-  /* ============================================================
-     COMPONENTS
-  ============================================================ */
-
-  const IndexBox = ({ title, data }) => {
-    const isUp = (data?.changePercent ?? 0) >= 0;
-
-    return (
-      <div className="topbar-index-box">
-        <p className="topbar-index-title">{title}</p>
-        <p className="topbar-index-price">{formatNum(data?.price)}</p>
-        <p className={`topbar-index-change ${isUp ? "up" : "down"}`}>
-          {data?.changePercent != null
-            ? `${isUp ? "+" : ""}${formatNum(data?.changePercent)}%`
-            : "--"}
-        </p>
-      </div>
-    );
-  };
-
-  /* ============================================================
-     UI
-  ============================================================ */
+const TopBar = () => {
+  const isMarketOpen = false;
 
   return (
     <header className="topbar">
-      {/* LEFT: INDICES */}
+      {/* LEFT */}
       <div className="topbar-left">
-        <IndexBox title="NIFTY 50" data={nifty} />
-        <IndexBox title="SENSEX" data={sensex} />
+        <div className="topbar-index-box">
+          <p className="topbar-index-title">NIFTY 50</p>
+          <p className="topbar-index-price">25,293</p>
+          <p className="topbar-index-change up">+0.32%</p>
+        </div>
+
+        <div className="topbar-index-box">
+          <p className="topbar-index-title">SENSEX</p>
+          <p className="topbar-index-price">71,583</p>
+          <p className="topbar-index-change down">-0.18%</p>
+        </div>
       </div>
 
-      {/* CENTER: GREETING */}
+      {/* CENTER */}
       <div className="topbar-center">
         <p className="topbar-greet">
-          {getGreeting()}, <span>{username || "Trader"}</span> 👋
+          Good Evening, <span>Nikhil</span> 👋
         </p>
 
         <p className="topbar-subline">
-          {getTodayLabel()} • Market{" "}
-          <span className={`market-${market.status}`}>
-            {market.label}
+          Thu, 21 May • Market{" "}
+          <span className={isMarketOpen ? "market-open" : "market-closed"}>
+            {isMarketOpen ? "Open" : "Closed"}
           </span>
-          {lastUpdated && <> • Updated {lastUpdated}</>}
         </p>
       </div>
 
-     <div className="topbar-right">
-  {/* THEME TOGGLE */}
-  <button className="theme-toggle" onClick={toggleTheme}>
-    <span className="toggle-icon">
-      {theme === "dark" ? "🌙" : "☀️"}
-    </span>
-  </button>
+      {/* RIGHT */}
+      <div className="topbar-right">
+        <button className="theme-toggle">
+          <span className="toggle-icon">🌙</span>
+        </button>
 
-  {/* Logout */}
-  <button className="logout-btn" onClick={handleLogout}>
-    Logout
-  </button>
-</div>
+        <button className="logout-btn">Logout</button>
+      </div>
     </header>
   );
 };
 
-export default Topbar;
+export default TopBar;

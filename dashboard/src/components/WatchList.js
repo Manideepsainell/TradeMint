@@ -1,9 +1,6 @@
 import React, { useContext, useEffect, useMemo, useState } from "react";
 import GeneralContext from "./GeneralContext";
-
 import { Tooltip, Grow } from "@mui/material";
-import { BarChartOutlined, MoreHoriz } from "@mui/icons-material";
-
 import { fetchSensex } from "../services/stockService";
 import "../styles/watchlist.css";
 
@@ -12,10 +9,6 @@ const Watchlist = () => {
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
 
-  /* ============================================================
-     FETCH MARKET DATA
-  ============================================================ */
-
   useEffect(() => {
     const loadStocks = async () => {
       try {
@@ -23,7 +16,6 @@ const Watchlist = () => {
 
         const data = await fetchSensex();
 
-        // remove invalid API responses
         const validStocks = (data || []).filter(
           (s) => s && !s.error && s.symbol
         );
@@ -40,37 +32,16 @@ const Watchlist = () => {
     loadStocks();
   }, []);
 
-  /* ============================================================
-     FILTER STOCKS (Search)
-  ============================================================ */
-
   const filteredStocks = useMemo(() => {
-    return stocks.filter((stock) =>
-      stock.symbol?.toLowerCase().includes(search.toLowerCase())
-    );
-  }, [stocks, search]);
-
-  /* ============================================================
-     TOP MOVERS SNAPSHOT
-  ============================================================ */
-
-  const topMovers = useMemo(() => {
-    return [...stocks]
-      .sort(
-        (a, b) =>
-          Math.abs(Number(b.changePercent || 0)) -
-          Math.abs(Number(a.changePercent || 0))
+    return stocks
+      .filter((stock) =>
+        stock.symbol?.toLowerCase().includes(search.toLowerCase())
       )
-      .slice(0, 3);
-  }, [stocks]);
-
-  /* ============================================================
-     UI
-  ============================================================ */
+      .slice(0, 7);
+  }, [stocks, search]);
 
   return (
     <aside className="watchlist-sidebar">
-      {/* Search */}
       <div className="watchlist-search-bar">
         <input
           className="watchlist-search-input"
@@ -81,67 +52,22 @@ const Watchlist = () => {
         />
 
         <span className="watchlist-count">
-          {filteredStocks.length} / {stocks.length}
+          {filteredStocks.length}
         </span>
       </div>
 
-      {/* Loading */}
       {loading ? (
         <div className="route-loading">Loading market data...</div>
       ) : (
-        <>
-          {/* Stock List */}
-          <ul className="watchlist-stocks">
-            {filteredStocks.map((stock) => (
-              <WatchlistItem key={stock.symbol} stock={stock} />
-            ))}
-          </ul>
-
-          {/* Market Snapshot */}
-          <div className="watchlist-mini-chart snapshot-bounce">
-            <p className="watchlist-chart-title">Market Overview</p>
-
-            <div className="market-index">
-              <span>NIFTY 50</span>
-              <strong>25,293</strong>
-              <p className="up">+0.32%</p>
-            </div>
-
-            <div className="snapshot-movers">
-              <p className="mini-title">Top Movers</p>
-
-              {topMovers.length === 0 ? (
-                <p>No market data</p>
-              ) : (
-                topMovers.map((s) => (
-                  <div key={s.symbol} className="mover-row">
-                    <span className="mover-name">{s.symbol}</span>
-
-                    <span
-                      className={`mover-change ${
-                        Number(s.changePercent) >= 0 ? "up" : "down"
-                      }`}
-                    >
-                      {s.changePercent !== undefined
-                        ? `${Number(s.changePercent) >= 0 ? "+" : ""}${Number(
-                            s.changePercent
-                          ).toFixed(2)}%`
-                        : "--"}
-                    </span>
-                  </div>
-                ))
-              )}
-            </div>
-          </div>
-        </>
+        <ul className="watchlist-stocks">
+          {filteredStocks.map((stock) => (
+            <WatchlistItem key={stock.symbol} stock={stock} />
+          ))}
+        </ul>
       )}
     </aside>
   );
 };
-
-/* ============================================================
-   SINGLE STOCK ITEM
-============================================================ */
 
 const WatchlistItem = ({ stock }) => {
   const [hover, setHover] = useState(false);
@@ -155,7 +81,6 @@ const WatchlistItem = ({ stock }) => {
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
     >
-      {/* Main Row */}
       <div className="watchlist-stock-main">
         <p className="watchlist-symbol">{stock.symbol}</p>
 
@@ -176,15 +101,10 @@ const WatchlistItem = ({ stock }) => {
         </div>
       </div>
 
-      {/* Hover Actions */}
       {hover && <WatchlistActions stock={stock} />}
     </li>
   );
 };
-
-/* ============================================================
-   ACTION BUTTONS
-============================================================ */
 
 const WatchlistActions = ({ stock }) => {
   const { openBuyWindow, openSellWindow } = useContext(GeneralContext);
@@ -206,18 +126,6 @@ const WatchlistActions = ({ stock }) => {
           onClick={() => openSellWindow(stock.symbol)}
         >
           Sell
-        </button>
-      </Tooltip>
-
-      <Tooltip title="Analytics" arrow TransitionComponent={Grow}>
-        <button className="watchlist-btn-action">
-          <BarChartOutlined fontSize="small" />
-        </button>
-      </Tooltip>
-
-      <Tooltip title="More" arrow TransitionComponent={Grow}>
-        <button className="watchlist-btn-action">
-          <MoreHoriz fontSize="small" />
         </button>
       </Tooltip>
     </div>
