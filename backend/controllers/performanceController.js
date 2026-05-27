@@ -38,14 +38,12 @@ export const getPerformanceSummary = async (req, res) => {
   );
 
   // 🧮 Total Portfolio Profit
-  const totalReturn = realizedProfit + unrealizedProfit;
+ const totalReturn = realizedProfit + unrealizedProfit;
 
-  // 📊 Return percentage based on invested capital still in market
-  // 📊 Overall return percentage
 const returnPercent =
-  totalInvested > 0 ? (totalReturn / totalInvested) * 100 : 0;
-
-
+  totalInvested > 0
+    ? (unrealizedProfit / totalInvested) * 100
+    : 0;
   res.json({
     success: true,
     data: {
