@@ -9,7 +9,7 @@ const Menu = () => {
     { label: "Orders", path: "/dashboard/orders" },
     { label: "Holdings", path: "/dashboard/holdings" },
     { label: "Funds", path: "/dashboard/funds" },
-    { label: "Alerts", path: "/dashboard/alerts" },
+   
   ];
 
   return (

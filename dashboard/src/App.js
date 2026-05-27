@@ -10,7 +10,6 @@ import LandingLayout from "./Landing_page/LandingLayout";
 import ProtectedRoute from "./components/ProtectedRoute";
 import DashboardLayout from "./components/DashboardLayout";
 
-import AlertsPage from "./components/AlertsPage";
 import Home from "./Landing_page/Home/Home";
 import About from "./Landing_page/About/About";
 import Pricing from "./Landing_page/pricing/Pricing";
@@ -57,7 +56,6 @@ const App = () => {
     <Route path="orders" element={<Orders />} />
     <Route path="holdings" element={<Holdings />} />
     <Route path="funds" element={<Funds />} />
-    <Route path="alerts" element={<AlertsPage />} />
   </Route>
 </Routes>
 

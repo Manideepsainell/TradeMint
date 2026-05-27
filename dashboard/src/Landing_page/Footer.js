@@ -27,7 +27,6 @@ function Footer() {
             <a href="#features" className="footer-link">Execution Engine</a>
             <a href="#features" className="footer-link">Brokerage Engine</a>
             <a href="#features" className="footer-link">Portfolio Analytics</a>
-            <a href="#features" className="footer-link">Smart Alerts</a>
           </div>
 
           {/* Project */}
