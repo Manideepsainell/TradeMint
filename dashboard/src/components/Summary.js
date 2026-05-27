@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect,useState } from "react";
 import api from "../api/axios";
 
 import PortfolioHero from "./PortfolioHero";
@@ -7,12 +7,7 @@ import { FaExclamationTriangle } from "react-icons/fa";
 import { MdWarningAmber } from "react-icons/md";
 
 const Summary = () => {
-  const [holdings, setHoldings] = useState([]);
-  const [report, setReport] = useState({
-    totalCharges: 0,
-    totalNetProfit: 0,
-  });
-
+const [performance, setPerformance] = useState(null); 
   const [loading, setLoading] = useState(true);
   const [riskAlerts, setRiskAlerts] = useState([]);
   const [error, setError] = useState("");
@@ -23,14 +18,11 @@ const Summary = () => {
         setLoading(true);
         setError("");
 
-        const [holdingsRes, reportRes, riskRes] = await Promise.all([
-          api.get("/api/user/holdings"),
-          api.get("/api/user/report/charges"),
-          api.get("/api/risk-alerts"),
-        ]);
-
-        setHoldings(holdingsRes.data?.data || []);
-        setReport(reportRes.data?.data || {});
+        const [performanceRes, riskRes] = await Promise.all([
+  api.get("/api/performance"),
+  api.get("/api/risk-alerts"),
+]);
+        setPerformance(performanceRes.data?.data || null);
         setRiskAlerts(riskRes.data?.alerts || []);
       } catch (err) {
         console.error("Dashboard Fetch Error:", err);
@@ -42,27 +34,6 @@ const Summary = () => {
 
     fetchDashboard();
   }, []);
-
-  const portfolio = useMemo(() => {
-    const investment = holdings.reduce(
-      (acc, stock) => acc + stock.qty * stock.avg,
-      0
-    );
-
-    const currentValue = holdings.reduce(
-      (acc, stock) => acc + stock.qty * stock.price,
-      0
-    );
-
-    const pnl = currentValue - investment;
-
-    return {
-      investment,
-      currentValue,
-      pnl,
-      percentage: investment > 0 ? (pnl / investment) * 100 : 0,
-    };
-  }, [holdings]);
 
   if (loading) {
     return (
@@ -83,11 +54,8 @@ const Summary = () => {
       </div>
 
       <PortfolioHero
-        holdings={holdings}
-        report={report}
-        portfolio={portfolio}
-      />
-
+  performance={performance}
+/>
       {riskAlerts.length > 0 && (
         <div className="risk-banner-wrapper">
           {riskAlerts.map((alert, index) => (
