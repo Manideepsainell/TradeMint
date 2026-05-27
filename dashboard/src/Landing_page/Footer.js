@@ -19,7 +19,6 @@ function Footer() {
             <a href="/login" className="footer-link">Dashboard</a>
             <a href="/dashboard/orders" className="footer-link">Orders</a>
             <a href="/dashboard/holdings" className="footer-link">Holdings</a>
-            <a href="/dashboard/positions" className="footer-link">Positions</a>
           </div>
 
           {/* Features */}

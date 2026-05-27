@@ -4,7 +4,7 @@ import { createOrderSchema, ordersQuerySchema } from "../validators/orderValidat
 import { fundsQuerySchema } from "../validators/fundsValidator.js";
 
 import { createOrder, getOrders } from "../controllers/orderController.js";
-import { getHoldings, getPositions } from "../controllers/portfolioController.js";
+import { getHoldings} from "../controllers/portfolioController.js";
 import { getPortfolioInsights } from "../controllers/insightsController.js";
 import { getChargesReport } from "../controllers/reportController.js";
 import { getFunds } from "../controllers/fundsController.js";
@@ -13,7 +13,6 @@ import protect from "../middlewares/authmiddleware.js";
 const router = express.Router();
 
 router.get("/holdings", protect, getHoldings);
-router.get("/positions", protect, getPositions);
 
 router.get(
   "/orders",

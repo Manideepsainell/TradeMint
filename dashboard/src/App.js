@@ -11,20 +11,18 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import DashboardLayout from "./components/DashboardLayout";
 
 import AlertsPage from "./components/AlertsPage";
-// ✅ Public Landing Pages
 import Home from "./Landing_page/Home/Home";
 import About from "./Landing_page/About/About";
 import Pricing from "./Landing_page/pricing/Pricing";
 import Products from "./Landing_page/Products/Products";
 import Support from "./Landing_page/Support/Support";
 import Signup from "./Landing_page/SignUp/Signup";
-import Login from "./Landing_page/SignUp/Login"; // ✅ yours
+import Login from "./Landing_page/SignUp/Login"; 
 
-// ✅ Dashboard Pages
+// Dashboard Pages
 import Dashboard from "./components/Dashboard";
 import Orders from "./components/Orders";
 import Holdings from "./components/Holdings";
-import Positions from "./components/Positions";
 import Funds from "./components/Funds";
 
 
@@ -58,7 +56,6 @@ const App = () => {
     <Route index element={<Dashboard />} />
     <Route path="orders" element={<Orders />} />
     <Route path="holdings" element={<Holdings />} />
-    <Route path="positions" element={<Positions />} />
     <Route path="funds" element={<Funds />} />
     <Route path="alerts" element={<AlertsPage />} />
   </Route>

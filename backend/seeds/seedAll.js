@@ -4,7 +4,6 @@ import Funds from "../model/FundsModel.js";
 import User from "../model/UserModel.js";
 
 import Holding from "../model/HoldingsModel.js";
-import Position from "../model/PositionsModel.js";
 import Order from "../model/OrdersModel.js";
 
 dotenv.config();
@@ -21,7 +20,6 @@ const seedData = async () => {
 
     // Clear existing
     await Holding.deleteMany({ });
-    await Position.deleteMany({  });
     await Order.deleteMany({  });
   await Funds.deleteMany({});
 
@@ -48,28 +46,6 @@ const seedData = async () => {
     ]);
 
     console.log("✅ Holdings Seeded");
-
-    // ✅ Positions Seed
-    await Position.insertMany([
-      {
-        userId,
-        name: "RELIANCE",
-        qty: 3,
-        avg: 2500,
-        price: 2650,
-        pnl: 450,
-      },
-      {
-        userId,
-        name: "HDFC",
-        qty: 6,
-        avg: 1600,
-        price: 1580,
-        pnl: -120,
-      },
-    ]);
-
-    console.log("✅ Positions Seeded");
     // ✅ Funds Seed (Starting Balance)
 await Funds.create({
   userId,
