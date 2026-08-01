@@ -4,6 +4,8 @@ TradeMint is a full-stack MERN trading simulation app where users can buy/sell s
 
 I built this project to understand how backend systems handle order execution, authentication, and API-based data fetching.
 
+> Originally started as [Stock-Trading-Platform](https://github.com/Manideepsainell/Stock-Trading-Platform) — a first attempt at learning the MERN stack. 
+> After a few months away from it, I came back and rebuilt the backend from scratch: proper validation, centralized error handling, caching, and a controller-service architecture instead of logic scattered across route handlers.
 ---
 
 ## ✨ Features
