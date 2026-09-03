@@ -15,4 +15,4 @@ const HoldingSchema = new Schema(
   { timestamps: true }
 );
 
-export default HoldingSchema; // ✅ ONLY schema
+export default HoldingSchema; //  ONLY schema

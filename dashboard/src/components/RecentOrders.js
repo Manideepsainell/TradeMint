@@ -20,7 +20,7 @@ const RecentOrders = () => {
 
         const allOrders = res.data?.data || [];
 
-        // ✅ Show only latest 5 orders
+        //  Show only latest 5 orders
         setOrders(allOrders.slice(0, 5));
       } catch (err) {
         console.error("Recent Orders Error:", err);

@@ -16,9 +16,9 @@ ReactDOM.createRoot(document.getElementById("root")).render(
     <BrowserRouter>
       <ScrollToTop />
 
-      {/* ✅ Theme Provider */}
+      {/*  Theme Provider */}
       <ThemeProvider>
-        {/* ✅ Auth Provider */}
+        {/*  Auth Provider */}
         <AuthProvider>
           <App />
         </AuthProvider>

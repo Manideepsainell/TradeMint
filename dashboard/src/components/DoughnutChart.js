@@ -5,7 +5,7 @@ import { Doughnut } from "react-chartjs-2";
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 export function DoughnutChart({ data }) {
-  /* ✅ Stable Colors */
+  /*  Stable Colors */
   const chartColors = [
   "rgba(124, 58, 237, 0.85)", // Purple
   "rgba(34, 197, 94, 0.80)",  // Green
@@ -18,7 +18,7 @@ export function DoughnutChart({ data }) {
 ];
 
 
-  /* ✅ Memoized Options */
+  /*  Memoized Options */
   const options = useMemo(() => {
     return {
       responsive: true,
@@ -39,7 +39,7 @@ export function DoughnutChart({ data }) {
     };
   }, []);
 
-  /* ✅ Memoized Dataset (prevents shrinking bug) */
+  /*  Memoized Dataset (prevents shrinking bug) */
   const themedData = useMemo(() => {
     return {
       ...data,

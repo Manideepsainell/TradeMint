@@ -32,7 +32,7 @@ import Funds from "./components/Funds";
 const App = () => {
   return (
    <Routes>
-  {/* ✅ PUBLIC LANDING ROUTES (with Navbar/Footer layout) */}
+  {/*  PUBLIC LANDING ROUTES (with Navbar/Footer layout) */}
    <Route path="/" element={<LandingLayout />}>
     <Route index element={<Home />} />
     <Route path="/about" element={<About />} />
@@ -43,7 +43,7 @@ const App = () => {
     <Route path="/login" element={<Login />} />
   </Route>
 
-  {/* ✅ PROTECTED DASHBOARD ROUTES */}
+  {/*  PROTECTED DASHBOARD ROUTES */}
   <Route
     path="/dashboard"
     element={

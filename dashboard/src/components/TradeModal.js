@@ -42,17 +42,16 @@ const TradeModal = ({ uid, mode = "BUY", onClose, onSuccess }) => {
 
     if (qty <= 0) return setError("Quantity must be at least 1.");
 
-    if (price !== "" && Number(price) <= 0) {
-      return setError("Price must be greater than 0.");
-    }
-
+   if (price === "" || Number(price) <= 0) {
+  return setError("Price must be greater than 0.");
+}
     try {
       setLoading(true);
 
       await api.post("/api/user/orders", {
         name: uid,
         qty: Number(qty),
-        price: price === "" ? null : Number(price), // ✅ market order support
+        price: Number(price),
         mode,
       });
 
@@ -105,7 +104,7 @@ const TradeModal = ({ uid, mode = "BUY", onClose, onSuccess }) => {
                 type="number"
                 step="0.05"
                 value={price}
-                placeholder="Market price"
+              placeholder="Enter price"
                 onChange={(e) => setPrice(e.target.value)}
               />
             </fieldset>

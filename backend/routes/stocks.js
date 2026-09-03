@@ -42,7 +42,7 @@ async function fetchStocks(symbols) {
   }));
 }
 
-// ✅ CACHE HANDLER
+//  CACHE HANDLER
 async function handleCachedRoute(key, symbols, res) {
   const now = Date.now();
 
@@ -72,7 +72,7 @@ async function handleCachedRoute(key, symbols, res) {
 
 
 
-// ✅ ROUTES
+//  ROUTES
 router.get("/sensex", asyncHandler(async (req, res) => {
   await handleCachedRoute("sensex", sensexNseSymbols, res);
 }));
@@ -86,7 +86,7 @@ router.get("/watchlist", asyncHandler(async (req, res) => {
 }));
 
 
-// ✅ SINGLE STOCK
+//  SINGLE STOCK
 router.get("/:symbol", asyncHandler(async (req, res) => {
 
   const input = req.params.symbol.toUpperCase();

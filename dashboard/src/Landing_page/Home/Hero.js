@@ -7,7 +7,7 @@ function Hero() {
     <section className="hero-section">
       <div className="hero-container">
 
-        {/* ✅ Dashboard Preview */}
+        {/*  Dashboard Preview */}
         <div className="hero-preview">
           <img
             src="/media/platform/Dashboard.png"
@@ -16,20 +16,20 @@ function Hero() {
           />
         </div>
 
-        {/* ✅ Heading */}
+        {/*  Heading */}
         <h1 className="hero-title">
           Trading Infrastructure{" "}
           <span>Built for Portfolio Intelligence</span>
         </h1>
 
-        {/* ✅ Subtitle */}
+        {/*  Subtitle */}
         <p className="hero-subtitle">
           TradeMint is a production-style full-stack trading simulation platform
           featuring secure execution workflows, live tracking, brokerage-aware
           analytics, and intelligent portfolio insights.
         </p>
 
-        {/* ✅ CTAs */}
+        {/*  CTAs */}
         <div className="hero-actions">
           <Link to="/login" className="hero-btn primary">
             Launch Dashboard →
@@ -40,7 +40,7 @@ function Hero() {
           </a>
         </div>
 
-        {/* ✅ Footer Note */}
+        {/*  Footer Note */}
         <p className="hero-note">
           Built as an internship-ready MERN fintech engineering project.
         </p>

@@ -7,7 +7,7 @@ function Awards() {
       <div className="awards-container">
         <div className="awards-grid">
 
-          {/* ✅ Left: Architecture Image */}
+          {/*  Left: Architecture Image */}
           <div className="awards-image-wrap">
             <img
               src="/media/platform/Architecture.png"
@@ -16,7 +16,7 @@ function Awards() {
             />
           </div>
 
-          {/* ✅ Right: Content */}
+          {/*  Right: Content */}
           <div className="awards-content">
             <h2 className="awards-title">
               TradeMint — System Architecture
@@ -28,7 +28,7 @@ function Awards() {
               and scalable portfolio management.
             </p>
 
-            {/* ✅ Feature Grid */}
+            {/*  Feature Grid */}
             <div className="awards-features">
               <div className="feature-item">Modular REST API Architecture</div>
               <div className="feature-item">Node.js + Express Backend</div>
@@ -39,7 +39,7 @@ function Awards() {
               <div className="feature-item">Frontend–Backend Data Sync</div>
             </div>
 
-            {/* ✅ Note */}
+            {/*  Note */}
             <div className="awards-note">
               Built as an internship-ready fintech engineering project focused on
               real trading workflows, scalable design, and clean architecture.

@@ -25,9 +25,9 @@ export const executeBuyOrder = async ({ userId, name, qty, price }) => {
   console.log("USER ID:", userId);
  console.log("TYPE:", typeof userId);
   const totalCost = qty * price;
-console.log("FUNDS BEFORE:", funds);
-let funds = await Funds.findOne({ userId });
 
+let funds = await Funds.findOne({ userId });
+console.log("FUNDS BEFORE:", funds);
 if (!funds) {
   funds = await Funds.create({
     userId,

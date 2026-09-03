@@ -29,7 +29,7 @@ const OrdersSchema = new mongoose.Schema(
       required: true,
     },
 
-    // ✅ PROFIT FIELDS (MUST)
+    //  PROFIT FIELDS (MUST)
     grossProfit: {
       type: Number,
       default: 0,
@@ -40,7 +40,7 @@ const OrdersSchema = new mongoose.Schema(
       default: 0,
     },
 
-    // ✅ CHARGES OBJECT (MUST)
+    //  CHARGES OBJECT (MUST)
     charges: {
       brokerage: { type: Number, default: 0 },
       stt: { type: Number, default: 0 },

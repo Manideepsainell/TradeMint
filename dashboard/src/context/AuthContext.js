@@ -7,7 +7,7 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  // ✅ Flash Messages
+  //  Flash Messages
   const [flash, setFlash] = useState(null);
 
   /* ============================================================
@@ -39,11 +39,11 @@ export const AuthProvider = ({ children }) => {
 
   const logout = async () => {
     try {
-      await api.post("/api/auth/logout"); // ✅ only here
+      await api.post("/api/auth/logout"); //  only here
     } catch (err) {
       console.error("Logout failed:", err);
     } finally {
-      setUser(null); // ✅ clear frontend state always
+      setUser(null); //  clear frontend state always
     }
   };
 

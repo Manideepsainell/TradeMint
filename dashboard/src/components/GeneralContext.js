@@ -2,7 +2,7 @@ import React, { createContext, useState, useCallback } from "react";
 import TradeModal from "./TradeModal";
 
 /* ============================================================
-   ✅ GENERAL CONTEXT (TradeMint)
+    GENERAL CONTEXT (TradeMint)
 ============================================================ */
 
 const GeneralContext = createContext();
@@ -53,7 +53,7 @@ export const GeneralContextProvider = ({ children }) => {
     >
       {children}
 
-      {/* ✅ Unified Trade Modal */}
+      {/*  Unified Trade Modal */}
       {tradeModal.isOpen && (
         <TradeModal
           uid={tradeModal.uid}

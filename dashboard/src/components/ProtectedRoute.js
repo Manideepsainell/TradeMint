@@ -5,7 +5,7 @@ import { AuthContext } from "../context/AuthContext";
 const ProtectedRoute = ({ children }) => {
   const { user, loading } = useContext(AuthContext);
 
-  /* ✅ Global loading state */
+  /*  Global loading state */
   if (loading) {
     return (
       <div className="route-loading">
@@ -14,7 +14,7 @@ const ProtectedRoute = ({ children }) => {
     );
   }
 
-  /* ✅ Redirect if not logged in */
+  /*  Redirect if not logged in */
   if (!user) {
     return <Navigate to="/login" replace />;
   }

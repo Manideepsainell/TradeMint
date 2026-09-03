@@ -6,7 +6,7 @@ function Brokerage() {
     <section className="landing-section">
       <div className="landing-inner">
         <div className="charges-container">
-          {/* ✅ Page Header */}
+          {/*  Page Header */}
           <h1 className="charges-title">
             Trade Cost & Charges Transparency
           </h1>
@@ -17,7 +17,7 @@ function Brokerage() {
             how transaction costs impact returns.
           </p>
 
-          {/* ✅ Charges Card */}
+          {/*  Charges Card */}
           <div className="charges-card">
             <h3>Charges Applied in TradeMint</h3>
 
@@ -30,7 +30,7 @@ function Brokerage() {
             </ul>
           </div>
 
-          {/* ✅ Example Breakdown */}
+          {/*  Example Breakdown */}
           <div className="charges-card mt-4">
             <h3>Example SELL Order Breakdown</h3>
 
@@ -62,7 +62,7 @@ function Brokerage() {
             </table>
           </div>
 
-          {/* ✅ Closing Note */}
+          {/*  Closing Note */}
           <p className="charges-note mt-4">
             This feature makes TradeMint stand out by providing execution-level
             accuracy instead of only showing price-based returns.

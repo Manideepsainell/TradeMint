@@ -10,7 +10,7 @@ const holdings = await Holding.find({ userId: req.user.id });
     return res.json({
       success: true,
       data: {
-        alerts: ["No holdings yet. Start trading to see insights ✅"],
+        alerts: ["No holdings yet. Start trading to see insights "],
       },
     });
   }
@@ -42,7 +42,7 @@ const holdings = await Holding.find({ userId: req.user.id });
   });
 
   if (!alerts.length) {
-    alerts.push("✅ Portfolio looks healthy and balanced today!");
+    alerts.push(" Portfolio looks healthy and balanced today!");
   }
 
   res.json({

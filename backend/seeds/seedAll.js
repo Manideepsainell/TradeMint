@@ -11,7 +11,7 @@ dotenv.config();
 const seedData = async () => {
   try {
     await mongoose.connect(process.env.MONGO_URL);
-    console.log("✅ MongoDB Connected");
+    console.log(" MongoDB Connected");
 
     // ⚠️ Replace with your real logged-in userId
         const userId = new mongoose.Types.ObjectId(
@@ -25,7 +25,7 @@ const seedData = async () => {
 
     console.log("🗑 Old user data cleared");
 
-    // ✅ Holdings Seed
+    //  Holdings Seed
     await Holding.insertMany([
       {
         userId,
@@ -45,8 +45,8 @@ const seedData = async () => {
       },
     ]);
 
-    console.log("✅ Holdings Seeded");
-    // ✅ Funds Seed (Starting Balance)
+    console.log(" Holdings Seeded");
+    //  Funds Seed (Starting Balance)
 await Funds.create({
   userId,
   openingBalance: 100000,
@@ -54,16 +54,16 @@ await Funds.create({
   usedMargin: 0,
 });
 
-console.log("✅ Funds Seeded");
+console.log(" Funds Seeded");
 
-    // ✅ Orders Seed
+    //  Orders Seed
    await Order.insertMany([
   {
     userId,
     name: "TCS",
     qty: 5,
     price: 3200,
-    mode: "BUY",       // ✅ required
+    mode: "BUY",       //  required
     status: "COMPLETE",
   },
   {
@@ -84,7 +84,7 @@ console.log("✅ Funds Seeded");
   },
 ]);
 
-    console.log("✅ Orders Seeded");
+    console.log(" Orders Seeded");
 
     console.log("🎉 TradeMint Seed Data Added Successfully!");
     process.exit();

@@ -55,15 +55,15 @@
 }
 
 /* ============================================================
-   ✅ FIX LOGIN BUTTON ONLY (Navbar)
+    FIX LOGIN BUTTON ONLY (Navbar)
 ============================================================ */
-/* ✅ Login Button Final */
+/*  Login Button Final */
 .landing-login-btn {
   padding: 9px 16px;
   border-radius: 10px;
 
   background: #ffffff !important;
-  color: #111827 !important;  /* ✅ FORCE FIX */
+  color: #111827 !important;  /*  FORCE FIX */
 
   font-weight: 800 !important;
   font-size: 14px;

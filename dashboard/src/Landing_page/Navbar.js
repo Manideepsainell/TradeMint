@@ -64,21 +64,21 @@ useEffect(() => {
 
   return (
     <>
-      {/* ✅ Flash Message */}
+      {/*  Flash Message */}
       {flash && <div className="landing-flash">{flash}</div>}
 
-      {/* ✅ Navbar */}
+      {/*  Navbar */}
     <nav className={`landing-navbar ${scrolled ? "navbar-scrolled" : ""}`}>
 
         <div className="landing-navbar-inner">
-          {/* ✅ Brand */}
+          {/*  Brand */}
           <Link className="landing-brand" to="/">
             <span className="brand-text">
               Trade<span>Mint</span>
             </span>
           </Link>
 
-          {/* ✅ Links */}
+          {/*  Links */}
           <div className="landing-links">
             <Link className="landing-link" to="/about">
               About
@@ -98,7 +98,7 @@ useEffect(() => {
               Help
             </Link>
 
-            {/* ✅ Auth Button */}
+            {/*  Auth Button */}
             {!user ? (
               <Link
   className="landing-login-btn"
@@ -118,7 +118,7 @@ useEffect(() => {
               </button>
             )}
 
-            {/* ✅ Dashboard CTA */}
+            {/*  Dashboard CTA */}
             <button className="dashboard-btn" onClick={handleDashboardClick}>
               Dashboard →
             </button>

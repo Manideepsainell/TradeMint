@@ -10,7 +10,7 @@ const FundsSchema = new mongoose.Schema(
 
     openingBalance: {
       type: Number,
-      default: 100000, // ✅ demo starting funds
+      default: 100000, //  demo starting funds
     },
 
     availableMargin: {

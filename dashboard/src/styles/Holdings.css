@@ -7,7 +7,7 @@
   font-size: 20px;
   font-weight: 900;
   margin-bottom: 18px;
-  color: var(--brand); /* ✅ Purple */
+  color: var(--brand); /*  Purple */
 }
 
 
@@ -61,7 +61,7 @@
 
 /* Hover Highlight */
 .holdings-table-card tr:hover {
-  background: rgba(124, 58, 237, 0.06); /* ✅ Purple hover */
+  background: rgba(124, 58, 237, 0.06); /*  Purple hover */
 }
 
 /* ============================================================
@@ -71,7 +71,7 @@
 /* Stock Symbol */
 .holdings-table-card td:first-child {
   font-weight: 800;
-  color: var(--brand); /* ✅ Purple */
+  color: var(--brand); /*  Purple */
 }
 
 /* Instrument Name */

@@ -72,7 +72,7 @@ const PortfolioGrowthChart = () => {
       default:
         return data;
     }
-  }, [range, data]); // ✅ FIXED
+  }, [range, data]); //  FIXED
 
   return (
     <div className="summary-card" style={{ gridColumn: "1 / -1", height: "350px" }}>

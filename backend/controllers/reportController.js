@@ -2,7 +2,7 @@ import asyncHandler from "../utils/asyncHandler.js";
 import Order from "../model/OrdersModel.js";
 
 export const getChargesReport = asyncHandler(async (req, res) => {
-  // ✅ only SELL orders have charges + net profit
+  //  only SELL orders have charges + net profit
   const sellOrders = await Order.find({
     userId: req.user.id,
     mode: "SELL",

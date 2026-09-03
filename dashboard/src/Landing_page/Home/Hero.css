@@ -20,7 +20,7 @@
     var(--bg);
 }
 
-/* ✅ Layout Wrapper */
+/*  Layout Wrapper */
 .hero-container {
   max-width: 1050px;
   margin: auto;
@@ -30,7 +30,7 @@
   z-index: 2;
 }
 
-/* ✅ Dashboard Preview Card */
+/*  Dashboard Preview Card */
 .hero-preview {
   padding: 18px;
   border-radius: 22px;
@@ -52,7 +52,7 @@
   display: block;
 }
 
-/* ✅ Title */
+/*  Title */
 .hero-title {
   margin-top: 55px;
   font-size: 44px;
@@ -65,7 +65,7 @@
   color: var(--brand);
 }
 
-/* ✅ Subtitle */
+/*  Subtitle */
 .hero-subtitle {
   margin: 18px auto 0;
   max-width: 720px;
@@ -75,7 +75,7 @@
   color: var(--muted);
 }
 
-/* ✅ CTA Buttons */
+/*  CTA Buttons */
 .hero-actions {
   margin-top: 34px;
   display: flex;
@@ -117,14 +117,14 @@
   border-color: rgba(124, 58, 237, 0.25);
 }
 
-/* ✅ Note */
+/*  Note */
 .hero-note {
   margin-top: 22px;
   font-size: 13px;
   color: var(--muted);
 }
 
-/* ✅ Responsive */
+/*  Responsive */
 @media (max-width: 850px) {
   .hero-title {
     font-size: 34px;

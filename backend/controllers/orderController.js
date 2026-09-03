@@ -5,7 +5,7 @@ import {
   executeSellOrder,
 } from "../services/tradeService.js";
 
-/* ✅ CREATE ORDER */
+/*  CREATE ORDER */
 export const createOrder = asyncHandler(async (req, res) => {
   
   const { name, qty, price, mode } = req.body;
@@ -40,7 +40,7 @@ export const createOrder = asyncHandler(async (req, res) => {
   });
 });
 
-/* ✅ GET ORDERS */
+/*  GET ORDERS */
 export const getOrders = asyncHandler(async (req, res) => {
   const orders = await Order.find({ userId: req.user.id }).sort({ createdAt: -1 });
 

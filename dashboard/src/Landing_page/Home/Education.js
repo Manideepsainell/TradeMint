@@ -7,7 +7,7 @@ function Education() {
       <div className="education-container">
         <div className="education-grid">
 
-          {/* ✅ Left: Image Preview */}
+          {/*  Left: Image Preview */}
           <div className="education-image-wrap">
             <img
               src="/media/platform/Holdings.png"
@@ -16,7 +16,7 @@ function Education() {
             />
           </div>
 
-          {/* ✅ Right: Content */}
+          {/*  Right: Content */}
           <div className="education-content">
             <h2 className="education-title">
               Portfolio Intelligence & Execution Transparency
@@ -28,7 +28,7 @@ function Education() {
               enabling users to track financial outcomes with precision.
             </p>
 
-            {/* ✅ CTA Buttons */}
+            {/*  CTA Buttons */}
             <div className="education-actions">
               <a href="/dashboard/holdings" className="cta-btn primary">
                 Explore Portfolio Insights →
@@ -39,7 +39,7 @@ function Education() {
               </a>
             </div>
 
-            {/* ✅ Note */}
+            {/*  Note */}
             <p className="education-note">
               With smart exposure alerts and execution-level analytics,
               TradeMint delivers actionable insights while maintaining a clean,

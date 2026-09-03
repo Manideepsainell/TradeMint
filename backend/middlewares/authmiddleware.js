@@ -4,12 +4,12 @@ import mongoose from "mongoose";
 const protect = (req, res, next) => {
   let token;
 
-  // ✅ Cookie auth
+  //  Cookie auth
   if (req.cookies?.token) {
     token = req.cookies.token;
   }
 
-  // ✅ Header fallback
+  //  Header fallback
   if (!token && req.headers.authorization?.startsWith("Bearer")) {
     token = req.headers.authorization.split(" ")[1];
   }
@@ -21,7 +21,7 @@ const protect = (req, res, next) => {
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
-    // ✅ Convert string → ObjectId
+    //  Convert string → ObjectId
     req.user = {
       id: new mongoose.Types.ObjectId(decoded.id),
     };

@@ -13,7 +13,7 @@
   padding: 0 24px;
 }
 
-/* ✅ Layout */
+/*  Layout */
 .education-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -21,7 +21,7 @@
   align-items: center;
 }
 
-/* ✅ Image Glass Card */
+/*  Image Glass Card */
 .education-image-wrap {
   padding: 18px;
   border-radius: 20px;
@@ -38,7 +38,7 @@
   display: block;
 }
 
-/* ✅ Content */
+/*  Content */
 .education-title {
   font-size: 26px;
   font-weight: 900;
@@ -52,7 +52,7 @@
   color: var(--muted);
 }
 
-/* ✅ CTA Buttons */
+/*  CTA Buttons */
 .education-actions {
   display: flex;
   gap: 14px;
@@ -94,7 +94,7 @@
   transform: translateY(-2px);
 }
 
-/* ✅ Bottom Note */
+/*  Bottom Note */
 .education-note {
   margin-top: 28px;
   font-size: 13px;
@@ -102,7 +102,7 @@
   color: var(--muted);
 }
 
-/* ✅ Responsive */
+/*  Responsive */
 @media (max-width: 900px) {
   .education-grid {
     grid-template-columns: 1fr;

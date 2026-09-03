@@ -9,7 +9,7 @@ export const createOrder = asyncHandler(async (req, res) => {
 
   let order;
 
-  // ✅ BUY
+  //  BUY
   if (mode === "BUY") {
     order = await executeBuyOrder({
       userId: req.user.id,
@@ -19,7 +19,7 @@ export const createOrder = asyncHandler(async (req, res) => {
     });
   }
 
-  // ✅ SELL
+  //  SELL
   else if (mode === "SELL") {
     order = await executeSellOrder({
       userId: req.user.id,
@@ -29,7 +29,7 @@ export const createOrder = asyncHandler(async (req, res) => {
     });
   }
 
-  // ✅ Invalid mode
+  //  Invalid mode
   else {
     return res.status(400).json({
       success: false,

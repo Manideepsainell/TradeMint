@@ -10,7 +10,7 @@ import {
 } from "chart.js";
 import { Bar } from "react-chartjs-2";
 
-/* ✅ Register Chart.js modules */
+/*  Register Chart.js modules */
 ChartJS.register(
   CategoryScale,
   LinearScale,
@@ -21,11 +21,11 @@ ChartJS.register(
 );
 
 /* ============================================================
-   ✅ VerticalGraph (TradeMint Themed)
+    VerticalGraph (TradeMint Themed)
 ============================================================ */
 
 export function VerticalGraph({ data }) {
-  /* ✅ Read theme variables from CSS */
+  /*  Read theme variables from CSS */
   const styles = getComputedStyle(document.documentElement);
 
   const brand = styles.getPropertyValue("--brand") || "#7c3aed";
@@ -33,7 +33,7 @@ export function VerticalGraph({ data }) {
   const text = styles.getPropertyValue("--text") || "#f8fafc";
   const border = styles.getPropertyValue("--border") || "rgba(255,255,255,0.12)";
 
-  /* ✅ Chart Options (Theme Aware) */
+  /*  Chart Options (Theme Aware) */
   const options = useMemo(() => {
     return {
       responsive: true,
@@ -91,12 +91,12 @@ export function VerticalGraph({ data }) {
     };
   }, [brand, muted, text, border]);
 
-  /* ✅ Themed Dataset */
+  /*  Themed Dataset */
   const themedData = {
     ...data,
     datasets: data.datasets.map((ds) => ({
       ...ds,
-      backgroundColor: `rgba(124, 58, 237, 0.65)`, // ✅ Purple Brand
+      backgroundColor: `rgba(124, 58, 237, 0.65)`, //  Purple Brand
       borderRadius: 8,
     })),
   };

@@ -25,7 +25,7 @@ function Pricing() {
   return (
     <section className="pricing-section" id="features">
       <div className="pricing-container">
-        {/* ✅ Left Content */}
+        {/*  Left Content */}
         <div className="pricing-left">
           <h2 className="pricing-title">
             Built with <span>Real Trading Logic</span>
@@ -42,7 +42,7 @@ function Pricing() {
           </Link>
         </div>
 
-        {/* ✅ Right Feature Cards */}
+        {/*  Right Feature Cards */}
         <div className="pricing-features">
           {features.map((f, idx) => (
             <div key={idx} className="feature-card">

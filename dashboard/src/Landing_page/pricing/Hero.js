@@ -4,7 +4,7 @@ function Hero() {
   return (
     <section className="landing-section">
       <div className="landing-inner">
-        {/* ✅ Header */}
+        {/*  Header */}
         <div className="text-center" style={{ padding: "30px 0 50px" }}>
           <h1 style={{ fontSize: "44px", fontWeight: 800 }}>
             Trade Cost Transparency
@@ -15,7 +15,7 @@ function Hero() {
           </p>
         </div>
 
-        {/* ✅ Feature Cards */}
+        {/*  Feature Cards */}
         <div className="pricing-hero-grid">
           {/* Card 1 */}
           <div className="pricing-hero-card">

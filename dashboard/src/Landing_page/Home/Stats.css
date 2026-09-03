@@ -20,7 +20,7 @@
   align-items: center;
 }
 
-/* ✅ Title */
+/*  Title */
 .stats-title {
   font-size: 30px;
   font-weight: 900;
@@ -34,7 +34,7 @@
   color: var(--muted);
 }
 
-/* ✅ Highlight Blocks */
+/*  Highlight Blocks */
 .stats-list {
   margin-top: 30px;
   display: flex;
@@ -72,7 +72,7 @@
   color: var(--muted);
 }
 
-/* ✅ Diagram */
+/*  Diagram */
 .diagram-card {
   padding: 18px;
   border-radius: 20px;
@@ -89,7 +89,7 @@
   border-radius: 14px;
 }
 
-/* ✅ CTA Links */
+/*  CTA Links */
 .stats-actions {
   margin-top: 24px;
   display: flex;
@@ -109,7 +109,7 @@
   transform: translateX(4px);
 }
 
-/* ✅ Responsive */
+/*  Responsive */
 @media (max-width: 900px) {
   .stats-grid {
     grid-template-columns: 1fr;

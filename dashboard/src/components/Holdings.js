@@ -106,7 +106,7 @@ const Holdings = () => {
 
   <DoughnutChart data={allocationData} />
 
-  {/* ✅ Allocation Breakdown */}
+  {/*  Allocation Breakdown */}
   <div className="allocation-labels">
   {allocationData.labels.map((name, idx) => {
     const value = allocationData.datasets[0].data[idx];
@@ -211,7 +211,7 @@ const Holdings = () => {
         </div>
       </div>
 
-      {/* ✅ Portfolio Charts */}
+      {/*  Portfolio Charts */}
       <div className="holdings-charts">
         {/* Donut Allocation */}
         <div className="chart-card small">

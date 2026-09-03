@@ -1,5 +1,5 @@
 /* ============================================================
-   ✅ TOPBAR.CSS — TRADEMINT DASHBOARD HEADER (FINAL)
+    TOPBAR.CSS — TRADEMINT DASHBOARD HEADER (FINAL)
 ============================================================ */
 
 /* ============================================================
@@ -37,7 +37,7 @@
   gap: 12px;
   justify-self: end;
 }
-/* ✅ Light Mode */
+/*  Light Mode */
 [data-theme="light"] .topbar {
   background: rgba(255, 255, 255, 0.75);
   color: var(--text);

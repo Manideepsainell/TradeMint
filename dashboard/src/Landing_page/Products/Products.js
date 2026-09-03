@@ -7,7 +7,7 @@ function Products() {
     <section className="platform-page">
       <div className="container">
 
-        {/* ✅ Hero */}
+        {/*  Hero */}
         <div className="platform-hero">
           <h1>TradeMint Platform</h1>
 
@@ -21,7 +21,7 @@ function Products() {
           </Link>
         </div>
 
-        {/* ✅ Feature Grid */}
+        {/*  Feature Grid */}
         <div className="platform-grid">
 
           <div className="platform-card">
@@ -58,7 +58,7 @@ function Products() {
 
         </div>
 
-        {/* ✅ Architecture Preview */}
+        {/*  Architecture Preview */}
         <div className="platform-arch">
           <img
             src="/media/platform/Architecture.png"

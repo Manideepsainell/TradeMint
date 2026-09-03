@@ -9,13 +9,13 @@ const DashboardLayout = () => {
   return (
     <GeneralContextProvider>
       <div className="dashboard-app">
-        {/* ✅ Top Header */}
+        {/*  Top Header */}
         <TopBar />
 
-        {/* ✅ Navigation Tabs */}
+        {/*  Navigation Tabs */}
         <Menu />
 
-        {/* ✅ Main Dashboard Body */}
+        {/*  Main Dashboard Body */}
         <div className="dashboard-container">
           {/* Sidebar */}
           <aside>

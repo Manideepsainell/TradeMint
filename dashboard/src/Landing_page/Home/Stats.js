@@ -25,7 +25,7 @@ function Stats() {
     <section className="stats-section">
       <div className="stats-container">
         <div className="stats-grid">
-          {/* ✅ LEFT */}
+          {/*  LEFT */}
           <div>
             <h2 className="stats-title">
               Engineering Highlights Behind TradeMint
@@ -46,7 +46,7 @@ function Stats() {
             </div>
           </div>
 
-          {/* ✅ RIGHT */}
+          {/*  RIGHT */}
           <div className="stats-diagram">
             <div className="diagram-card">
               <img
