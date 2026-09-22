@@ -104,10 +104,10 @@ const handleLogout = async () => {
   className="landing-login-btn"
   to="/login"
   state={{
-    demo: true,
-    email: "testlocal@gmail.com",
-    password: "test123",
-  }}
+  demo: true,
+  email: "Nikhil@gmail.com",
+  password: "123456",
+}}
 >
   Login
 </Link>
