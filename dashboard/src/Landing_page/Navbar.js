@@ -15,13 +15,13 @@ function Navbar() {
   } else {
     showFlash("Please login to access Dashboard (Demo account filled)");
 
-    navigate("/login", {
-      state: {
-        demo: true,
-        email: "Nikhil@gmail.com",
-        password: "123456",
-      },
-    });
+   navigate("/login", {
+  state: {
+    demo: true,
+    email: "testlocal@gmail.com",
+    password: "test123",
+  },
+});
   }
 };
 
@@ -47,21 +47,21 @@ useEffect(() => {
 
 
 
-  const handleLogout = async () => {
-    try {
-      await axios.post(
-        `${process.env.REACT_APP_API_URL}/api/auth/logout`,
-        {},
-        { withCredentials: true }
-      );
-    } catch (err) {
-      console.error("Logout error:", err);
-    } finally {
-      logout();
-      navigate("/login");
-    }
-  };
+const handleLogout = async () => {
 
+  try {
+    await axios.post(
+      `${process.env.REACT_APP_API_URL}/api/auth/logout`,
+      {},
+      { withCredentials: true }
+    );
+  } catch (err) {
+    console.error("Logout error:", err);
+  } finally {
+    logout();
+    navigate("/login");
+  }
+};
   return (
     <>
       {/*  Flash Message */}
@@ -100,13 +100,13 @@ useEffect(() => {
 
             {/*  Auth Button */}
             {!user ? (
-              <Link
+    <Link
   className="landing-login-btn"
   to="/login"
   state={{
     demo: true,
-    email: "Nikhil@gmail.com",
-    password: "123456",
+    email: "testlocal@gmail.com",
+    password: "test123",
   }}
 >
   Login

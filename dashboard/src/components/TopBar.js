@@ -1,8 +1,18 @@
-import React from "react";
+import React, { useContext } from "react";
+import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../context/AuthContext";
 import "../styles/topbar.css";
 
 const TopBar = () => {
   const isMarketOpen = false;
+
+  const { logout } = useContext(AuthContext);
+  const navigate = useNavigate();
+
+  const handleLogout = async () => {
+    await logout();
+    navigate("/login");
+  };
 
   return (
     <header className="topbar">
@@ -24,7 +34,9 @@ const TopBar = () => {
       {/* CENTER */}
       <div className="topbar-center">
         <p className="topbar-greet">
-          Good Evening, <span>Nikhil</span> 👋
+        <p className="topbar-greet">
+  Good Evening 👋
+</p>
         </p>
 
         <p className="topbar-subline">
@@ -41,7 +53,9 @@ const TopBar = () => {
           <span className="toggle-icon">🌙</span>
         </button>
 
-        <button className="logout-btn">Logout</button>
+        <button className="logout-btn" onClick={handleLogout}>
+          Logout
+        </button>
       </div>
     </header>
   );

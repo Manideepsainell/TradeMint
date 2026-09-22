@@ -43,11 +43,12 @@ function Footer() {
   <p className="footer-title">Demo Login</p>
 
   <p className="footer-demo">
-    Email: <b>Nikhil@gmail.com</b>
-  </p>
-  <p className="footer-demo">
-    Password: <b>123456</b>
-  </p>
+  Email: <b>testlocal@gmail.com</b>
+</p>
+
+<p className="footer-demo">
+  Password: <b>test123</b>
+</p>
 
   <p className="footer-note">
     Use this demo account to explore TradeMint instantly.
