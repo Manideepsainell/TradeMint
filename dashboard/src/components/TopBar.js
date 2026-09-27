@@ -4,10 +4,67 @@ import { AuthContext } from "../context/AuthContext";
 import "../styles/topbar.css";
 
 const TopBar = () => {
-  const isMarketOpen = false;
-
   const { logout } = useContext(AuthContext);
   const navigate = useNavigate();
+
+  const now = new Date();
+
+  const formattedDate = now.toLocaleDateString("en-IN", {
+    weekday: "short",
+    day: "numeric",
+    month: "long",
+    timeZone: "Asia/Kolkata",
+  });
+
+  const hour = Number(
+    now.toLocaleString("en-IN", {
+      hour: "2-digit",
+      hour12: false,
+      timeZone: "Asia/Kolkata",
+    })
+  );
+
+  const minute = Number(
+    now.toLocaleString("en-IN", {
+      minute: "2-digit",
+      timeZone: "Asia/Kolkata",
+    })
+  );
+
+const weekday = now.toLocaleDateString("en-IN", {
+  weekday: "short",
+  timeZone: "Asia/Kolkata",
+});
+
+const currentMinutes = hour * 60 + minute;
+
+const marketOpenTime = 9 * 60 + 15; // 9:15 AM
+const marketCloseTime = 15 * 60 + 30; // 3:30 PM
+
+const isWeekday = weekday !== "Sat" && weekday !== "Sun";
+
+  const isMarketOpen =
+    isWeekday &&
+    currentMinutes >= marketOpenTime &&
+    currentMinutes < marketCloseTime;
+
+  const hourForGreeting = Number(
+    now.toLocaleString("en-IN", {
+      hour: "2-digit",
+      hour12: false,
+      timeZone: "Asia/Kolkata",
+    })
+  );
+
+  let greeting;
+
+  if (hourForGreeting < 12) {
+    greeting = "Good Morning";
+  } else if (hourForGreeting < 17) {
+    greeting = "Good Afternoon";
+  } else {
+    greeting = "Good Evening";
+  }
 
   const handleLogout = async () => {
     await logout();
@@ -34,14 +91,14 @@ const TopBar = () => {
       {/* CENTER */}
       <div className="topbar-center">
         <p className="topbar-greet">
-        <p className="topbar-greet">
-  Good Evening 👋
-</p>
+          {greeting} 👋
         </p>
 
         <p className="topbar-subline">
-          Thu, 21 May • Market{" "}
-          <span className={isMarketOpen ? "market-open" : "market-closed"}>
+          {formattedDate} • Market{" "}
+          <span
+            className={isMarketOpen ? "market-open" : "market-closed"}
+          >
             {isMarketOpen ? "Open" : "Closed"}
           </span>
         </p>
